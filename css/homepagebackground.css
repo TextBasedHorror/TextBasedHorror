@@ -1,0 +1,257 @@
+.bodyback {
+    background: url("../lightning2.gif") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+}
+
+
+
+@font-face {
+    font-family: 'you_murderer';
+    src: url('../fonts/youMurderer/youmurdererbb_reg.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+	font-family: 'face_your_fears';
+	src: url('../fonts/faceYourFears/FaceYourFears.ttf') format ('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+#intro2{
+	font-size: 60px;
+	font-family: 'you_murderer';
+}
+
+
+.logoImg{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100px;
+	height: 100px;
+}
+
+#logo{
+    /*modified the appearance of logo 10/5/2016*/
+	float: left;
+	position: fixed;
+	left: 42%;
+	top: 37%;
+    height: 16%;
+    width: 16%;
+    resize: both;
+}
+
+/*changed the percentage 9/30*/
+.aboutButton{
+	margin-top: 2%;
+    
+}
+
+/*changed the percentage 9/30//  changing percentage to make everything appear the same 10/5/2016*/
+.frontButton{
+	margin-top: 3%;
+	padding-left: 33px;
+	padding-right: 33px;
+}
+
+.frontButton2{
+	padding: 20px;
+	position: relative;
+}
+
+.frontButton3{
+	margin-top: 20px;
+	position: relative;
+}
+
+#content2{
+	width: 100%;
+	margin-top: 3%;
+	position: relative;
+}
+
+ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+#about{
+	font-size: 60px;
+	font-family: 'faceYourFears';
+}
+
+
+#aboutUs{
+	margin-top: 20%;
+	font-family: 'faceYourFears';
+}
+
+#contact{
+	font-size: 60px;
+	font-family: 'faceYourFears';
+}
+
+#contact_info{
+	margin-right: 15%;
+	margin-left: 15%;
+	border-style: solid;
+	border-color: red;
+	border-right: -10%;
+	font-family:"faceYourFears";
+	font-size:25px;
+}
+
+
+#contact_text{
+	margin-top: 2%;
+	font-family: 'faceYourFears';
+	/*font-family:"Visions of the Dead";*/
+	font-size:25px;
+	letter-spacing: 2px;
+}
+
+.user_info{
+	display: inline-block;
+    text-align: left;
+    margin-left: 2%
+}
+
+#contact_frm{
+	margin-left: 17%;
+}
+
+#user_last_name{
+	margin-left: .5%;
+	font-family: "Times New Roman";
+	font-size: 20px;
+	
+}
+
+#user_first_name{
+	font-family: "Times New Roman";
+	font-size: 20px;
+}
+
+
+#user_email{
+	width: 350px;
+	font-family: "Times New Roman";
+	font-size: 25px;
+}
+
+#mess_but{
+	font-family: "faceYourFears";
+	margin-left: 3%;
+	font-size: 20px;
+	letter-spacing: 2px;
+}
+
+#user_message{
+	margin-left: 2.5%;
+	font-family: "Times New Roman";
+	font-size: 20px;
+}
+
+#contact_info{
+	text-align: left;
+}
+
+.finalImage{
+	display: none;
+}
+
+.imageXplode{
+	-webkit-animation: fading 3s;
+	animation-name: fading;
+	animation-duration: 3s;
+	animation-iteration-count: 1;
+}
+
+@keyframes fading{
+	0% {opacity: 0.0}
+	5% {opacity: 0.1}
+	10% {opacity: 0.2}
+	15% {opacity: 0.3}
+	20% {opacity: 0.4}
+	25% {opacity: 0.5}
+	30% {opacity: 0.6}
+	35% {opacity: 0.7}
+	40% {opacity: 0.8}
+	45% {opacity: 0.9}
+	50% {opacity: 1.0}
+	55% {opacity: 0.9}
+	60% {opacity: 0.8}
+	65% {opacity: 0.7}
+	70% {opacity: 0.6}
+	75% {opacity: 0.5}
+	80% {opacity: 0.4}
+	85% {opacity: 0.3}
+	90% {opacity: 0.2}
+	95% {opacity: 0.1}
+	100% {opacity: 0.0}
+}
+
+@-webkit-keyframes fading{
+	0% {opacity: 0.0}
+	5% {opacity: 0.1}
+	10% {opacity: 0.2}
+	15% {opacity: 0.3}
+	20% {opacity: 0.4}
+	25% {opacity: 0.5}
+	30% {opacity: 0.6}
+	35% {opacity: 0.7}
+	40% {opacity: 0.8}
+	45% {opacity: 0.9}
+	50% {opacity: 1.0}
+	55% {opacity: 0.9}
+	60% {opacity: 0.8}
+	65% {opacity: 0.7}
+	70% {opacity: 0.6}
+	75% {opacity: 0.5}
+	80% {opacity: 0.4}
+	85% {opacity: 0.3}
+	90% {opacity: 0.2}
+	95% {opacity: 0.1}
+	100% {opacity: 0.0}
+}
+
+.animateFlicker {
+    -webkit-animation: flicker 10s;
+    -webkit-animation-iteration-count: infinite;
+    animation-name: flicker;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes flicker{
+    0% {opacity:0}
+    3% {opacity:1}
+    6% {opacity:0}
+    7% {opacity:0}
+    8% {opacity:1}
+    9% {opacity:0}
+    10% {opacity:1}
+    99% {opacity:1}
+    100% {opacity:0}
+}
+
+@keyframes flicker{
+	0% {opacity:0}
+    3% {opacity:1}
+    6% {opacity:1}
+    7% {opacity:0}
+    8% {opacity:1}
+    9% {opacity:0}
+    10% {opacity:1}
+    99% {opacity:1}
+    100% {opacity:0}
+}
