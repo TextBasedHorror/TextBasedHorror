@@ -1141,10 +1141,10 @@ function random_type(chara){
 	sine_wave++;
 	if (sine_wave = 101) {sine_wave = 1;}
 	if (chara === '.' || chara === '?' || chara === '!') {
-	    rando_value = (Math.random() * 20) + (Math.sin(sine_wave) * 160) + 200;
+	    rando_value = (Math.random() * 20) + (Math.sin(sine_wave) * 60) + 68;
 	}
 	else {
-		rando_value = (Math.random() * 20) + (Math.sin(sine_wave) * 60) + 60;
+		rando_value = (Math.random() * 10) + (Math.sin(sine_wave) * 20) + 42;
 	}
 	return rando_value;
 }
@@ -1222,9 +1222,15 @@ function dramatic_parse(sentence, callback) {
     console.log("left for loop");
 	if (calls_left <= 0 && single_callback == false){
 	    type_speed = type_speed + random_type('.');
+
 	    text_timer.push(setTimeout(function () {
 	        console.log("executing callback");
 	        single_callback = true;
+			for (var definer = 0; definer < text_timer.length; definer++) {
+                clearTimeout(text_timer[definer]);
+                console.log("i'm clearing timeouts!");
+            }
+            console.log("x = " + definer);
 	        clear_callback();
 	    }, type_speed));
 		//type_speed = 0;
