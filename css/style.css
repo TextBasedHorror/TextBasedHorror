@@ -167,3 +167,7 @@ footer {
 
     width:auto;
 }
+
+#contentAbout {
+    display:none;
+}

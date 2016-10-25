@@ -7,25 +7,31 @@
 
     <title>Text-Based HORROR</title>
 
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Special+Elite' type='text/css'>
     <link rel="stylesheet" href="css/bootstrap.css" >
     <link rel="stylesheet" href="css/style.css">
-    <!--adding in new font for copywrite text-->
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <script type="text/javascript" src="scripts/jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="scripts/gameScript_9-23-16.js"></script>
+    <script type="text/javascript" src="scripts/thunderAndFlicker.js"></script>
+
+
   </head>
 
   <body>
+    <audio id="thunder">
+      <!-- <source src="thunder.mp3" /> -->
+    </audio>
 
   	<audio autoplay="autoplay" loop="loop">
   	   <source src="Welcome.to.HorrorLand.mp3" type="audio/mpeg">
   	</audio>
-  	<audio id="laugh">
+  	
+    <audio id="laugh">
   	   <source  src="Evil_Laugh_Male.mp3" type="audio/mpeg">
   	</audio>
 
     <div id="container">
       <div id="header">
-          <br>
+          <!-- <br> -->
           <p id="intro"></p>
           <p id="story"></p>
       </div>
@@ -46,10 +52,12 @@
 
         </div>
         
-          <div id="textInput">
-            <input type="text" id="myText" value="">
-            <button type="button" id="button" class="btn btn-lg btn-default">Submit</button>
+        <div id="textInput">
+            <input type="text" id="myText" value="" />
+            <input type="button" id="button" class="btn btn-lg btn-default" value="Submit" />
         </div>
+
+ <!-- <button type="button" id="button" class="btn btn-lg btn-default">Submit</button> -->
 
         <p id= "buttonYes">
             <button type="button" class = "btn btn-lg btn-default yes1 yes2 yesDead">Yes</button>
@@ -63,21 +71,17 @@
 
         <p id="buttonOptions">
   			  <br>
-          <button id="yes" type="button" class="btn btn-lg btn-default yes3 yes4 yes5 yes6 yes7 yes8 yes9 yes10 yes11 yes12 yes13 yes14 yes15 yes16 yes17 yes18 yes19 yes20 yes21 yes22 yes23 yes24 yes25 yes26 yes27 yes28 yes29 yes30 yes31 yes32 yes33 yes34 yes35 yes36 yes37 yes38 yes39 yes40 yes41 yes42 yes43 yes44 yes45 yes46 yes47 yes48 yes49 yes50 yes51 yes52 yes53 yes54 yes55 yes56 yes57 yes58 yes59 yes60">Option 1</button>
-          <button id = "no" type="button" class="btn btn-lg btn-default no3 no4 no5 no6 no7 no8 no9 no10 no11 no12 no13 no14 no15 no16 no17 no18 no19 no20 no21 no22 no23 no24 no25 no26 no27 no28 no29 no30 no31 no32 no33 no34 no35 no36 no37 no38 no39 no40 no41 no42 no43 no44 no45 no46 no47 no48 no49 no50 no51 no52 no53 no54 no55 no56 no57 no58 no59 no60">Option 2</button>
+          <button id="yes" type="button" class="btn btn-lg btn-default">Option 1</button>
+          <button id = "no" type="button" class="btn btn-lg btn-default">Option 2</button>
         </p>
 
       </div>
 
       <div id="footer">
-          <!--adding in glyphicon copywrite icon-->
-          <footer>A game created by The Tech Academy © 2015, all rights reserved.</footer>
+          <footer>A game created by The Tech Academy &copy; 2015<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, all rights reserved.</footer>
       </div>
 
     </div>
 
-    <script type="text/javascript" src="scripts/jquery-1.11.3.js"></script>
-    <script type="text/javascript" src="scripts/gameScript_9-23-16.js"></script>
-    <script src="scripts/typed.js"></script>
   </body>
 </html>

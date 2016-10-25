@@ -8,15 +8,8 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 		<link rel="stylesheet" type="text/css" href="css/homepagebackground.css" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
-		<link href="//db.onlinewebfonts.com/c/92997afbcf763e4e335df397d28a00c0?family=Visions+of+the+Dead" rel="stylesheet" type="text/css"/>
-        <!--adding in new font for copywrite text-->
-        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-
-		<!-- <link rel="stylesheet" type="text/css" href="http://csshake.surge.sh/csshake.css" /> -->
-		<link href='https://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css' />
 		<script type="text/javascript" src="scripts/jquery-1.11.3.js"></script>
-    	<script type="text/javascript" src="scripts/gameScript_1-13-16.js"></script>
-    	<script src="scripts/typed.js"></script>
+    	<script type="text/javascript" src="scripts/gameScript.js"></script>
     	<script>
     		$(document).ready(function(){$("#contact").hide(0).delay(0).fadeIn(3000)});
     		$(document).ready(function(){$("#footer").hide(0).delay(0).fadeIn(3000)});
@@ -67,7 +60,7 @@
 			<source src="rain.mp3" />
 		</audio>
 		<div id="header">
-			<p id="contact"><span id="contact1">C</span>ont<span id="contact2">ac</span>t Us</p>
+			<p id="intro2"><span id="contact1">C</span>ont<span id="contact2">ac</span>t Us</p>
 			
 		</div>
 		<div id="contact_text">
@@ -88,11 +81,13 @@
 				<input class = "btn btn-default" id="mess_but" type ='submit' value = 'Send'/>
 			</form>
 		</div>
+
 		<div>
 			<button id= "but_main" class="btn btn-lg btn-default aboutButton" onclick="location.href='index.html'">Main Menu</button>
 		</div>
-		<div id="footer">
-            <!--adding in glyphicon copywrite icon-->
-            <footer>A game created by The Tech Academy <span class="glyphicon glyphicon-copyright-mark"></span> 2015, all rights reserved.</footer>
+
+      <div id="footer">
+          <footer>A game created by The Tech Academy &copy; 2015<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, all rights reserved.</footer>
+      </div>
 	</body>
 </html>
