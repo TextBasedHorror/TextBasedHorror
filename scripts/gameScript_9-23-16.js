@@ -993,6 +993,14 @@ function naming() {
 	started_typing = false;
 	done_typing = false;
     */
+
+    // for being able to press [enter] key to submit
+    var go = document.getElementById("button");
+    var txt = document.getElementById("myText");
+    txt.addEventListener("keypress", function() {
+        if (event.keyCode == 13) go.click();
+    });
+
 	console.log("starting first print out");
 	dramatic_parse("What is my name?",function(){
 		$("#button").one("click",function(){
@@ -1110,7 +1118,7 @@ function story_mode(story_cursor) {
     $("#textInput").hide();
     $('#buttonReveal').hide();
     $('#buttonOptions').hide();
-    $("buttonYes").hide();
+    $("#buttonYes").hide();
 	skippable = true;
 	skip_text = false;
     keep_iter = 0;

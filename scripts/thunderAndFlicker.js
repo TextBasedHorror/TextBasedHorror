@@ -12,8 +12,6 @@ function timerIncrement(){
   }
 }
 
-$(document).ready(function(){$("#footer").hide(0).delay(3000).fadeIn(3000)});
-
 $(document).ready(function(){
 
   setTimeout(function(){
@@ -27,6 +25,8 @@ $(document).ready(function(){
   }, 2200);
 });
 
+
+// this is for the timed thunder strikes
 $(document).ready(function(){
   var interval = setInterval(timerIncrement, 6000);
   $(this).mousedown(function(e){

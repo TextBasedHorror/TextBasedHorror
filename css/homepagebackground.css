@@ -72,10 +72,11 @@
 	position: relative;
 }
 
-#content2{
+#newGameMenu{
 	width: 100%;
 	margin-top: 3%;
 	position: relative;
+	display: none;
 }
 
 ul{
@@ -91,7 +92,7 @@ ul{
 
 
 #aboutUs{
-	margin-top: 20%;
+	margin-top: 150px;
 	font-family: 'faceYourFears';
 }
 
