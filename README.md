@@ -12,7 +12,7 @@ Will Hutcherson - https://github.com/WilliamHutcherson
 
 Tyler Corum - https://github.com/TEC10101
 
-Jessie Lee - https://github.com/orgs/TextBasedHorror/people/CodeIrish
+Jessie Lee - https://github.com/CodeIrish
 
 Navjot Dhillon - https://github.com/Najdhillon
 
