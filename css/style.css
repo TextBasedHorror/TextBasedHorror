@@ -169,3 +169,7 @@ footer {
 #contentAbout {
     display:none;
 }
+
+.btn:focus,.btn:active {
+   outline: none !important;
+}
