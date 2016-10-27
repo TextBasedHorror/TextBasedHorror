@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <title>Text-Based HORROR</title>
 
@@ -39,14 +39,14 @@
       <div id="content">
           <!--added in row and col to adjust the placement of text-->
         <div class="row">
-            <div class="col-md-3 ">
+            <div class="col-lg-4 col-md-4 col-xs-0" id="rowBumperLeft">
 
             </div>
-            <div class="col-md-6">
+            <div class="col-lg-4 col-md-4 col-xs-12 text-center" id="rowBumperCenter">
                 <p id="instructions"></p>
                 <p id="instructions2"></p>
             </div>
-            <div class="col-md-3">
+            <div class="col-lg-4 col-md-4 col-xs-0" id="rowBumperRight">
 
             </div>
 
@@ -54,14 +54,14 @@
         
         <div id="textInput">
             <input type="text" id="myText" value="" />
-            <input type="button" id="button" class="btn btn-lg btn-default" value="Submit" />
+            <input type="button" id="button" class="btn btn-default" value="Submit" />
         </div>
 
- <!-- <button type="button" id="button" class="btn btn-lg btn-default">Submit</button> -->
+ <!-- <button type="button" id="button" class="btn btn-default">Submit</button> -->
 
         <p id= "buttonYes">
-            <button type="button" class = "btn btn-lg btn-default yes1 yes2 yesDead">Yes</button>
-            <button type="button" class = "btn btn-lg btn-default no1 no2 noDead">No</button>
+            <button type="button" class = "btn btn-default yes1 yes2 yesDead">Yes</button>
+            <button type="button" class = "btn btn-default no1 no2 noDead">No</button>
         </p>
 
   			<div id="timer">
@@ -71,8 +71,8 @@
 
         <p id="buttonOptions">
   			  <br>
-          <button id="yes" type="button" class="btn btn-lg btn-default">Option 1</button>
-          <button id = "no" type="button" class="btn btn-lg btn-default">Option 2</button>
+          <button id="yes" type="button" class="btn btn-default">Option 1</button>
+          <button id = "no" type="button" class="btn btn-default">Option 2</button>
         </p>
 
       </div>
