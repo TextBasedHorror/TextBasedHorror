@@ -1048,6 +1048,7 @@ function naming() {
 						$("#buttonYes").hide();
 						$("#instructions").empty();
 						$("#instructions2").empty();
+						
 						naming();
 					});
 					$("#buttonYes").delay(30).fadeIn();
@@ -1108,6 +1109,13 @@ function introduction(name) {
 			});
 			$(".no1").one( "click", function(){
 				localStorage.setItem('name', "");
+				$("#buttonYes").hide();
+				$("#instructions").empty();
+				$("#instructions2").empty();
+				for (var definer = 0; definer < text_timer.length; definer++) {
+					clearTimeout(text_timer[definer]);
+					console.log("i'm clearing timeouts!");
+				}
 				naming();
 		});});
     }
@@ -1539,6 +1547,13 @@ function dead_dead(death_cursor) {
 			dramatic_parse("I have failed...|||      ", function(){				
 				localStorage.setItem('name', "");
 				localStorage.setItem('save_point',0);
+				$("#buttonYes").hide();
+				$("#instructions").empty();
+				$("#instructions2").empty();
+				for (var definer = 0; definer < text_timer.length; definer++) {
+					clearTimeout(text_timer[definer]);
+					console.log("i'm clearing timeouts!");
+				}
 				naming();
 			});
 		});
