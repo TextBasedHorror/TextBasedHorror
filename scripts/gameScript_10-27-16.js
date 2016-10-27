@@ -63,6 +63,34 @@ $(document).ready(function(){
             //} else { skip_text = true;}
         }
     });
+    document.addEventListener("click", function (event) {
+        //console.log("I\'M PUSHING KEYS!!!!");
+        //console.log("skippable = " + skippable);
+        //console.log("skip_text = " + skip_text);
+        //console.log("single_callback = " + single_callback);
+        skip_text = true;
+        if (skippable == true && single_callback == false) {
+            //console.log("I\'M IN YOUR LOOP");
+            if (text_timer.length != null || text_timer.length != 0) {
+                for (var makeloop = 0; makeloop < text_timer.length; makeloop++) {
+                    clearTimeout(text_timer[makeloop]);
+                    //console.log("i'm clearing timeouts!");
+                    //console.log("x = " + makeloop);
+                }
+                $("#instructions").append(current_sentence.slice(keep_iter));
+                skip_text = false;
+                text_timer = [];
+                keep_iter = 0;
+                iterate = 0;
+                current_sentence = "";
+                single_callback = true;
+                calls_left = 0;
+                clear_callback();  
+            }
+            //skip_text = false;
+            //} else { skip_text = true;}
+        }
+    });
 	start_game();
 	//start_game();
 });
