@@ -956,7 +956,7 @@ function start_game() {
         name = myName;
     } else {
         name = "";
-    }
+    };
     console.log(myName);
     $("#buttonOptions").hide();
     $("#buttonReveal").hide();
@@ -968,8 +968,8 @@ function start_game() {
         introduction(name);
     } else {
         naming();
-    }
-}
+    };
+};
 
 
 function naming() {
@@ -981,6 +981,12 @@ function naming() {
     $("#button").off();
     //$("#button").on();
     $("#instructions").empty();
+    // $("#content")
+    //     .removeClass('col-md-8')
+    //     .addClass('col-md-4');
+
+
+
     //$("#instructions").show();
     //var done_check = 0;
    /* started_typing = false;
@@ -1002,7 +1008,8 @@ function naming() {
     });
 
 	console.log("starting first print out");
-	dramatic_parse("What is my name?",function(){
+
+	dramatic_parse("                 What is my name?",function(){
 		$("#button").one("click",function(){
 			name = document.getElementById("myText").value;
 			localStorage.setItem('name', name);
@@ -1027,12 +1034,14 @@ function naming() {
 				//$("#buttonYes").delay(delay_value).fadeIn();
 				$("#instructions2").empty();
 				//$("#instructions").appendTo("<p>thesearetestwords</p>");
-				dramatic_parse("Is " +name+ " my correct name?",function(){
+				dramatic_parse("                 Is " +name+ " my correct name?",function(){
 					$(".yes1").one( "click", function(){
 						$("#buttonYes").hide();
 						$("#instructions").empty();
 						$("#instructions2").empty();
 						localStorage.setItem('name', name);
+
+                        $("#instructions").css("text-align", "left");
 						introduction(name);
 					});
 					$(".no1").one( "click", function(){
@@ -1048,7 +1057,7 @@ function naming() {
 				$("#instructions").empty();
 				$("#instructions2").empty();
 				$('#textInput').val('');
-				$("#instructions2").append("Please type in my name.");
+				$("#instructions2").append("                 Please type in my name.");
 				naming();		
 			}
 		});
@@ -1066,16 +1075,24 @@ function introduction(name) {
     $("#textInput").hide();
     var save_point = localStorage.getItem('save_point');
     console.log(save_point);
+
+    // for adjusting the bootstrap grid columns
+    // useful for changing the width of the grid for when the story
+    // text actually starts
+    // this needs to match functionstory_mode()!!
+    adjustGrid();
+
     if (save_point != null) {
-		skippable = true;
-		skip_text = false;
-		single_callback = false;
+        skippable = true;
+        skip_text = false;
+        single_callback = false;
         story_mode(parseInt(save_point));
     } else {
         $("#instructions2").empty();
         $("#instructions").empty();
         skippable = true;
         skip_text = false;
+
         dramatic_parse("My name is " +name+ ". The choices I make will determine if I live or die. \nDo I dare start this horrific journey?",function(){
             single_callback = false;
             $("#buttonYes").delay(240).fadeIn();
@@ -1087,6 +1104,7 @@ function introduction(name) {
 				//var done_intro = 0;
 				dramatic_parse("Everything fades to black...", function () {
 				    single_callback = false;
+
 				    story_mode(0);
 				});
 			});
@@ -1098,13 +1116,29 @@ function introduction(name) {
 
 
 
-//function story_mode(story_cursor)
-/*
-    function that looks at where we are in the story and moves us along.
-    story_mode will use information from current story and the array of horror objects to link to text
-        and to control story flow
+function adjustGrid() {
+    $("#rowBumperLeft")
+        .removeClass('col-lg-4')
+        .removeClass('col-md-4')
 
-*/
+        .addClass('col-lg-2')
+        .addClass('col-md-2');
+
+    $("#rowBumperCenter")
+        .removeClass('col-lg-4')
+        .removeClass('col-md-4')
+
+        .addClass('col-lg-8')
+        .addClass('col-md-8');
+
+    $("#rowBumperRight")
+        .removeClass('col-lg-4')
+        .removeClass('col-md-4')
+
+        .addClass('col-lg-2')
+        .addClass('col-md-2');
+    return;
+}
 
 
 function story_mode(story_cursor) {
@@ -1124,6 +1158,8 @@ function story_mode(story_cursor) {
     keep_iter = 0;
     total_calls = 0;
     iterate = 0;
+    adjustGrid();
+
     dramatic_parse(instructionArray[story_cursor],function(){
         single_callback = false;
         revealOptions(story_cursor, yes_options[story_cursor], no_options[story_cursor], horror_info[story_cursor].failYes, horror_info[story_cursor].failNo);
