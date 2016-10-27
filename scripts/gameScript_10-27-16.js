@@ -1116,6 +1116,7 @@ function introduction(name) {
 					clearTimeout(text_timer[definer]);
 					console.log("i'm clearing timeouts!");
 				}
+				adjustGridBack();
 				naming();
 		});});
     }
@@ -1144,6 +1145,30 @@ function adjustGrid() {
 
         .addClass('col-lg-2')
         .addClass('col-md-2');
+    return;
+}
+
+function adjustGridBack() {
+    $("#rowBumperLeft")
+        .addClass('col-lg-4')
+        .addClass('col-md-4')
+
+        .removeClass('col-lg-2')
+        .removeClass('col-md-2');
+
+    $("#rowBumperCenter")
+        .addClass('col-lg-4')
+        .addClass('col-md-4')
+
+        .removeClass('col-lg-8')
+        .removeClass('col-md-8');
+
+    $("#rowBumperRight")
+        .addClass('col-lg-4')
+        .addClass('col-md-4')
+
+        .removeClass('col-lg-2')
+        .removeClass('col-md-2');
     return;
 }
 
@@ -1554,6 +1579,7 @@ function dead_dead(death_cursor) {
 					clearTimeout(text_timer[definer]);
 					console.log("i'm clearing timeouts!");
 				}
+				adjustGridBack();
 				naming();
 			});
 		});
