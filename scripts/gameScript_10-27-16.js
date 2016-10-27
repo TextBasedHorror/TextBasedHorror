@@ -26,6 +26,7 @@ var text_timer = new Array();
 var current_sentence = "";
 var skippable = false;
 var single_callback = false;
+var clickable = false;
 var clear_callback = function clear_callback() { };
 
 
@@ -64,33 +65,35 @@ $(document).ready(function(){
         }
     });
     document.addEventListener("click", function (event) {
-        //console.log("I\'M PUSHING KEYS!!!!");
-        //console.log("skippable = " + skippable);
-        //console.log("skip_text = " + skip_text);
-        //console.log("single_callback = " + single_callback);
-        skip_text = true;
-        if (skippable == true && single_callback == false) {
-            //console.log("I\'M IN YOUR LOOP");
-            if (text_timer.length != null || text_timer.length != 0) {
-                for (var makeloop = 0; makeloop < text_timer.length; makeloop++) {
-                    clearTimeout(text_timer[makeloop]);
-                    //console.log("i'm clearing timeouts!");
-                    //console.log("x = " + makeloop);
-                }
-                $("#instructions").append(current_sentence.slice(keep_iter));
-                skip_text = false;
-                text_timer = [];
-                keep_iter = 0;
-                iterate = 0;
-                current_sentence = "";
-                single_callback = true;
-                calls_left = 0;
-                clear_callback();  
-            }
-            //skip_text = false;
-            //} else { skip_text = true;}
-        }
-    });
+		if clickable = true {
+			//console.log("I\'M PUSHING KEYS!!!!");
+			//console.log("skippable = " + skippable);
+			//console.log("skip_text = " + skip_text);
+			//console.log("single_callback = " + single_callback);
+			skip_text = true;
+			if (skippable == true && single_callback == false) {
+				//console.log("I\'M IN YOUR LOOP");
+				if (text_timer.length != null || text_timer.length != 0) {
+					for (var makeloop = 0; makeloop < text_timer.length; makeloop++) {
+						clearTimeout(text_timer[makeloop]);
+						//console.log("i'm clearing timeouts!");
+						//console.log("x = " + makeloop);
+					}
+					$("#instructions").append(current_sentence.slice(keep_iter));
+					skip_text = false;
+					text_timer = [];
+					keep_iter = 0;
+					iterate = 0;
+					current_sentence = "";
+					single_callback = true;
+					calls_left = 0;
+					clear_callback();  
+				}
+				//skip_text = false;
+				//} else { skip_text = true;}
+			}
+		}
+	});
 	start_game();
 	//start_game();
 });
@@ -1214,6 +1217,7 @@ function story_mode(story_cursor) {
     $('#buttonOptions').hide();
     $("#buttonYes").hide();
 	skippable = true;
+	clickable = true;
 	skip_text = false;
     keep_iter = 0;
     total_calls = 0;
@@ -1439,7 +1443,7 @@ function revealOptions(story_cursor, yes, no, yes_fail, no_fail){
 function show_buttons(story_cursor, yes, no, yes_fail, no_fail) {
     $("#yes").off();
     $("#no").off();
-
+	clickable = false;
     $("#yes").html("<p>" + yes + "</p>");
     $("#no").html("<p>" + no + "</p>");
     if (horror_info[story_cursor].coffinYes) {
