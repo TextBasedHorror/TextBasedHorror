@@ -50,6 +50,8 @@ $(document).ready(function(){
                     //console.log("i'm clearing timeouts!");
                     //console.log("x = " + makeloop);
                 }
+				var new_sentence = current_sentence.slice(keep_iter);
+				new_sentence = new_sentence.replace(/&#124;/g,"<br>");
                 $("#instructions").append(current_sentence.slice(keep_iter));
                 skip_text = false;
                 text_timer = [];
@@ -64,36 +66,7 @@ $(document).ready(function(){
             //} else { skip_text = true;}
         }
     });
-    document.addEventListener("click", function (event) {
-		if clickable = true {
-			//console.log("I\'M PUSHING KEYS!!!!");
-			//console.log("skippable = " + skippable);
-			//console.log("skip_text = " + skip_text);
-			//console.log("single_callback = " + single_callback);
-			skip_text = true;
-			if (skippable == true && single_callback == false) {
-				//console.log("I\'M IN YOUR LOOP");
-				if (text_timer.length != null || text_timer.length != 0) {
-					for (var makeloop = 0; makeloop < text_timer.length; makeloop++) {
-						clearTimeout(text_timer[makeloop]);
-						//console.log("i'm clearing timeouts!");
-						//console.log("x = " + makeloop);
-					}
-					$("#instructions").append(current_sentence.slice(keep_iter));
-					skip_text = false;
-					text_timer = [];
-					keep_iter = 0;
-					iterate = 0;
-					current_sentence = "";
-					single_callback = true;
-					calls_left = 0;
-					clear_callback();  
-				}
-				//skip_text = false;
-				//} else { skip_text = true;}
-			}
-		}
-	});
+  
 	start_game();
 	//start_game();
 });
@@ -1591,6 +1564,14 @@ function dead_dead(death_cursor) {
     $('#no').off();
     $('.yesDead').off();
     $('.noDead').off();
+    $("#instructions").empty();
+    $("#instructions2").empty();
+    $("#story").empty();
+    $('#buttonReveal').hide();
+    $("#buttonYes").hide();
+	skippable = true;
+	clickable = true;
+	skip_text = false;
     document.getElementById('laugh').play();
     //spooky_type(failArray[death_cursor],0);
     dramatic_parse(failArray[death_cursor]+"|||Do you want to play again?",function(){
