@@ -30,6 +30,7 @@ function showNewGameMenu() {
 // fade audio out and then load story
 function newGame() {
 	$("#newGameMenu").fadeOut(500);
+	document.getElementById('ghost1').play();
 	var rainAudio = $("#rain");
 	var thunderAudio = $("#thunder");
 	rainAudio.animate({volume: 0}, 2000);
