@@ -30,6 +30,7 @@ function showNewGameMenu() {
 // fade audio out and then load story
 function newGame() {
 	$("#newGameMenu").fadeOut(500);
+	document.getElementById('ghost1').play();
 	var rainAudio = $("#rain");
 	var thunderAudio = $("#thunder");
 	rainAudio.animate({volume: 0}, 2000);
@@ -45,6 +46,7 @@ function newGame() {
 // fade audio out and then load story
 function continueGame() {
 	$("#newGameMenu").fadeOut(500);
+	document.getElementById('witches_house').play();
 	var rainAudio = $("#rain");
 	var thunderAudio = $("#thunder");
 	rainAudio.animate({volume: 0}, 2000);
@@ -56,17 +58,20 @@ function continueGame() {
 
 // func called from play/new game menu
 function showMainMenu() {
+	document.getElementById('m_chains').play();
 	$("#newGameMenu").fadeOut(500);
 	$("#content").delay(1000).fadeIn(3000);
 };
 
 function showAboutPage() {
+	document.getElementById('swamp2').play();
 	$("#content").fadeOut(500);
 	$("#contentAbout").delay(1000).fadeIn(2000);
 };
 
 // _about is the function that's called from about us section
 function goBackToMainPage() {
+	document.getElementById('howl1').play();
 	$("#contentAbout").fadeOut(500);
 	$("#content").delay(1000).fadeIn(3000);
 };
