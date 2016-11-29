@@ -122,6 +122,8 @@ var s_delayedshot = "delayedshot";
 var s_beating = "beating";
 var s_nosound = "silence";
 
+var s_page_turn = "page_turn";
+
 //var done_typing = false;
 //var started_typing = false;
 
@@ -1941,7 +1943,7 @@ function dead_dead(death_cursor,origin) {
 	skippable = true;
 	clickable = true;
 	skip_text = false;
-    document.getElementById('laugh').play();
+    //document.getElementById('laugh').play();
     //spooky_type(failArray[death_cursor],0);
     dramatic_parse(true,origin,failArray[death_cursor]+"|||Do you want to play again?",function(){
 		$(".yesDead").one("click", function () {
