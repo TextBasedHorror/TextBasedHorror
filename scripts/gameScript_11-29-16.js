@@ -120,6 +120,7 @@ var s_kicking_fence = "kicking_fence";
 var s_bullet_impacts = "bullet_impacts";
 var s_delayedshot = "delayedshot";
 var s_beating = "beating";
+var s_nosound = "silence";
 
 //var done_typing = false;
 //var started_typing = false;
@@ -240,7 +241,9 @@ function horror(flag_save, flag_fail_yes, flag_fail_no, link_yes, link_no,coffin
 
 //this function will play a sound, specified by element id, which is a string value. laugh makes a spooky laugh happen, for example.
 function play_sound(sound_id){
-    document.getElementById(sound_id).play();
+	if (sound_id != "silence") {
+    		document.getElementById(sound_id).play();
+	}
 }
 
 //this is an object, that will help point to sounds at every part of story mode.
