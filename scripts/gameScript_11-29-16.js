@@ -430,7 +430,7 @@ yes_options[10] = "GO UP THE STAIRS";
 no_options[10] = "FOLLOW THE MAN WITH THE SHOTGUN";
 failArray[7] = "I opened the door. Despite my attempts to be quiet, it creaked loudly. I heard shouting and heavy footsteps. The man with the shotgun appeared and before I could defend myself, he blew my head off with a hail of bullets. This is the end of my story.";
 horror_info[10] = new horror(false, false, true, 11, 7, false, false);
-horror_sound_action[10] = new action_sound(s_stair_climb,s_door_wood); 
+horror_sound_action[10] = new action_sound(s_stair_climb,s_door_wood);
 horror_sound_scary[10] = new scary_sound(s_walking_away,153);
 horror_sound_death[10] = new scary_sound(s_shotgun_shot,219);
 
@@ -1538,8 +1538,8 @@ function story_mode(story_cursor) {
     $('#buttonReveal').hide();
     $('#buttonOptions').hide();
     $("#buttonYes").hide();
-	skippable = true;
-	clickable = true;
+	skippable = false;
+	clickable = false;
 	skip_text = false;
     keep_iter = 0;
     total_calls = 0;
@@ -1584,12 +1584,14 @@ function dramatic_parse(is_death,sound_index,sentence, callback) {
 	//console.log("dramatic parsing");
 	clear_callback = function clear_callback() { callback() };
 	$("#instructions").empty();
+  window.setTimeout(function(){skippable = true;}, 500);
 
 	type_speed = 60;
 
 	current_sentence = sentence;
 	single_callback = false;
 	skip_text = false;
+  skippable = false;
 
     var has_dramatic_sound = false;
     //calls left
@@ -1782,6 +1784,7 @@ function show_buttons(story_cursor, yes, no, yes_fail, no_fail) {
     $("#yes").off();
     $("#no").off();
 	clickable = false;
+  skippable = false;
     $("#yes").html("<p>" + yes + "</p>");
     $("#no").html("<p>" + no + "</p>");
     if (horror_info[story_cursor].coffinYes) {
@@ -2010,7 +2013,43 @@ not actually needed, actually. yay!
 		}(), 1000);
 	}
 
+function impatience() {
+  var new_sentence = current_sentence.slice(keep_iter)+"";
+  skip_text = true;
+  if (skippable == true && single_callback == false) {
+      if (text_timer.length != null || text_timer.length != 0) {
+          for (var makeloop = 0; makeloop < text_timer.length; makeloop++) {
+              clearTimeout(text_timer[makeloop]);
+          }
 
+          var break_check = new_sentence.indexOf("|");
+          //console.log("break_check = " + break_check);
+          if (break_check != -1){
+              while (break_check != -1){
+                  new_sentence = new_sentence.replace("|","<br>");
+                  break_check = new_sentence.indexOf("|");
+              }
+          }
+          //console.log("passed break check");
+          $("#instructions").append(new_sentence);
+          skip_text = false;
+          text_timer = [];
+          keep_iter = 0;
+          iterate = 0;
+          current_sentence = "";
+          single_callback = true;
+          calls_left = 0;
+          clear_callback();
+      }
+  }
+}
+
+document.addEventListener("keydown", function(event){
+  if(skippable) {impatience();}
+});
+document.addEventListener("click", function(event){
+  if(skippable) {impatience();}
+});
 
 //function startTimer(duration, clock)
 /*
