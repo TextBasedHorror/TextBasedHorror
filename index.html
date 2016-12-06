@@ -1,0 +1,93 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+		<title>Text-Based HORROR</title>
+
+		<!-- css -->
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/homepagebackground.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+		<!-- javascript -->
+	    <script type="text/javascript" src="scripts/jquery-1.11.3.js"></script>
+		<script type="text/javascript" src="scripts/fadeEffects.js"></script>
+		<script type="text/javascript" src="scripts/thunderAndFlicker.js"></script>
+
+
+	</head>
+
+	<body>
+
+		<audio id="thunder">
+			<source src="thunder.mp3" />
+		</audio>
+
+		<audio autoplay="autoplay" loop="loop" id="rain">
+			<source src="rain.mp3" />
+		</audio>
+		
+	    <audio id="laugh">
+			<source  src="Evil_Laugh_Male.mp3" type="audio/mpeg">
+	  	</audio>
+
+	  	<audio id="ghost1">
+      		<source  src="ghost01.mp3" type="audio/mpeg">
+        </audio>
+
+		<audio id="swamp2">
+      		<source  src="swamp-02.mp3" type="audio/mpeg">
+        </audio>
+        
+        <audio id="howl1">
+      		<source  src="howl1.mp3" type="audio/mpeg">
+        </audio>
+
+        <audio id="m_chains">
+      		<source  src="m_chains.mp3" type="audio/mpeg">
+        </audio>
+         
+        <audio id="witches_house">
+      		<source  src="witches_house.mp3" type="audio/mpeg">
+        </audio>
+        
+
+        <!--modified the appearance of logo 10/5/2016-->
+		<img id="logo" src="TechAcademyLogo.png" />
+
+		<div id="header">
+			<p id="intro2">TE<span id="flicker">X</span>T-BA<span id="flicker2">S</span>ED H<span id="flicker3">OR</span>ROR</p>
+		</div>
+
+		<div id="content">
+			<ul>
+				<li><button class="btn btn-lg btn-default frontButton" id="btn_Play" onclick="showNewGameMenu();">Play</button></li>
+				<li><button class="btn btn-lg btn-default aboutButton" id="btn_About" onclick="showAboutPage();">About</button></li>
+			</ul>
+		</div>
+
+		<div id="newGameMenu">
+			<ul>
+				<li><button class="btn btn-lg btn-default frontButton2" onclick="newGame();">New Game</button></li>
+				<li><button class="btn btn-lg btn-default frontButton3" id="continueButton" onclick="continueGame();">Continue</button></li>
+				<li><button class="btn btn-lg btn-default frontButton3" onclick="showMainMenu();">Main Menu</button></li>
+			</ul>
+		</div>
+
+		<div id="contentAbout">
+			<p id="aboutUs">
+				This game was created by students of The Tech Academy.<br>  <a href="https://www.learncodinganywhere.com/">The Tech Academy</a> is a licensed career school based in Porland, Oregon.<br>During their coding classes in the Software Developer Boot Camp,<br> Students study computer programming and web development.<br> The curriculum is available in full online. <br> Students can take the program in classrooms located in downtown Portland or online <br>from anywhere on the planet. We have experienced Instructors that help students through<br> the program and job placement staff to assist students with their job search. 
+			</p>
+			<button class="btn btn-lg btn-default aboutButton" onclick="goBackToMainPage();">Main Menu</button>
+			<button class="btn btn-lg btn-default aboutButton" onclick="location.href='contact.html'">Contact Us</button>
+		</div>
+
+      <div id="footer">
+          <footer>A game created by The Tech Academy &copy; 2015<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, all rights reserved.</footer>
+      </div>
+
+
+	</body>
+</html>
