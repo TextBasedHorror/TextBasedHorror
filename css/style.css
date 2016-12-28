@@ -173,3 +173,12 @@ footer {
 .btn:focus,.btn:active {
    outline: none !important;
 }
+
+
+.hiddenstuff {
+	visibility:hidden;
+}
+
+.shown {
+	visibility:visible;
+}
