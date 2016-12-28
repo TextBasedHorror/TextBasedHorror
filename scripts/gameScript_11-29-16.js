@@ -272,7 +272,10 @@ var horror_sound_scary = new Array();
 var horror_sound_death = new Array();
 
 
-
+// Initialize the story's state machine.
+// Making this a function so name can be initialized before state machine
+// (which uses name) is set up.
+function initialize_choice_arrays () {
 //instruction zero:
 /*
     Selecting yes_option[0] will result in failArray[0]
@@ -1296,6 +1299,7 @@ horror_sound_death[69] = new scary_sound(s_axe,-1);
 horror_sound_death[70] = new scary_sound(s_axe,-1);
 horror_sound_death[71] = new scary_sound(s_axe,-1);
 failArray[48] = "I couldn't make a decision in time and this is the end of my story";
+} // initialize_choice_arrays() 
 
 //function start_game()
 /* this function will determine start of game behavior
@@ -1428,6 +1432,10 @@ function naming() {
 }
 
 function introduction(name) {
+    // wait until we know the person's name before initializing the choices 
+    // because some of the story's text strings contain the name.
+    initialize_choice_arrays();
+
     $("#buttonYes").hide();
     $("#textInput").hide();
     var save_point = localStorage.getItem('save_point');
