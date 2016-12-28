@@ -1365,6 +1365,9 @@ function naming() {
 	dramatic_parse(false,-1,"                 What is my name?",function(){
 		$("#button").one("click",function(){
 			name = document.getElementById("myText").value;
+      name = name.trim();
+      name = name[0].toUpperCase() + name.slice(1);
+
 			localStorage.setItem('name', name);
 			if ( name !== "" ) {
 				$("#instructions").empty();
