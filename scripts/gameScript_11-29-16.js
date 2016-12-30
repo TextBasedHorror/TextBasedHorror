@@ -45,6 +45,10 @@ var single_callback = false;
 var clickable = false;
 var clear_callback = function clear_callback() { };
 
+// keep track of total correct choices and total deaths for performance evaluation when player wins
+var total_correct_choices = 0;
+var total_deaths = 0;
+
 //var last_print = 0;
 //vars that refer to sound elements
 var s_pistol = "pistol";
@@ -1273,7 +1277,7 @@ horror_sound_action[67] = new action_sound(s_delayedshot,s_nosound);
 horror_sound_scary[67] = new scary_sound(s_kicking_fence,134);
 horror_sound_death[67] = new scary_sound(s_bullet_impacts,281);
 
-//instruction fiftyone
+//instruction sixtyeight
 /*
     yesOption = failarray[47]
     noOption = advance to instruction 69
@@ -1296,9 +1300,20 @@ horror_sound_action[69] = new action_sound(s_nosound,s_nosound);
 horror_sound_scary[69] = new scary_sound(s_axe,-1);
 horror_sound_death[69] = new scary_sound(s_axe,-1);
 
-horror_sound_death[70] = new scary_sound(s_axe,-1);
+// congratulate the winner, show them the score, then restart game
+instructionArray[70] = "You're so awesome!  Now what do you want to do?";
+yes_options[70] = "RESTART FROM BEGINNING";
+no_options[70] = "RESTART FROM BEGINNING (IS THERE A CHOICE?)";
+horror_info[70] = new horror(false, false, false, 0, 0, false, false);
+horror_sound_action[70] = new action_sound(s_nosound,s_nosound);
+horror_sound_scary[70] = new scary_sound(s_axe,-1);
+horror_sound_death[70] = new scary_sound(s_axe,30);
+
+horror_sound_action[71] = new action_sound(s_nosound,s_nosound);
+horror_sound_scary[71] = new scary_sound(s_axe,-1);
 horror_sound_death[71] = new scary_sound(s_axe,-1);
-failArray[48] = "I couldn't make a decision in time and this is the end of my story";
+failArray[48] = "You won the game.";
+
 } // initialize_choice_arrays() 
 
 //function start_game()
@@ -1369,9 +1384,9 @@ function naming() {
 	dramatic_parse(false,-1,"                 What is my name?",function(){
 		$("#button").one("click",function(){
 			name = document.getElementById("myText").value;
-      name = name.trim();
-      name = name[0].toUpperCase() + name.slice(1);
-
+            name = name.trim();
+            name = name[0].toUpperCase() + name.slice(1);
+		
 			localStorage.setItem('name', name);
 			if ( name !== "" ) {
 				$("#instructions").empty();
@@ -1536,6 +1551,70 @@ function adjustGridBack() {
     return;
 }
 
+/*		
+Make a tracking system for how many correct choices the person makes vs how many incorrect choices. The total number of correct choices vs incorrect choices will be displayed at the end of the game. Note: If a person makes an incorrect choice, dies and then plays again and makes the correct choice, this would be one incorrect choice and zero incorrect choices.
+If a person gets 100% of all choices right, they are rewarded the status: Survival Perfectionist! You got every single answer RIGHT!
+If a person gets 90-99% of their choices right, they are rewarded the status: Bad Ass Survivor! You got almost every single answer RIGHT! Do you think you can get every answer RIGHT next time? Play again!
+80-89% right: Survival Extraordinaire! The vast majority of your choices were CORRECT! Do you think you can get every answer RIGHT next time? Play again!
+70-79% right: Expert Survivor! Most of your choices were RIGHT! Do you think you can get every answer RIGHT next time? Play again!
+60-69% right: Surviving well! Many of your choices were CORRECT! Do you think you can get every answer RIGHT next time? Play again!
+51-59% right: You got more RIGHT than wrong! Do you think you can get every answer RIGHT next time? Play again!
+50%: Balanced Survivor! How did you pull this off? You got EXACTLY half the answers right and half of them wrong! Do you think you can get every answer RIGHT next time? Play again!
+40-49% right: Ouch Survivor! You died slightly more than you survived! Do you think you can get every answer RIGHT next time? Play again!
+30-39% right: Do you think you can get every answer RIGHT next time? Play again!
+20-29% right: Do you think you can get every answer RIGHT next time? Play again!
+10-19% right: Dying Survivor! The majority of your choices resulted in death! Do you think you can get every answer RIGHT next time? Play again!
+1-9% right: Pain Master! You died so many times it’s incredible you finished the game! Well done! Do you think you can get every answer RIGHT next time? Play again!
+If a person gets every choice wrong, they are awarded the status: Master of Death! It takes a real bad ass to pull off getting every choice wrong! Amazing! Do you think you can get every answer RIGHT next time? Play again!
+*/
+function show_game_performance () {
+    // There are 69 steps in the game.  However many of them don't matter or don't cause death.
+    // However, the end user doesn't know this.  For them, every choice is potentially life-ending.
+    // Therefore, I think it is best to count all choices that do not cause death as correct choices.
+    var performance_percentage = (total_correct_choices * 100) / (total_deaths + total_correct_choices);
+    console.log("total_deaths: " + total_deaths + " performance_percentage " + performance_percentage);
+    if (performance_percentage == 100) {
+        performance_eval = "Survival Perfectionist! You got every single answer RIGHT!";
+    } else if (performance_percentage >= 90) {
+        performance_eval = "Bad Ass Survivor! You got almost every single answer RIGHT! Do you think you can get every answer RIGHT next time? Play again!";
+    } else if (performance_percentage >= 80) {
+        performance_eval = "Survival Extraordinaire! The vast majority of your choices were CORRECT! Do you think you can get every answer RIGHT next time? Play again!";
+    } else if (performance_percentage >= 70) {
+        performance_eval = "Expert Survivor! Most of your choices were RIGHT! Do you think you can get every answer RIGHT next time? Play again!";
+    } else if (performance_percentage >= 60) {
+        performance_eval = "Surviving well! Many of your choices were CORRECT! Do you think you can get every answer RIGHT next time? Play again!";
+    } else if (performance_percentage > 50) {
+        performance_eval = "You got more RIGHT than wrong! Do you think you can get every answer RIGHT next time? Play again!";
+    } else if (performance_percentage == 50) {
+        performance_eval = "Balanced Survivor! How did you pull this off? You got EXACTLY half the answers right and half of them wrong! Do you think you can get every answer RIGHT next time? Play again!";
+    } else if (performance_percentage >= 40) {
+        performance_eval = "Ouch Survivor! You died slightly more than you survived! Do you think you can get every answer RIGHT next time? Play again!";
+    } else if (performance_percentage >= 20) {
+        performance_eval = "Do you think you can get every answer RIGHT next time? Play again!";
+    } else if (performance_percentage >= 10) {
+        performance_eval = "Dying Survivor! The majority of your choices resulted in death! Do you think you can get every answer RIGHT next time? Play again!";
+    } else if (performance_percentage > 0) {
+        performance_eval = "Pain Master! You died so many times it’s incredible you finished the game! Well done! Do you think you can get every answer RIGHT next time? Play again!";
+    } else {
+        performance_eval = "Master of Death! It takes a real bad ass to pull off getting every choice wrong! Amazing! Do you think you can get every answer RIGHT next time? Play again!";
+    }
+    console.log(performance_eval);
+    // display this performance eval info in the #instructions javascript element.
+    $("#instructions").empty();
+    $("#instructions").append("Congratulations!  You won the game with " + total_correct_choices + " correct choices and " + total_deaths + " deaths. ");
+    $("#instructions2").empty()
+    $("#instructions2").append(performance_eval);
+}
+
+// you won the game, so show the game result, 
+// then reinitialize counters and get ready to restart game from the beginning.
+function end_game_winner (story_cursor) {
+    show_game_performance();
+    // reinitialize choices and deaths counters for next game
+    total_correct_choices = 0;
+    total_deaths = 0;
+    show_buttons(story_cursor, yes_options[story_cursor], no_options[story_cursor], horror_info[story_cursor].failYes, horror_info[story_cursor].failNo);
+}
 
 function story_mode(story_cursor) {
     if (horror_info[story_cursor].savePoint == true){
@@ -1557,13 +1636,15 @@ function story_mode(story_cursor) {
     iterate = 0;
     adjustGrid();
 
+    if (story_cursor == 70) { // you won the game
+        end_game_winner(story_cursor);
+        return;
+    } 
     dramatic_parse(false,story_cursor,instructionArray[story_cursor],function(){
         single_callback = false;
         revealOptions(story_cursor, yes_options[story_cursor], no_options[story_cursor], horror_info[story_cursor].failYes, horror_info[story_cursor].failNo);
 		//show_buttons(story_cursor, yes_options[story_cursor], no_options[story_cursor], horror_info[story_cursor].failYes, horror_info[story_cursor].failNo);
     });
-
-
 }
 
 
@@ -1785,7 +1866,7 @@ function revealOptions(story_cursor, yes, no, yes_fail, no_fail){
 		$("#buttonReveal").hide();
 		show_buttons(story_cursor, yes, no, yes_fail, no_fail);
 		clock = $("#time");
-		startTimer(7,clock);
+		startTimer(10,clock);
 		endScrollPageDownLoop;
 	});
 }
@@ -1795,7 +1876,7 @@ function show_buttons(story_cursor, yes, no, yes_fail, no_fail) {
     $("#yes").off();
     $("#no").off();
 	clickable = false;
-  skippable = false;
+    skippable = false;
     $("#yes").html("<p>" + yes + "</p>");
     $("#no").html("<p>" + no + "</p>");
     if (horror_info[story_cursor].coffinYes) {
@@ -1812,6 +1893,8 @@ function show_buttons(story_cursor, yes, no, yes_fail, no_fail) {
         });
     } else {
         $("#yes").one("click", function () {
+            total_correct_choices++;
+            console.log("story cursor " + story_cursor + " " + total_correct_choices + " correct choices");
             play_sound(horror_sound_action[story_cursor].sound_yes);
             $("#buttonOptions").hide();
             story_mode(horror_info[story_cursor].linkYes);
@@ -1832,6 +1915,8 @@ function show_buttons(story_cursor, yes, no, yes_fail, no_fail) {
         });
     } else {
         $("#no").one("click", function () {
+            total_correct_choices++;
+            console.log("story cursor " + story_cursor + " " + total_correct_choices + " correct choices");
             play_sound(horror_sound_action[story_cursor].sound_no);
             $("#buttonOptions").hide();
             story_mode(horror_info[story_cursor].linkNo);
@@ -1868,6 +1953,7 @@ function coffin_game(which_step) {
                     })
                 }
                 else if (choice == 3) {
+                    total_correct_choices++;
                     dramatic_parse(false,-1,coffinArray[2],function(){
                         coffin_game(2);});
                 }
@@ -1896,6 +1982,7 @@ function coffin_game(which_step) {
                     })
                 }
                 else if (choice == 17) {
+                    total_correct_choices++;
                     dramatic_parse(false,-1,coffinArray[4], function () {
                         coffin_game(3);
                     });
@@ -1925,6 +2012,7 @@ function coffin_game(which_step) {
                     })
                 }
                 else if (choice == 5) {
+                    total_correct_choices++;
                     story_mode(50);
                 }
 
@@ -1943,6 +2031,8 @@ function coffin_game(which_step) {
 
 function dead_dead(death_cursor,origin) {
     var done_check = 0;
+    total_deaths++;
+    console.log("death_cursor " + death_cursor + " total deaths " + total_deaths);
     $('#textInput').hide();
     $('#buttonOptions').hide();
     $('#yes').off();
@@ -1967,7 +2057,9 @@ function dead_dead(death_cursor,origin) {
 		});
 		$(".noDead").one("click", function () {
 			$('#buttonYes').hide();
-			dramatic_parse(false,-1,"I have failed...|||      ", function(){
+            dramatic_parse(false,-1,"I have failed...|||      ", function(){
+                total_deaths = 0;
+                total_correct_choices = 0;
 				localStorage.setItem('name', "");
 				localStorage.setItem('save_point',0);
 				$("#buttonYes").hide();
