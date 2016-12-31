@@ -1028,7 +1028,7 @@ coffinArray[4] = "I reached down and opened the lid. There was another note. \"O
 
 // failure to select the proper coffin results in failArray[34]
 // success advances instructionArray[50]
-coffinArray[5] = "Which coffin do I open third? Choose a numeral from 1-17";
+coffinArray[5] = "Which coffin do I open third? Choose a number from 1-17";
 failArray[34] = "I reached down and opened the lid. There was a bright flash and explosion. I briefly could feel my flesh burning, then I thought of Jessica...This is the end of my story.";
 
 // instruction fifty
@@ -1378,6 +1378,7 @@ function naming() {
     txt.addEventListener("keypress", function() {
         if (event.keyCode == 13) go.click();
     });
+    $("#myText").val("");
 
 	//console.log("starting first print out");
 
@@ -1390,22 +1391,10 @@ function naming() {
 			localStorage.setItem('name', name);
 			if ( name !== "" ) {
 				$("#instructions").empty();
-
-				//var test = 0;
-
-            //if (test == -1){
-				/*while (done_typing == false) {
-					if (started_typing == false) {
-						spooky_type("Is " +name+" my correct name?", 0);
-						started_typing = true;
-					}
-				//spin loop until typing finishes
-				}
-				started_typing = false;
-				done_typing = false;
-				*/
+				$("#myText").val("");
 				$('#textInput').val('');
 				$("#textInput").hide();
+
 				//$("#buttonYes").delay(delay_value).fadeIn();
 				$("#instructions2").empty();
 				//$("#instructions").appendTo("<p>thesearetestwords</p>");
@@ -1432,6 +1421,7 @@ function naming() {
 			else  {
 				$("#instructions").empty();
 				$("#instructions2").empty();
+				$("#myText").val("");
 				$('#textInput').val('');
 				$("#instructions2").append("                 Please type in my name.");
 				naming();
@@ -1926,36 +1916,41 @@ function show_buttons(story_cursor, yes, no, yes_fail, no_fail) {
     $("#buttonOptions").delay(delay_value).fadeIn();
 }
 
+// coffin_game: recursive function that plays the coffin game step by step.
+// input variable which_step will be in range[0..3]
+// if invalid value is entered, an error message will be printed and the
+// function will be recursively called.  The extra call is harmless because
+// the stack will unwind when done.
+// To win the coffin game, the user must select coffins 3, then 17, then 5, in that order.
+function coffin_game (which_step) {
+    // empty the text box input string so it doesn't show the name or previous coffin value.
+    $("#myText").val("");
 
-
-function coffin_game(which_step) {
-    if (which_step == 0){
+    if (which_step == 0) {
         skippable = false;
         dramatic_parse(false,-1,coffinArray[0], function () {
 			coffin_game(1);
         });
-    }
-    else if (which_step == 1){
+    } else if (which_step == 1) {
         skippable = false;
         dramatic_parse(false,-1,coffinArray[1], function () {
-                $("#buttonOptions").hide();
-                $("#buttonYes").hide();
-                $("#textInput").show();
-                $("#button").one("click", function () {
-                    $("#textInput").hide();
-                    var choice = document.getElementById("myText").value;
-                if (choice <= 2 || choice >= 4) {
-                    dead_dead(32,70);
-                }
-                else if (choice > 17 || choice < 0) {
+            $("#buttonOptions").hide();
+            $("#buttonYes").hide();
+            $("#textInput").show();
+            $("#button").one("click", function () {
+                $("#textInput").hide();
+                var choice = document.getElementById("myText").value;
+                if (choice > 17 || choice < 1) { // range check [1..17]
                     dramatic_parse(false,-1,"Please enter a number between 1 and 17.   ", function () {
                         coffin_game(1);
-                    })
-                }
-                else if (choice == 3) {
+                    });
+                } else if (choice == 3) { // step 1 succeeds if coffin 3 chosen
                     total_correct_choices++;
-                    dramatic_parse(false,-1,coffinArray[2],function(){
-                        coffin_game(2);});
+                    dramatic_parse(false,-1,coffinArray[2],function() {
+                        coffin_game(2);
+                    });
+                } else { // die if first choice is not 3.
+                    dead_dead(32,70);
                 }
             });
         });
@@ -1968,24 +1963,21 @@ function coffin_game(which_step) {
             $("#button").one("click", function () {
                 $("#textInput").hide();
                 var choice = document.getElementById("myText").value;
-                if (choice != 3 && choice != 17) {
-                    dead_dead(33,70);
-                }
-                else if (choice == 3) {
+                if (choice > 17 || choice < 1) { // range check [1..17]
+                    dramatic_parse(false,-1,"Please enter a number between 1 and 17.   ", function () {
+                        coffin_game(2);
+                    });
+                } else if (choice == 3) { // already opened 3.
                     dramatic_parse(false,-1,"I already opened that coffin...  ", function () {
                         coffin_game(2);
                     });
-                }
-                else if (choice > 17 || choice < 0) {
-                    dramatic_parse(false,-1,"Please enter a number between 1 and 17.   ", function () {
-                        coffin_game(2);
-                    })
-                }
-                else if (choice == 17) {
+                } else if (choice == 17) { // step 2 succeeds if coffin 17 opened.
                     total_correct_choices++;
                     dramatic_parse(false,-1,coffinArray[4], function () {
                         coffin_game(3);
                     });
+                } else { // die if second choice is not 17.
+                    dead_dead(33,70);
                 }
             });
         });
@@ -1998,24 +1990,20 @@ function coffin_game(which_step) {
             $("#button").one("click", function () {
                 $("#textInput").hide();
                 var choice = document.getElementById("myText").value;
-                if (choice != 3 && choice != 17 && choice != 5) {
-                    dead_dead(34,70);
-                }
-                else if (choice == 3 || choice == 17) {
+                if (choice > 17 || choice < 1) { // range check [1..17]
+                    dramatic_parse(false,-1,"Please enter a number between 1 and 17.   ", function () {
+                        coffin_game(3);
+                    });
+                } else if (choice == 3 || choice == 17) {
                     dramatic_parse(false,-1,"I already opened that coffin...  ", function () {
                         coffin_game(3);
                     });
-                }
-                else if (choice > 17 || choice < 0) {
-                    dramatic_parse(false,-1,"Please enter a number between 1 and 17.   ", function () {
-                        coffin_game(3);
-                    })
-                }
-                else if (choice == 5) {
+                } else if (choice == 5) {
                     total_correct_choices++;
                     story_mode(50);
+                } else { // die if third choice is not 5.
+                    dead_dead(34,70);
                 }
-
             });
         });
     }
@@ -2024,11 +2012,7 @@ function coffin_game(which_step) {
 //function dead_dead()
 /*
     makes the buttons regarding death appear
-
-
 */
-
-
 function dead_dead(death_cursor,origin) {
     var done_check = 0;
     total_deaths++;
