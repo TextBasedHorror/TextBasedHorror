@@ -1352,8 +1352,7 @@ function naming() {
     $("#textInput").hide();
     $("#textInput").delay(2500).fadeIn();
     
-	$('.yes1').off();
-    $('.no1').off();
+    $('.yes1').off();    $('.no1').off();
     //$('.yes1').on();
     //$('.no1').on();
     $("#button").off();
@@ -1672,14 +1671,14 @@ function dramatic_parse(is_death,sound_index,sentence, callback) {
 	//console.log("dramatic parsing");
 	clear_callback = function clear_callback() { callback() };
 	$("#instructions").empty();
-  window.setTimeout(function(){skippable = true;}, 500);
+    window.setTimeout(function(){skippable = true;}, 500);
 
 	type_speed = 60;
 
 	current_sentence = sentence;
 	single_callback = false;
 	skip_text = false;
-  skippable = false;
+    skippable = false;
 
     var has_dramatic_sound = false;
     //calls left
@@ -1697,7 +1696,7 @@ function dramatic_parse(is_death,sound_index,sentence, callback) {
         }
     }
 
- $("#instructions").appendTo("\n")
+    $("#instructions").appendTo("\n");
     //next_chara[] is an array that holds the individual characters of a section of script
 	next_chara = [];
 
@@ -2106,35 +2105,37 @@ not actually needed, actually. yay!
 		}(), 1000);
 	}
 
+// Display the rest of the text when user shows impatience 
+// by clicking mouse or pressing a key.
 function impatience() {
-  var new_sentence = current_sentence.slice(keep_iter)+"";
-  skip_text = true;
-  if (skippable == true && single_callback == false) {
-      if (text_timer.length != null || text_timer.length != 0) {
-          for (var makeloop = 0; makeloop < text_timer.length; makeloop++) {
-              clearTimeout(text_timer[makeloop]);
-          }
+    skip_text = true;
+    if (skippable == true && single_callback == false) {
+        if (text_timer.length != null || text_timer.length != 0) {
+            for (var makeloop = 0; makeloop < text_timer.length; makeloop++) {
+                clearTimeout(text_timer[makeloop]);
+            }
 
-          var break_check = new_sentence.indexOf("|");
-          //console.log("break_check = " + break_check);
-          if (break_check != -1){
-              while (break_check != -1){
-                  new_sentence = new_sentence.replace("|","<br>");
-                  break_check = new_sentence.indexOf("|");
-              }
-          }
-          //console.log("passed break check");
-          $("#instructions").append(new_sentence);
-          skip_text = false;
-          text_timer = [];
-          keep_iter = 0;
-          iterate = 0;
-          current_sentence = "";
-          single_callback = true;
-          calls_left = 0;
-          clear_callback();
-      }
-  }
+            // Get the remainder of the sentence that has not yet been displayed.
+            var new_sentence = current_sentence.slice(keep_iter);
+          
+            // Replace all pipe marks in the sentence with <br> html tag
+            // using global 'g' regular expression replacement.
+            new_sentence = new_sentence.replace(/\|/g,"<br>");
+            console.log("current sentence: " + current_sentence);
+            console.log("new sentence: " + new_sentence);
+
+            // Append the rest of the sentence to the screen right now.          
+            $("#instructions").append(new_sentence);
+            skip_text = false;
+            text_timer = [];
+            keep_iter = 0;
+            iterate = 0;
+            current_sentence = "";
+            single_callback = true;
+            calls_left = 0;
+            clear_callback();
+        }
+    }
 }
 
 document.addEventListener("keydown", function(event){
