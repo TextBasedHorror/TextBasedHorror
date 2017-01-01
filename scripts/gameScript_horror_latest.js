@@ -134,6 +134,12 @@ var s_page_turn = "page_turn";
 //this function pair is from the original game; makes lightning flash and creates the creepy laugh after the user has clicked
 $(document).ready(function(){
     var interval = setInterval(timerIncrement, 60000);
+/*
+    Removing this listener because another keydown listener that does
+	the same thing is added near the end of this file.  The duplication
+	was causing the part of the story sentence to be printed twice,
+	once in spooky fashion and once skipped.
+	
     document.addEventListener("keydown", function (event) {
         //console.log("I\'M PUSHING KEYS!!!!");
         //console.log("skippable = " + skippable);
@@ -176,7 +182,7 @@ $(document).ready(function(){
             }
         }
     });
-
+*/
 	start_game();
 	//start_game();
 });
@@ -1312,7 +1318,7 @@ horror_sound_death[70] = new scary_sound(s_axe,30);
 horror_sound_action[71] = new action_sound(s_nosound,s_nosound);
 horror_sound_scary[71] = new scary_sound(s_axe,-1);
 horror_sound_death[71] = new scary_sound(s_axe,-1);
-failArray[48] = "You won the game.";
+failArray[48] = "I couldn't make a decision in time and this is the end of my story";
 
 } // initialize_choice_arrays() 
 
