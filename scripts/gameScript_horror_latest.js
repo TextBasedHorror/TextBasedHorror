@@ -1345,8 +1345,14 @@ function start_game() {
 
 
 function naming() {
-    $("#textInput").fadeIn();
-    $('.yes1').off();
+    // Delay 2.5 seconds for dramatic typing of "What is my name?" 
+    // before showing text box and button.
+    $("#button").hide();
+    $("#button").delay(2500).fadeIn();
+    $("#textInput").hide();
+    $("#textInput").delay(2500).fadeIn();
+    
+	$('.yes1').off();
     $('.no1').off();
     //$('.yes1').on();
     //$('.no1').on();
