@@ -20,6 +20,9 @@ Maurice Sandoval - https://github.com/mauricesandoval
 
 Brandon Westerman - https://github.com/dekhaz
 
+Samuel Sanseri - https://github.com/ssanseri
+
+
 
 
 
