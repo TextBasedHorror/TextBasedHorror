@@ -10,6 +10,7 @@ $("#content").show();
 //instructions array
 var instructionArray = new Array();
 
+// Keep track of all the previous choices made in the game.
 // Back button can pop previous choice off the stack.
 var gameStack = [];
 
@@ -1539,7 +1540,7 @@ function dead_dead (death_cursor,origin) {
 	skippable = true;
 	clickable = true;
 	skip_text = false;
-    //document.getElementById('laugh').play();
+    document.getElementById('laugh').play();
     dramatic_parse(true,origin,failArray[death_cursor]+"||Do you want to play again?",function() {
 		$(".yesDead").one("click", function () {
 			$('#buttonYes').hide();
@@ -1915,12 +1916,12 @@ function introduction (name) {
 }
 
 function naming() {
-    // Delay 2.5 seconds for dramatic typing of "What is my name?" 
+    // Delay 2.2 seconds for dramatic typing of "What is my name?" 
     // before showing text box and button.
     $("#button").hide();
-    $("#button").delay(2500).fadeIn();
+    $("#button").delay(2200).fadeIn();
     $("#textInput").hide();
-    $("#textInput").delay(2500).fadeIn();
+    $("#textInput").delay(2200).fadeIn();
     
     $('.yes1').off();    
 	$('.no1').off();
@@ -1950,7 +1951,7 @@ function naming() {
 				$("#textInput").hide();
 				$("#instructions2").empty();
 				dramatic_parse(false,-1,"                 Is " +name+ " my correct name?",function() {
-					$(".yes1").one( "click", function(){
+					$(".yes1").one( "click", function() {
 						$("#buttonYes").hide();
 						$("#instructions").empty();
 						$("#instructions2").empty();
@@ -1959,11 +1960,10 @@ function naming() {
                         $("#instructions").css("text-align", "left");
 						introduction(name);
 					});
-					$(".no1").one( "click", function(){
+					$(".no1").one( "click", function() {
 						$("#buttonYes").hide();
 						$("#instructions").empty();
 						$("#instructions2").empty();
-
 						naming();
 					});
 					$("#buttonYes").delay(30).fadeIn();
