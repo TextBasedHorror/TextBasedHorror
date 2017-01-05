@@ -1,22 +1,17 @@
 $("#content").hide();
 $("#buttonOptions").hide();
 $("#buttonReveal").hide();
+$("#buttonBack").hide();
 $("#buttonYes").hide();
 $("#coffins").hide();
 $("#content").removeClass("hiddenstuff");
 $("#content").show();
-/*
-setTimeout(function{
-    $.getScript("scripts/gameScript.js", function( data, textStatus, jqxhr ) {
-      console.log( data ); // Data returned
-      console.log( textStatus ); // Success
-      console.log( jqxhr.status ); // 200
-      console.log( "Load was performed." );
-    });},100);
-*/
 
 //instructions array
 var instructionArray = new Array();
+
+// Back button can pop previous choice off the stack.
+var gameStack = [];
 
 //yes_options controls the buttons on the left side's text
 var yes_options = new Array();
@@ -128,78 +123,6 @@ var s_nosound = "silence";
 
 var s_page_turn = "page_turn";
 
-//var done_typing = false;
-//var started_typing = false;
-
-//this function pair is from the original game; makes lightning flash and creates the creepy laugh after the user has clicked
-$(document).ready(function(){
-    var interval = setInterval(timerIncrement, 60000);
-/*
-    Removing this listener because another keydown listener that does
-	the same thing is added near the end of this file.  The duplication
-	was causing the part of the story sentence to be printed twice,
-	once in spooky fashion and once skipped.
-	
-    document.addEventListener("keydown", function (event) {
-        //console.log("I\'M PUSHING KEYS!!!!");
-        //console.log("skippable = " + skippable);
-        //console.log("skip_text = " + skip_text);
-        //console.log("single_callback = " + single_callback);
-
-        var new_sentence = current_sentence.slice(keep_iter)+"";
-        //console.log(current_sentence);
-        //console.log(current_sentence.slice(keep_iter));
-        //console.log(new_sentence);
-        skip_text = true;
-        if (skippable == true && single_callback == false) {
-            //console.log("I\'M IN YOUR LOOP");
-            if (text_timer.length != null || text_timer.length != 0) {
-                for (var makeloop = 0; makeloop < text_timer.length; makeloop++) {
-                    clearTimeout(text_timer[makeloop]);
-                    //console.log("i'm clearing timeouts!");
-                    //console.log("x = " + makeloop);
-                }
-
-                var break_check = new_sentence.indexOf("|");
-                //console.log("break_check = " + break_check);
-                if (break_check != -1){
-                    //console.log("break_check = " + break_check);
-                    while (break_check != -1){
-                        new_sentence = new_sentence.replace("|","<br>");
-                        break_check = new_sentence.indexOf("|");
-                    }
-                }
-                //console.log("passed break check");
-                $("#instructions").append(new_sentence);
-                skip_text = false;
-                text_timer = [];
-                keep_iter = 0;
-                iterate = 0;
-                current_sentence = "";
-                single_callback = true;
-                calls_left = 0;
-                clear_callback();
-            }
-        }
-    });
-*/
-	start_game();
-	//start_game();
-});
-
-function timerIncrement(){
-    idleTime = idleTime +1;
-    if (idleTime > 5) {
-        //document.getElementById('laugh').play();
-        setTimeout(function(){document.body.style.backgroundColor = '#000000'},0);
-        setTimeout(function(){document.body.style.backgroundColor = '#FFFFFF'},100);
-        setTimeout(function(){document.body.style.backgroundColor = '#000000'},200);
-        setTimeout(function(){document.body.style.backgroundColor = '#FFFFFF'},300);
-        setTimeout(function(){document.body.style.backgroundColor = '#000000'},400);
-    }
-}
-
-
 //note: the new game option simply deletes local storage.
 //so save game checks can just look for storage
 //notes included to explain program flow
@@ -223,7 +146,7 @@ function scrollPageDown() {
 }
 
 // FUNCTION LIST
-//function horror(flag_save, flag_fail_yes, flag_fail_no, link_yes, link_no)
+//function horror(flag_save, flag_fail_yes, flag_fail_no, link_yes, link_no, coffin_yes, coffin_no)
 /*
     this function is a constructor for an object containing data about what to do in the story at each point
     these objects will be held in an array with the index being equivalent to each instruction set.
@@ -235,11 +158,8 @@ function scrollPageDown() {
         pull text from failArray, not instructionArray
 
     link_yes and link_no tell the program where to go for the next instruction set
-
-
 */
-
-function horror(flag_save, flag_fail_yes, flag_fail_no, link_yes, link_no,coffin_yes,coffin_no) {
+function horror (flag_save, flag_fail_yes, flag_fail_no, link_yes, link_no,coffin_yes,coffin_no) {
     this.savePoint = flag_save;
     this.failYes = flag_fail_yes;
     this.failNo = flag_fail_no;
@@ -249,10 +169,8 @@ function horror(flag_save, flag_fail_yes, flag_fail_no, link_yes, link_no,coffin
     this.coffinNo = coffin_no;
 }
 
-
-
 //this function will play a sound, specified by element id, which is a string value. laugh makes a spooky laugh happen, for example.
-function play_sound(sound_id){
+function play_sound (sound_id) {
 	if (sound_id != "silence") {
     		document.getElementById(sound_id).play();
 	}
@@ -261,7 +179,7 @@ function play_sound(sound_id){
 //this is an object, that will help point to sounds at every part of story mode.
 //it will do this by creating an array of these elements, where the index of the action_sound corresponds to the value of the story cursor
 //horror_sound is the array that holds our values
-function action_sound(sound_yes,sound_no) {
+function action_sound (sound_yes,sound_no) {
     //sound_yes would be a pointer to a sound element that needs to be played by the LEFT button (yes_button by old id)
     this.sound_yes = sound_yes;
     //sound_no would be a pointer to a sound element that needs to be played by the RIGHT button (no_button by old id)
@@ -271,7 +189,7 @@ function action_sound(sound_yes,sound_no) {
 //this is an object, to be held in an array. this allows sounds to be played at a specific character in printout.
 //the array will be searched at the start of dramatic parse, and will flag whether or not a sound needs to be played in that paragraph.
 // the array's indexes will correspond to the value of the story cursor
-function scary_sound(which_sound,char_index_to_play) {
+function scary_sound (which_sound,char_index_to_play) {
     this.sound = which_sound;
     this.char_index = char_index_to_play;
 }
@@ -280,7 +198,6 @@ var horror_info = new Array();
 var horror_sound_action = new Array();
 var horror_sound_scary = new Array();
 var horror_sound_death = new Array();
-
 
 // Initialize the story's state machine.
 // Making this a function so name can be initialized before state machine
@@ -1321,236 +1238,6 @@ failArray[48] = "I couldn't make a decision in time and this is the end of my st
 
 } // initialize_choice_arrays() 
 
-//function start_game()
-/* this function will determine start of game behavior
-
-
-*/
-
-function start_game() {
-    var myName = localStorage.getItem('name');
-    if (myName !== null && myName !== "" && myName !== undefined) {
-        name = myName;
-    } else {
-        name = "";
-    };
-    console.log(myName);
-    $("#buttonOptions").hide();
-    $("#buttonReveal").hide();
-    $("#buttonYes").hide();
-    $("#coffins").hide();
-    $("#intro").append("TEXT-BASED HORROR");
-    $("input:text:visible:first").focus();
-    if (name !== "") {
-        introduction(name);
-    } else {
-        naming();
-    };
-};
-
-
-function naming() {
-    // Delay 2.5 seconds for dramatic typing of "What is my name?" 
-    // before showing text box and button.
-    $("#button").hide();
-    $("#button").delay(2500).fadeIn();
-    $("#textInput").hide();
-    $("#textInput").delay(2500).fadeIn();
-    
-    $('.yes1').off();    $('.no1').off();
-    //$('.yes1').on();
-    //$('.no1').on();
-    $("#button").off();
-    //$("#button").on();
-    $("#instructions").empty();
-    // $("#content")
-    //     .removeClass('col-md-8')
-    //     .addClass('col-md-4');
-
-
-
-    //$("#instructions").show();
-    //var done_check = 0;
-   /* started_typing = false;
-	while (done_typing == false){
-		if (started_typing == false){
-		spooky_type("What is my name?",0);
-		started_typing = true;
-		}
-	}
-	started_typing = false;
-	done_typing = false;
-    */
-
-    // for being able to press [enter] key to submit
-    var go = document.getElementById("button");
-    var txt = document.getElementById("myText");
-    txt.addEventListener("keypress", function() {
-        if (event.keyCode == 13) go.click();
-    });
-    $("#myText").val("");
-
-	//console.log("starting first print out");
-
-	dramatic_parse(false,-1,"                 What is my name?",function(){
-		$("#button").one("click",function(){
-			name = document.getElementById("myText").value;
-            name = name.trim();
-            name = name[0].toUpperCase() + name.slice(1);
-		
-			localStorage.setItem('name', name);
-			if ( name !== "" ) {
-				$("#instructions").empty();
-				$("#myText").val("");
-				$('#textInput').val('');
-				$("#textInput").hide();
-
-				//$("#buttonYes").delay(delay_value).fadeIn();
-				$("#instructions2").empty();
-				//$("#instructions").appendTo("<p>thesearetestwords</p>");
-				dramatic_parse(false,-1,"                 Is " +name+ " my correct name?",function(){
-					$(".yes1").one( "click", function(){
-						$("#buttonYes").hide();
-						$("#instructions").empty();
-						$("#instructions2").empty();
-						localStorage.setItem('name', name);
-
-                        $("#instructions").css("text-align", "left");
-						introduction(name);
-					});
-					$(".no1").one( "click", function(){
-						$("#buttonYes").hide();
-						$("#instructions").empty();
-						$("#instructions2").empty();
-
-						naming();
-					});
-					$("#buttonYes").delay(30).fadeIn();
-				});
-			}
-			else  {
-				$("#instructions").empty();
-				$("#instructions2").empty();
-				$("#myText").val("");
-				$('#textInput').val('');
-				$("#instructions2").append("                 Please type in my name.");
-				naming();
-			}
-		});
-
-		//$("#myText").keypress(function(e){
-			//if(e.which == 13){
-				//$("#button").click();
-			//}
-	});
-
-}
-
-function introduction(name) {
-    // wait until we know the person's name before initializing the choices 
-    // because some of the story's text strings contain the name.
-    initialize_choice_arrays();
-
-    $("#buttonYes").hide();
-    $("#textInput").hide();
-    var save_point = localStorage.getItem('save_point');
-    console.log(save_point);
-
-    // for adjusting the bootstrap grid columns
-    // useful for changing the width of the grid for when the story
-    // text actually starts
-    // this needs to match functionstory_mode()!!
-    adjustGrid();
-
-    if (save_point != null) {
-        skippable = true;
-        skip_text = false;
-        single_callback = false;
-        story_mode(parseInt(save_point));
-    } else {
-        $("#instructions2").empty();
-        $("#instructions").empty();
-        skippable = true;
-        skip_text = false;
-
-        dramatic_parse(false,-1,"My name is " +name+ ". The choices I make will determine if I live or die. \nDo I dare start this horrific journey?",function(){
-            single_callback = false;
-            $("#buttonYes").delay(240).fadeIn();
-			$("#textInput").hide();
-			$(".yes1").one( "click", function(){
-				$("#buttonYes").hide();
-				$("#instructions").empty();
-				$("#instructions2").empty();
-				//var done_intro = 0;
-				single_callback = false;
-				story_mode(0);
-
-			});
-			$(".no1").one( "click", function(){
-				localStorage.setItem('name', "");
-				$("#buttonYes").hide();
-				$("#instructions").empty();
-				$("#instructions2").empty();
-				for (var definer = 0; definer < text_timer.length; definer++) {
-					clearTimeout(text_timer[definer]);
-					console.log("i'm clearing timeouts!");
-				}
-				adjustGridBack();
-				naming();
-		});});
-    }
-}
-
-
-
-function adjustGrid() {
-    $("#rowBumperLeft")
-        .removeClass('col-lg-4')
-        .removeClass('col-md-4')
-
-        .addClass('col-lg-2')
-        .addClass('col-md-2');
-
-    $("#rowBumperCenter")
-        .removeClass('col-lg-4')
-        .removeClass('col-md-4')
-
-        .addClass('col-lg-8')
-        .addClass('col-md-8');
-
-    $("#rowBumperRight")
-        .removeClass('col-lg-4')
-        .removeClass('col-md-4')
-
-        .addClass('col-lg-2')
-        .addClass('col-md-2');
-    return;
-}
-
-function adjustGridBack() {
-    $("#rowBumperLeft")
-        .addClass('col-lg-4')
-        .addClass('col-md-4')
-
-        .removeClass('col-lg-2')
-        .removeClass('col-md-2');
-
-    $("#rowBumperCenter")
-        .addClass('col-lg-4')
-        .addClass('col-md-4')
-
-        .removeClass('col-lg-8')
-        .removeClass('col-md-8');
-
-    $("#rowBumperRight")
-        .addClass('col-lg-4')
-        .addClass('col-md-4')
-
-        .removeClass('col-lg-2')
-        .removeClass('col-md-2');
-    return;
-}
-
 /*		
 Make a tracking system for how many correct choices the person makes vs how many incorrect choices. The total number of correct choices vs incorrect choices will be displayed at the end of the game. Note: If a person makes an incorrect choice, dies and then plays again and makes the correct choice, this would be one incorrect choice and zero incorrect choices.
 If a person gets 100% of all choices right, they are rewarded the status: Survival Perfectionist! You got every single answer RIGHT!
@@ -1616,49 +1303,7 @@ function end_game_winner (story_cursor) {
     show_buttons(story_cursor, yes_options[story_cursor], no_options[story_cursor], horror_info[story_cursor].failYes, horror_info[story_cursor].failNo);
 }
 
-function story_mode(story_cursor) {
-    if (horror_info[story_cursor].savePoint == true){
-        localStorage.setItem('save_point', story_cursor);
-    }
-	console.log("story mode: " + story_cursor);
-    $("#instructions").empty();
-    $("#instructions2").empty();
-    $("#story").empty();
-    $("#textInput").hide();
-    $('#buttonReveal').hide();
-    $('#buttonOptions').hide();
-    $("#buttonYes").hide();
-	skippable = false;
-	clickable = false;
-	skip_text = false;
-    keep_iter = 0;
-    total_calls = 0;
-    iterate = 0;
-    adjustGrid();
-
-    if (story_cursor == 70) { // you won the game
-        end_game_winner(story_cursor);
-        return;
-    } 
-    dramatic_parse(false,story_cursor,instructionArray[story_cursor],function(){
-        single_callback = false;
-        revealOptions(story_cursor, yes_options[story_cursor], no_options[story_cursor], horror_info[story_cursor].failYes, horror_info[story_cursor].failNo);
-		//show_buttons(story_cursor, yes_options[story_cursor], no_options[story_cursor], horror_info[story_cursor].failYes, horror_info[story_cursor].failNo);
-    });
-}
-
-
-//function dramatic_parse(instruction_set, callback)
-/*
-    the dramatic parse will separate text blocks in instructions and fail messages and split them into an array of sentences.
-    iterating through the sentence list it will call a spooky_type chain to print the sentences.
-
-    (thought: if # of sentences % 2 or 3 == 0 then remerge sentences into sets of two or three.)
-
-
-*/
-
-function random_type(chara){
+function random_type (chara) {
 	var rando_value = 0;
 	sine_wave++;
 	if (sine_wave = 101) {sine_wave = 1;}
@@ -1671,7 +1316,14 @@ function random_type(chara){
 	return rando_value;
 }
 
-function dramatic_parse(is_death,sound_index,sentence, callback) {
+//function dramatic_parse(instruction_set, callback)
+/*
+    the dramatic parse will separate text blocks in instructions and fail messages and split them into an array of sentences.
+    iterating through the sentence list it will call a spooky_type chain to print the sentences.
+
+    (thought: if # of sentences % 2 or 3 == 0 then remerge sentences into sets of two or three.)
+*/
+function dramatic_parse (is_death,sound_index,sentence, callback) {
     startScrollPageDownLoop();
 	//console.log("dramatic parsing");
 	clear_callback = function clear_callback() { callback() };
@@ -1692,7 +1344,6 @@ function dramatic_parse(is_death,sound_index,sentence, callback) {
     if (sound_index != -1) {has_dramatic_sound = true;}
     if (has_dramatic_sound){
         if (is_death) {
-
             var sound_to_play = horror_sound_death[sound_index].sound;
             var when_to_play = horror_sound_death[sound_index].char_index;
         } else {
@@ -1719,7 +1370,6 @@ function dramatic_parse(is_death,sound_index,sentence, callback) {
 	//this allows us to iterate through the timeout list and clear timeouts in case of text skipping
 
     text_timer = [];
-
 
 	//beginning our loop
 	//this loop sets up the array of characters and creates our timeout events
@@ -1753,44 +1403,42 @@ function dramatic_parse(is_death,sound_index,sentence, callback) {
 		//if iterate is still within the limits of our array
 		//then we can set up a timeout event
 	    if (iterate < total_calls) {
-	            text_timer.push( setTimeout(function () {
-	            //spooky_type(paragraph, i);
+            text_timer.push( setTimeout(function () {
 	            //console.log("timeout function will be executed at " + keep_iter);
 	            //console.log("text timer pushed. text timer array length: " + text_timer.length);
-					//the next lines are the function handed to timeout
-					//we must use keep_iter within the timeout, rather than iterate
-					//this is because we have already iterated iterate and we need a method
-					//that will let us go through the array again
-						//at the end of our timeout events. keep iter is incremented;
-						//this allows us to type the characters in order
+				//the next lines are the function handed to timeout
+				//we must use keep_iter within the timeout, rather than iterate
+				//this is because we have already iterated iterate and we need a method
+				//that will let us go through the array again
+				//at the end of our timeout events. keep iter is incremented;
+				//this allows us to type the characters in order
 
-					//this check will tell the program to use pipes as a marker for a newline.
-                    if ((keep_iter == when_to_play) && (has_dramatic_sound)) {
-                        play_sound(sound_to_play);
-                    }
-                    if (next_chara[keep_iter] == '|') {
-						$("#instructions").append("<br>&nbsp;&nbsp;&nbsp;&nbsp;");
-					} else {
-						$("#instructions").append("" + next_chara[keep_iter]);
-                        //last_print = keep_iter;
-					}
-					//console.log("keep_iter: " + keep_iter);
-					//console.log("next_chara: " + next_chara[keep_iter]);
-					//console.log("iterate: " + iterate);
-					//console.log("total_calls: " + total_calls);
-					keep_iter++;
-
-				}, type_speed));
-				//we are now out of the timeout event setup
-				//if we aren't skipping text; let's get increase the timestamp
-				//this will let us sequence our events properly
-	            if (skip_text != true) {
-	                type_speed = type_speed + random_type(next_chara[iterate]);
-	            }
+				//this check will tell the program to use pipes as a marker for a newline.
+                if ((keep_iter == when_to_play) && (has_dramatic_sound)) {
+                    play_sound(sound_to_play);
+                }
+                if (next_chara[keep_iter] == '|') {
+					$("#instructions").append("<br>&nbsp;&nbsp;&nbsp;&nbsp;");
+				} else {
+					$("#instructions").append("" + next_chara[keep_iter]);
+                    //last_print = keep_iter;
+				}
+				//console.log("keep_iter: " + keep_iter);
+				//console.log("next_chara: " + next_chara[keep_iter]);
+				//console.log("iterate: " + iterate);
+				//console.log("total_calls: " + total_calls);
+				keep_iter++;
+			}, type_speed));
+			//we are now out of the timeout event setup
+			//if we aren't skipping text; let's get increase the timestamp
+			//this will let us sequence our events properly
+	        if (skip_text != true) {
+	            type_speed = type_speed + random_type(next_chara[iterate]);
+	        }
 	    }
 		//calls left is decremented for each call set up.
 		//if all calls have been successfully set up then:
-			//we will be able to make the final timeout event
+		//we will be able to make the final timeout event
 	    calls_left = calls_left - 1;
 	    //console.log("call finished, remaining: " + calls_left);
     }
@@ -1820,110 +1468,104 @@ function dramatic_parse(is_death,sound_index,sentence, callback) {
     endScrollPageDownLoop();
 }
 
+function adjustGrid() {
+    $("#rowBumperLeft")
+        .removeClass('col-lg-4')
+        .removeClass('col-md-4')
 
-//function spooky_type(current_sentence)
-/*
-    recursive function that will print a sentence character by character
+        .addClass('col-lg-2')
+        .addClass('col-md-2');
 
+    $("#rowBumperCenter")
+        .removeClass('col-lg-4')
+        .removeClass('col-md-4')
 
-*/
+        .addClass('col-lg-8')
+        .addClass('col-md-8');
 
-function spooky_type(sentence,cursor){
-    if (cursor == 0) {
-        $("#instructions").appendTo("    ");
-    }
-    if (cursor === sentence.length){
-        //done_typing = true;
-		return -1;
-    }
-    var next_char = sentence.charAt(cursor);
-    $("#instructions").append(next_char);
-	/*
-    cursor++;
-    //return function(){setTimeout(function(){spooky_type(sentence,cursor)},type_speed)};
-	setTimeout(function(){
-		//var return_check = 0;
-		spooky_type(sentence,cursor);
-		//console.log(return_check);
-		//if (return_check == -1) {return return_check;}
-	},type_speed);
-	return 0;
-	*/
+    $("#rowBumperRight")
+        .removeClass('col-lg-4')
+        .removeClass('col-md-4')
+
+        .addClass('col-lg-2')
+        .addClass('col-md-2');
+    return;
 }
 
+function adjustGridBack() {
+    $("#rowBumperLeft")
+        .addClass('col-lg-4')
+        .addClass('col-md-4')
 
-//function show_buttons(yes,no)
+        .removeClass('col-lg-2')
+        .removeClass('col-md-2');
+
+    $("#rowBumperCenter")
+        .addClass('col-lg-4')
+        .addClass('col-md-4')
+
+        .removeClass('col-lg-8')
+        .removeClass('col-md-8');
+
+    $("#rowBumperRight")
+        .addClass('col-lg-4')
+        .addClass('col-md-4')
+
+        .removeClass('col-lg-2')
+        .removeClass('col-md-2');
+    return;
+}
+
+//function dead_dead()
 /*
-    make the buttons appear with the proper text
-
+    makes the buttons regarding death appear
 */
-
-function revealOptions(story_cursor, yes, no, yes_fail, no_fail){
-	skippable = false;
-	$('#buttonReveal').delay(delay_value).fadeIn();
-	$('#buttonReveal').one('click', function() {
-		startScrollPageDownLoop;
-		$("#buttonReveal").hide();
-		show_buttons(story_cursor, yes, no, yes_fail, no_fail);
-		clock = $("#time");
-		startTimer(10,clock);
-		endScrollPageDownLoop;
+function dead_dead (death_cursor,origin) {
+    var done_check = 0;
+    total_deaths++;
+    console.log("death_cursor " + death_cursor + " total deaths " + total_deaths);
+    $('#textInput').hide();
+    $('#buttonOptions').hide();
+    $('#yes').off();
+    $('#no').off();
+    $('.yesDead').off();
+    $('.noDead').off();
+    $("#instructions").empty();
+    $("#instructions2").empty();
+    $("#story").empty();
+    $('#buttonReveal').hide();
+    $('#buttonBack').hide();
+    $("#buttonYes").hide();
+	skippable = true;
+	clickable = true;
+	skip_text = false;
+    //document.getElementById('laugh').play();
+    dramatic_parse(true,origin,failArray[death_cursor]+"||Do you want to play again?",function() {
+		$(".yesDead").one("click", function () {
+			$('#buttonYes').hide();
+			$("#instructions").empty();
+			story_mode(localStorage.getItem('save_point'));
+		});
+		$(".noDead").one("click", function () {
+			$('#buttonYes').hide();
+            dramatic_parse(false,-1,"I have failed...|||      ", function() {
+                total_deaths = 0;
+                total_correct_choices = 0;
+				localStorage.setItem('name', "");
+				localStorage.setItem('save_point',0);
+				$("#buttonYes").hide();
+				$("#instructions").empty();
+				$("#instructions2").empty();
+				for (var definer = 0; definer < text_timer.length; definer++) {
+					clearTimeout(text_timer[definer]);
+					console.log("i'm clearing timeouts!");
+				}
+				adjustGridBack();
+				naming();
+			});
+		});
+		$('#buttonYes').delay(delay_value).fadeIn();
 	});
-}
-
-
-function show_buttons(story_cursor, yes, no, yes_fail, no_fail) {
-    $("#yes").off();
-    $("#no").off();
-	clickable = false;
-    skippable = false;
-    $("#yes").html("<p>" + yes + "</p>");
-    $("#no").html("<p>" + no + "</p>");
-    if (horror_info[story_cursor].coffinYes) {
-        $("#yes").one("click", function () {
-            play_sound(horror_sound_action[story_cursor].sound_yes);
-			coffin_game(0);
-		});
-	}
-    else if (yes_fail) {
-        $("#yes").one("click", function () {
-            play_sound(horror_sound_action[story_cursor].sound_yes);
-            $("#buttonOptions").hide();
-            dead_dead(horror_info[story_cursor].linkYes,story_cursor);
-        });
-    } else {
-        $("#yes").one("click", function () {
-            total_correct_choices++;
-            console.log("story cursor " + story_cursor + " " + total_correct_choices + " correct choices");
-            play_sound(horror_sound_action[story_cursor].sound_yes);
-            $("#buttonOptions").hide();
-            story_mode(horror_info[story_cursor].linkYes);
-        });
-    }
-    if (horror_info[story_cursor].coffinNo) {
-        $("#no").one("click", function () {
-            play_sound(horror_sound_action[story_cursor].sound_no);
-            $("#buttonOptions").hide();
-            coffin_game(0);
-		});
-    }
-    else if (no_fail) {
-        $("#no").one("click", function () {
-            play_sound(horror_sound_action[story_cursor].sound_no);
-            $("#buttonOptions").hide();
-            dead_dead(horror_info[story_cursor].linkNo,story_cursor);
-        });
-    } else {
-        $("#no").one("click", function () {
-            total_correct_choices++;
-            console.log("story cursor " + story_cursor + " " + total_correct_choices + " correct choices");
-            play_sound(horror_sound_action[story_cursor].sound_no);
-            $("#buttonOptions").hide();
-            story_mode(horror_info[story_cursor].linkNo);
-        });
-    }
-
-    $("#buttonOptions").delay(delay_value).fadeIn();
 }
 
 // coffin_game: recursive function that plays the coffin game step by step.
@@ -2019,100 +1661,174 @@ function coffin_game (which_step) {
     }
 }
 
-//function dead_dead()
+//function show_buttons(yes,no)
 /*
-    makes the buttons regarding death appear
+    make the buttons appear with the proper text
 */
-function dead_dead(death_cursor,origin) {
-    var done_check = 0;
-    total_deaths++;
-    console.log("death_cursor " + death_cursor + " total deaths " + total_deaths);
-    $('#textInput').hide();
-    $('#buttonOptions').hide();
-    $('#yes').off();
-    $('#no').off();
-    $('.yesDead').off();
-    $('.noDead').off();
+function show_buttons (story_cursor, yes, no, yes_fail, no_fail) {
+    $("#yes").off();
+    $("#no").off();
+	clickable = false;
+    skippable = false;
+    $("#yes").html("<p>" + yes + "</p>");
+    $("#no").html("<p>" + no + "</p>");
+    if (horror_info[story_cursor].coffinYes) {
+        $("#yes").one("click", function () {
+            play_sound(horror_sound_action[story_cursor].sound_yes);
+			coffin_game(0);
+		});
+	} else if (yes_fail) {
+        $("#yes").one("click", function () {
+            play_sound(horror_sound_action[story_cursor].sound_yes);
+            $("#buttonOptions").hide();
+            dead_dead(horror_info[story_cursor].linkYes,story_cursor);
+        });
+    } else {
+        $("#yes").one("click", function () {
+            total_correct_choices++;
+            console.log("story cursor " + story_cursor + " " + total_correct_choices + " correct choices");
+            play_sound(horror_sound_action[story_cursor].sound_yes);
+            $("#buttonOptions").hide();
+            story_mode(horror_info[story_cursor].linkYes);
+        });
+    }
+    if (horror_info[story_cursor].coffinNo) {
+        $("#no").one("click", function () {
+            play_sound(horror_sound_action[story_cursor].sound_no);
+            $("#buttonOptions").hide();
+            coffin_game(0);
+		});
+    } else if (no_fail) {
+        $("#no").one("click", function () {
+            play_sound(horror_sound_action[story_cursor].sound_no);
+            $("#buttonOptions").hide();
+            dead_dead(horror_info[story_cursor].linkNo,story_cursor);
+        });
+    } else {
+        $("#no").one("click", function () {
+            total_correct_choices++;
+            console.log("story cursor " + story_cursor + " " + total_correct_choices + " correct choices");
+            play_sound(horror_sound_action[story_cursor].sound_no);
+            $("#buttonOptions").hide();
+            story_mode(horror_info[story_cursor].linkNo);
+        });
+    }
+
+    $("#buttonOptions").delay(delay_value).fadeIn();
+}
+
+function startTimer (duration, clock) {
+	var countdown = setInterval(function seconds() {
+		clock.text("Time is running out!\n " +duration);
+		if (--duration < 0) {
+			clearInterval(countdown);
+			clock.text("");
+			dead_dead(48,71);
+		} else {
+			$("#yes, #no").click(function(){
+				clearInterval(countdown);
+				clock.text("");
+			});
+		}
+		return seconds;
+	}(), 1000);
+}
+
+// Keep track of story cursor so we can unwind the game state when user presses back button.
+function push_story_cursor (story_cursor) {
+	console.log("push story cursor: " + story_cursor);
+	gameStack.push(story_cursor);
+	console.log("gameStack: " + gameStack);
+}
+
+// Get the last story cursor when pressing the Back button.
+function pop_story_cursor () {
+	var story_cursor = gameStack.pop();
+	console.log("pop story cursor: " + story_cursor);
+	console.log("gameStack: " + gameStack);
+	return story_cursor;
+}
+
+// Set up the Back button event handler.
+function backButtonEnable () {
+	// if user clicks the Back button, pop the previous story_cursor and go to that state.
+	$('#buttonBack').on('click', function() {
+        console.log("Back button pressed!");
+        // pop current story off stack (it was pushed earlier)
+		var prev_story_cursor = pop_story_cursor();
+        // don't try to go back if you have already gone all the way to the beginning.
+        if (prev_story_cursor != null) {
+            $("#buttonBack").hide();
+            story_mode(prev_story_cursor);
+        } 
+    });
+}
+
+function revealOptions (story_cursor, yes, no, yes_fail, no_fail) {
+	// var backButtonPushed = false;
+	skippable = false;
+	$('#buttonReveal').delay(delay_value).fadeIn();
+	// $('#buttonBack').delay(delay_value).fadeIn();
+	$('#buttonReveal').one('click', function() {
+		startScrollPageDownLoop;
+		$("#buttonReveal").hide();
+		$("#buttonBack").hide();
+		show_buttons(story_cursor, yes, no, yes_fail, no_fail);
+		clock = $("#time");
+		startTimer(10,clock);
+		endScrollPageDownLoop;
+	});
+	/*
+	$('#buttonBack').one('click', function() {
+		backButtonPushed = true;
+		startScrollPageDownLoop;
+		$("#buttonReveal").hide();
+		$("#buttonBack").hide();
+		show_buttons(story_cursor, yes, no, yes_fail, no_fail);
+		clock = $("#time");
+		startTimer(10,clock);
+		endScrollPageDownLoop;
+	});
+	*/
+    // return backButtonPushed;
+}
+
+// Do the story at the current step.
+function story_mode (story_cursor) {
+    if (horror_info[story_cursor].savePoint == true) {
+        localStorage.setItem('save_point', story_cursor);
+    }
+	console.log("story mode: " + story_cursor);
     $("#instructions").empty();
     $("#instructions2").empty();
     $("#story").empty();
+    $("#textInput").hide();
     $('#buttonReveal').hide();
+    $('#buttonBack').hide();
+    $('#buttonOptions').hide();
     $("#buttonYes").hide();
-	skippable = true;
-	clickable = true;
+	skippable = false;
+	clickable = false;
 	skip_text = false;
-    //document.getElementById('laugh').play();
-    //spooky_type(failArray[death_cursor],0);
-    dramatic_parse(true,origin,failArray[death_cursor]+"||Do you want to play again?",function(){
-		$(".yesDead").one("click", function () {
-			$('#buttonYes').hide();
-			$("#instructions").empty();
-			story_mode(localStorage.getItem('save_point'));
-		});
-		$(".noDead").one("click", function () {
-			$('#buttonYes').hide();
-            dramatic_parse(false,-1,"I have failed...|||      ", function(){
-                total_deaths = 0;
-                total_correct_choices = 0;
-				localStorage.setItem('name', "");
-				localStorage.setItem('save_point',0);
-				$("#buttonYes").hide();
-				$("#instructions").empty();
-				$("#instructions2").empty();
-				for (var definer = 0; definer < text_timer.length; definer++) {
-					clearTimeout(text_timer[definer]);
-					console.log("i'm clearing timeouts!");
-				}
-				adjustGridBack();
-				naming();
-			});
-		});
-		$('#buttonYes').delay(delay_value).fadeIn();
-	});
+    keep_iter = 0;
+    total_calls = 0;
+    iterate = 0;
+    adjustGrid();
+	
+    if (story_cursor == 70) { // you won the game
+        end_game_winner(story_cursor);
+        return;
+    }
+    dramatic_parse(false,story_cursor,instructionArray[story_cursor],function() {
+        single_callback = false;
+		revealOptions(story_cursor, yes_options[story_cursor], no_options[story_cursor], horror_info[story_cursor].failYes, horror_info[story_cursor].failNo);
+		push_story_cursor(story_cursor);
+    });
 }
-	//if (done_check == -1) {
-	//while (done_typing == false){}
-	//done_typing = false;
-     //   done_check = 0;
-    //spooky_type("\nDo you want to play again?", 0);
-	//while (done_typing == false){}
-	//done_typing = false;
-	//   if (done_check == -1) {
-
-
-
-
-
-//function restore_save()
-/*
-not actually needed, actually. yay!
-
-
-*/
-
-
-
-
-	function startTimer(duration, clock){
-		var countdown = setInterval(function seconds(){
-			clock.text("Time is running out!\n " +duration);
-			if (--duration < 0){
-				clearInterval(countdown);
-				clock.text("");
-				dead_dead(48,71);
-			} else {
-				$("#yes, #no").click(function(){
-					clearInterval(countdown);
-					clock.text("");
-				});
-			}
-			return seconds;
-		}(), 1000);
-	}
 
 // Display the rest of the text when user shows impatience 
 // by clicking mouse or pressing a key.
-function impatience() {
+function impatience () {
     skip_text = true;
     if (skippable == true && single_callback == false) {
         if (text_timer.length != null || text_timer.length != 0) {
@@ -2126,8 +1842,8 @@ function impatience() {
             // Replace all pipe marks in the sentence with <br> html tag
             // using global 'g' regular expression replacement.
             new_sentence = new_sentence.replace(/\|/g,"<br>");
-            console.log("current sentence: " + current_sentence);
-            console.log("new sentence: " + new_sentence);
+            // console.log("current sentence: " + current_sentence);
+            // console.log("new sentence: " + new_sentence);
 
             // Append the rest of the sentence to the screen right now.          
             $("#instructions").append(new_sentence);
@@ -2143,16 +1859,174 @@ function impatience() {
     }
 }
 
-document.addEventListener("keydown", function(event){
-  if(skippable) {impatience();}
-});
-document.addEventListener("click", function(event){
-  if(skippable) {impatience();}
-});
+function introduction (name) {
+    // wait until we know the person's name before initializing the choices 
+    // because some of the story's text strings contain the name.
+    initialize_choice_arrays();
 
-//function startTimer(duration, clock)
-/*
-    redesign this function to use the new system
+    $("#buttonYes").hide();
+    $("#textInput").hide();
+    var save_point = localStorage.getItem('save_point');
+    console.log(save_point);
 
+    // for adjusting the bootstrap grid columns
+    // useful for changing the width of the grid for when the story
+    // text actually starts
+    // this needs to match functionstory_mode()!!
+    adjustGrid();
 
+    if (save_point != null) {
+        skippable = true;
+        skip_text = false;
+        single_callback = false;
+        story_mode(parseInt(save_point));
+    } else {
+        $("#instructions2").empty();
+        $("#instructions").empty();
+        skippable = true;
+        skip_text = false;
+
+        dramatic_parse(false,-1,"My name is " +name+ ". The choices I make will determine if I live or die. \nDo I dare start this horrific journey?",function() {
+            single_callback = false;
+            $("#buttonYes").delay(240).fadeIn();
+			$("#textInput").hide();
+			$(".yes1").one( "click", function(){
+				$("#buttonYes").hide();
+				$("#instructions").empty();
+				$("#instructions2").empty();
+				//var done_intro = 0;
+				single_callback = false;
+				story_mode(0);
+			});
+			$(".no1").one( "click", function(){
+				localStorage.setItem('name', "");
+				$("#buttonYes").hide();
+				$("#instructions").empty();
+				$("#instructions2").empty();
+				for (var definer = 0; definer < text_timer.length; definer++) {
+					clearTimeout(text_timer[definer]);
+					console.log("i'm clearing timeouts!");
+				}
+				adjustGridBack();
+				naming();
+			});
+		});
+    }
+}
+
+function naming() {
+    // Delay 2.5 seconds for dramatic typing of "What is my name?" 
+    // before showing text box and button.
+    $("#button").hide();
+    $("#button").delay(2500).fadeIn();
+    $("#textInput").hide();
+    $("#textInput").delay(2500).fadeIn();
+    
+    $('.yes1').off();    
+	$('.no1').off();
+    $("#button").off();
+    $("#instructions").empty();
+
+    // for being able to press [enter] key to submit
+    var go = document.getElementById("button");
+    var txt = document.getElementById("myText");
+    txt.addEventListener("keypress", function() {
+        if (event.keyCode == 13) go.click();
+    });
+    $("#myText").val("");
+
+	//console.log("starting first print out");
+	dramatic_parse(false,-1,"                 What is my name?",function() {
+		$("#button").one("click",function() {
+			name = document.getElementById("myText").value;
+            name = name.trim();
+            name = name[0].toUpperCase() + name.slice(1);
+		
+			localStorage.setItem('name', name);
+			if ( name !== "" ) {
+				$("#instructions").empty();
+				$("#myText").val("");
+				$('#textInput').val('');
+				$("#textInput").hide();
+				$("#instructions2").empty();
+				dramatic_parse(false,-1,"                 Is " +name+ " my correct name?",function() {
+					$(".yes1").one( "click", function(){
+						$("#buttonYes").hide();
+						$("#instructions").empty();
+						$("#instructions2").empty();
+						localStorage.setItem('name', name);
+
+                        $("#instructions").css("text-align", "left");
+						introduction(name);
+					});
+					$(".no1").one( "click", function(){
+						$("#buttonYes").hide();
+						$("#instructions").empty();
+						$("#instructions2").empty();
+
+						naming();
+					});
+					$("#buttonYes").delay(30).fadeIn();
+				});
+			} else {
+				$("#instructions").empty();
+				$("#instructions2").empty();
+				$("#myText").val("");
+				$('#textInput').val('');
+				$("#instructions2").append("                 Please type in my name.");
+				naming();
+			}
+		});
+	});
+}
+
+//function start_game()
+/* this function will determine start of game behavior
 */
+function start_game() {
+    var myName = localStorage.getItem('name');
+    if (myName !== null && myName !== "" && myName !== undefined) {
+        name = myName;
+    } else {
+        name = "";
+    };
+    console.log(myName);
+    $("#buttonOptions").hide();
+    $("#buttonReveal").hide();
+    $("#buttonBack").hide();
+    $("#buttonYes").hide();
+    $("#coffins").hide();
+    $("#intro").append("TEXT-BASED HORROR");
+    $("input:text:visible:first").focus();
+    if (name !== "") {
+        introduction(name);
+    } else {
+        naming();
+    };
+};
+
+
+//this function pair is from the original game; makes lightning flash and creates the creepy laugh after the user has clicked
+function timerIncrement() {
+    idleTime = idleTime +1;
+    if (idleTime > 5) {
+        //document.getElementById('laugh').play();
+        setTimeout(function(){document.body.style.backgroundColor = '#000000'},0);
+        setTimeout(function(){document.body.style.backgroundColor = '#FFFFFF'},100);
+        setTimeout(function(){document.body.style.backgroundColor = '#000000'},200);
+        setTimeout(function(){document.body.style.backgroundColor = '#FFFFFF'},300);
+        setTimeout(function(){document.body.style.backgroundColor = '#000000'},400);
+    }
+}
+
+$(document).ready(function() {
+	document.addEventListener("keydown", function(event) {
+        if (skippable) {impatience();}
+    });
+    document.addEventListener("click", function(event) {
+        if (skippable) {impatience();}
+    });
+
+    var interval = setInterval(timerIncrement, 60000);
+	start_game();
+});
