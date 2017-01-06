@@ -172,9 +172,9 @@ function horror (flag_save, flag_fail_yes, flag_fail_no, link_yes, link_no,coffi
 
 //this function will play a sound, specified by element id, which is a string value. laugh makes a spooky laugh happen, for example.
 function play_sound (sound_id) {
-	if (sound_id != "silence") {
-    		document.getElementById(sound_id).play();
-	}
+    if (sound_id != "silence") {
+            document.getElementById(sound_id).play();
+    }
 }
 
 //this is an object, that will help point to sounds at every part of story mode.
@@ -1239,7 +1239,7 @@ failArray[48] = "I couldn't make a decision in time and this is the end of my st
 
 } // initialize_choice_arrays() 
 
-/*		
+/*      
 Make a tracking system for how many correct choices the person makes vs how many incorrect choices. The total number of correct choices vs incorrect choices will be displayed at the end of the game. Note: If a person makes an incorrect choice, dies and then plays again and makes the correct choice, this would be one incorrect choice and zero incorrect choices.
 If a person gets 100% of all choices right, they are rewarded the status: Survival Perfectionist! You got every single answer RIGHT!
 If a person gets 90-99% of their choices right, they are rewarded the status: Bad Ass Survivor! You got almost every single answer RIGHT! Do you think you can get every answer RIGHT next time? Play again!
@@ -1294,27 +1294,44 @@ function show_game_performance () {
     $("#instructions2").append(performance_eval);
 }
 
-// you won the game, so show the game result, 
-// then reinitialize counters and get ready to restart game from the beginning.
-function end_game_winner (story_cursor) {
-    show_game_performance();
-    // reinitialize choices and deaths counters for next game
-    total_correct_choices = 0;
-    total_deaths = 0;
-    show_buttons(story_cursor, yes_options[story_cursor], no_options[story_cursor], horror_info[story_cursor].failYes, horror_info[story_cursor].failNo);
+// Keep track of story cursor so we can unwind the game state when user presses BACK button,
+// or so we can go forward in the game when user presses REVEAL button.
+function push_story_cursor (story_cursor) {
+    console.log("push story cursor: " + story_cursor);
+    gameStack.push(story_cursor);
+    console.log("gameStack: " + gameStack);
+}
+
+// Get the last story cursor when pressing the BACK button, 
+// or get current story cursor when user presses REVEAL button.
+function pop_story_cursor () {
+    var story_cursor = gameStack.pop();
+    console.log("pop story cursor: " + story_cursor);
+    console.log("gameStack: " + gameStack);
+    return story_cursor;
+}
+
+// clear the game stack, end result is game stack will be empty
+// this is called, for example, when someone wants to restart
+// game from the beginning.
+function clear_game_stack () {
+    var game_cursor = pop_story_cursor();
+    while (game_cursor > 0) {
+        game_cursor = pop_story_cursor();
+    }
 }
 
 function random_type (chara) {
-	var rando_value = 0;
-	sine_wave++;
-	if (sine_wave = 101) {sine_wave = 1;}
-	if (chara === '.' || chara === '?' || chara === '!') {
-	    rando_value = (Math.random() * 20) + (Math.sin(sine_wave) * 60) + 68;
-	}
-	else {
-		rando_value = (Math.random() * 10) + (Math.sin(sine_wave) * 20) + 42;
-	}
-	return rando_value;
+    var rando_value = 0;
+    sine_wave++;
+    if (sine_wave = 101) {sine_wave = 1;}
+    if (chara === '.' || chara === '?' || chara === '!') {
+        rando_value = (Math.random() * 20) + (Math.sin(sine_wave) * 60) + 68;
+    }
+    else {
+        rando_value = (Math.random() * 10) + (Math.sin(sine_wave) * 20) + 42;
+    }
+    return rando_value;
 }
 
 //function dramatic_parse(instruction_set, callback)
@@ -1326,16 +1343,18 @@ function random_type (chara) {
 */
 function dramatic_parse (is_death,sound_index,sentence, callback) {
     startScrollPageDownLoop();
-	//console.log("dramatic parsing");
-	clear_callback = function clear_callback() { callback() };
-	$("#instructions").empty();
+    //console.log("dramatic parsing");
+    clear_callback = function clear_callback() { callback() };
+    $("#instructions").empty();
     window.setTimeout(function(){skippable = true;}, 500);
 
-	type_speed = 60;
+    // type_speed = 60;
+    // users recommended we make the type speed faster.
+    type_speed = 30;
 
-	current_sentence = sentence;
-	single_callback = false;
-	skip_text = false;
+    current_sentence = sentence;
+    single_callback = false;
+    skip_text = false;
     skippable = false;
 
     var has_dramatic_sound = false;
@@ -1355,34 +1374,34 @@ function dramatic_parse (is_death,sound_index,sentence, callback) {
 
     $("#instructions").appendTo("\n");
     //next_chara[] is an array that holds the individual characters of a section of script
-	next_chara = [];
+    next_chara = [];
 
-	//keep_iter is our second iterator variable;
-	// this variable increases at the end of each successful timeout event;\
-	//this is neccessary so that the timeout events print the right character
-	//      (if they printed using the first iterator; they'd all print the last character)
+    //keep_iter is our second iterator variable;
+    // this variable increases at the end of each successful timeout event;\
+    //this is neccessary so that the timeout events print the right character
+    //      (if they printed using the first iterator; they'd all print the last character)
     keep_iter = 0;
 
-	//iterate is our iterator variable that is used in the first loop of this function
-	//iterate is used as a cursor to store characters from provided text using charAt(iterator)
+    //iterate is our iterator variable that is used in the first loop of this function
+    //iterate is used as a cursor to store characters from provided text using charAt(iterator)
     iterate = 0;
 
-	//our text timer array is a holder that all timeout events are pushed to
-	//this allows us to iterate through the timeout list and clear timeouts in case of text skipping
+    //our text timer array is a holder that all timeout events are pushed to
+    //this allows us to iterate through the timeout list and clear timeouts in case of text skipping
 
     text_timer = [];
 
-	//beginning our loop
-	//this loop sets up the array of characters and creates our timeout events
+    //beginning our loop
+    //this loop sets up the array of characters and creates our timeout events
     for (iterate = 0; iterate < total_calls; iterate++) {
         //console.log("for loop has begun a cycle");
         //console.log("iterate = " + iterate);
         //console.log("keep_iter = " + keep_iter);
         //this check is the first attempt to keep the timeout loops from breaking
-		if (keep_iter > total_calls) { return; }
+        if (keep_iter > total_calls) { return; }
 
-		//this check is the second attempt to keep the timeout loops from breaking
-		if (keep_iter > iterate) {
+        //this check is the second attempt to keep the timeout loops from breaking
+        if (keep_iter > iterate) {
             if (single_callback == false) {
                 single_callback = true;
                 //console.log("executing callback, keep_iter > iterate");
@@ -1391,81 +1410,81 @@ function dramatic_parse (is_death,sound_index,sentence, callback) {
             } else { return;}
         }
 
-	    //console.log("iterate:" + iterate);
-	    //console.log("total_calls: " + total_calls);
-	    //console.log("timeout execution / type_speed: " + type_speed);
+        //console.log("iterate:" + iterate);
+        //console.log("total_calls: " + total_calls);
+        //console.log("timeout execution / type_speed: " + type_speed);
 
-		//******************
-		//this is where we take a character from our sentence and store it
-	    next_chara[iterate] = '' + sentence.charAt(iterate);
+        //******************
+        //this is where we take a character from our sentence and store it
+        next_chara[iterate] = '' + sentence.charAt(iterate);
 
-	    //console.log("next character: " + next_chara[iterate]);
+        //console.log("next character: " + next_chara[iterate]);
 
-		//if iterate is still within the limits of our array
-		//then we can set up a timeout event
-	    if (iterate < total_calls) {
+        //if iterate is still within the limits of our array
+        //then we can set up a timeout event
+        if (iterate < total_calls) {
             text_timer.push( setTimeout(function () {
-	            //console.log("timeout function will be executed at " + keep_iter);
-	            //console.log("text timer pushed. text timer array length: " + text_timer.length);
-				//the next lines are the function handed to timeout
-				//we must use keep_iter within the timeout, rather than iterate
-				//this is because we have already iterated iterate and we need a method
-				//that will let us go through the array again
-				//at the end of our timeout events. keep iter is incremented;
-				//this allows us to type the characters in order
+                //console.log("timeout function will be executed at " + keep_iter);
+                //console.log("text timer pushed. text timer array length: " + text_timer.length);
+                //the next lines are the function handed to timeout
+                //we must use keep_iter within the timeout, rather than iterate
+                //this is because we have already iterated iterate and we need a method
+                //that will let us go through the array again
+                //at the end of our timeout events. keep iter is incremented;
+                //this allows us to type the characters in order
 
-				//this check will tell the program to use pipes as a marker for a newline.
+                //this check will tell the program to use pipes as a marker for a newline.
                 if ((keep_iter == when_to_play) && (has_dramatic_sound)) {
                     play_sound(sound_to_play);
                 }
                 if (next_chara[keep_iter] == '|') {
-					$("#instructions").append("<br>&nbsp;&nbsp;&nbsp;&nbsp;");
-				} else {
-					$("#instructions").append("" + next_chara[keep_iter]);
+                    $("#instructions").append("<br>&nbsp;&nbsp;&nbsp;&nbsp;");
+                } else {
+                    $("#instructions").append("" + next_chara[keep_iter]);
                     //last_print = keep_iter;
-				}
-				//console.log("keep_iter: " + keep_iter);
-				//console.log("next_chara: " + next_chara[keep_iter]);
-				//console.log("iterate: " + iterate);
-				//console.log("total_calls: " + total_calls);
-				keep_iter++;
-			}, type_speed));
-			//we are now out of the timeout event setup
-			//if we aren't skipping text; let's get increase the timestamp
-			//this will let us sequence our events properly
-	        if (skip_text != true) {
-	            type_speed = type_speed + random_type(next_chara[iterate]);
-	        }
-	    }
-		//calls left is decremented for each call set up.
-		//if all calls have been successfully set up then:
-		//we will be able to make the final timeout event
-	    calls_left = calls_left - 1;
-	    //console.log("call finished, remaining: " + calls_left);
+                }
+                //console.log("keep_iter: " + keep_iter);
+                //console.log("next_chara: " + next_chara[keep_iter]);
+                //console.log("iterate: " + iterate);
+                //console.log("total_calls: " + total_calls);
+                keep_iter++;
+            }, type_speed));
+            //we are now out of the timeout event setup
+            //if we aren't skipping text; let's get increase the timestamp
+            //this will let us sequence our events properly
+            if (skip_text != true) {
+                type_speed = type_speed + random_type(next_chara[iterate]);
+            }
+        }
+        //calls left is decremented for each call set up.
+        //if all calls have been successfully set up then:
+        //we will be able to make the final timeout event
+        calls_left = calls_left - 1;
+        //console.log("call finished, remaining: " + calls_left);
     }
     //console.log("left for loop");
-	//made all calls, and have not triggered callback yet (did not skip)
-	if (calls_left <= 0 && single_callback == false){
-		//add delay equal to punctuation
-		type_speed = type_speed + random_type('.');
-		//create final timeout event that holds our callback.
-	    text_timer.push(setTimeout(function () {
-	        //console.log("executing callback");
-	        single_callback = true;
-			//if program gets here our callback is being triggered
-			//we are now going to, for the sake of slaying bugs, clear all timeouts
-			//there should not be any timeouts left to clear at this point...
-			for (var definer = 0; definer < text_timer.length; definer++) {
+    //made all calls, and have not triggered callback yet (did not skip)
+    if (calls_left <= 0 && single_callback == false){
+        //add delay equal to punctuation
+        type_speed = type_speed + random_type('.');
+        //create final timeout event that holds our callback.
+        text_timer.push(setTimeout(function () {
+            //console.log("executing callback");
+            single_callback = true;
+            //if program gets here our callback is being triggered
+            //we are now going to, for the sake of slaying bugs, clear all timeouts
+            //there should not be any timeouts left to clear at this point...
+            for (var definer = 0; definer < text_timer.length; definer++) {
                 clearTimeout(text_timer[definer]);
                 console.log("i'm clearing timeouts!");
             }
             //console.log("x = " + definer);
-	        //execute that callback
-			clear_callback();
-	    }, type_speed));
-		//type_speed = 0;
-	}
-	//don't need to scroll the page down any more at this point
+            //execute that callback
+            clear_callback();
+        }, type_speed));
+        //type_speed = 0;
+    }
+    //don't need to scroll the page down any more at this point
     endScrollPageDownLoop();
 }
 
@@ -1523,6 +1542,7 @@ function adjustGridBack() {
 */
 function dead_dead (death_cursor,origin) {
     var done_check = 0;
+    var next_cursor = death_cursor;
     total_deaths++;
     console.log("death_cursor " + death_cursor + " total deaths " + total_deaths);
     $('#textInput').hide();
@@ -1537,36 +1557,41 @@ function dead_dead (death_cursor,origin) {
     $('#buttonReveal').hide();
     $('#buttonBack').hide();
     $("#buttonYes").hide();
-	skippable = true;
-	clickable = true;
-	skip_text = false;
-    document.getElementById('laugh').play();
+    skippable = true;
+    clickable = true;
+    skip_text = false;
     dramatic_parse(true,origin,failArray[death_cursor]+"||Do you want to play again?",function() {
-		$(".yesDead").one("click", function () {
-			$('#buttonYes').hide();
-			$("#instructions").empty();
-			story_mode(localStorage.getItem('save_point'));
-		});
-		$(".noDead").one("click", function () {
-			$('#buttonYes').hide();
+        // I want to set the text of the Yes and No buttons to the text below, but it doesn't work right yet.
+        // $('.yesDead').val("GO BACK TO CHECKPOINT");
+        // $('.noDead').val("RESTART FROM BEGINNING");
+        $(".yesDead").one("click", function () {
+            $('#buttonYes').hide();
+            $("#instructions").empty();
+            story_mode(localStorage.getItem('save_point'));
+        });
+        $(".noDead").one("click", function () {
+            $('#buttonYes').hide();
             dramatic_parse(false,-1,"I have failed...|||      ", function() {
                 total_deaths = 0;
                 total_correct_choices = 0;
-				localStorage.setItem('name', "");
-				localStorage.setItem('save_point',0);
-				$("#buttonYes").hide();
-				$("#instructions").empty();
-				$("#instructions2").empty();
-				for (var definer = 0; definer < text_timer.length; definer++) {
-					clearTimeout(text_timer[definer]);
-					console.log("i'm clearing timeouts!");
-				}
-				adjustGridBack();
-				naming();
-			});
-		});
-		$('#buttonYes').delay(delay_value).fadeIn();
-	});
+                clear_game_stack();
+                localStorage.setItem('name', "");
+                localStorage.setItem('save_point',0);
+                $("#buttonYes").hide();
+                $("#instructions").empty();
+                $("#instructions2").empty();
+                for (var definer = 0; definer < text_timer.length; definer++) {
+                    clearTimeout(text_timer[definer]);
+                    console.log("i'm clearing timeouts!");
+                }
+                adjustGridBack();
+                naming();
+            });
+        });
+        // Laugh at user when they die.  Wait until death spooky parse finished.
+        document.getElementById('laugh').play();
+        $('#buttonYes').delay(delay_value).fadeIn();
+    });
 }
 
 // coffin_game: recursive function that plays the coffin game step by step.
@@ -1576,13 +1601,14 @@ function dead_dead (death_cursor,origin) {
 // the stack will unwind when done.
 // To win the coffin game, the user must select coffins 3, then 17, then 5, in that order.
 function coffin_game (which_step) {
+    var next_cursor = null;
     // empty the text box input string so it doesn't show the name or previous coffin value.
     $("#myText").val("");
 
     if (which_step == 0) {
         skippable = false;
         dramatic_parse(false,-1,coffinArray[0], function () {
-			coffin_game(1);
+            coffin_game(1);
         });
     } else if (which_step == 1) {
         skippable = false;
@@ -1666,19 +1692,25 @@ function coffin_game (which_step) {
 /*
     make the buttons appear with the proper text
 */
-function show_buttons (story_cursor, yes, no, yes_fail, no_fail) {
+function show_buttons (story_cursor) {
+    var yes = yes_options[story_cursor];
+    var no = no_options[story_cursor];
+    var yes_fail = horror_info[story_cursor].failYes;
+    var no_fail = horror_info[story_cursor].failNo;
+    var next_cursor = story_cursor;
+    
     $("#yes").off();
     $("#no").off();
-	clickable = false;
+    clickable = false;
     skippable = false;
     $("#yes").html("<p>" + yes + "</p>");
     $("#no").html("<p>" + no + "</p>");
     if (horror_info[story_cursor].coffinYes) {
         $("#yes").one("click", function () {
             play_sound(horror_sound_action[story_cursor].sound_yes);
-			coffin_game(0);
-		});
-	} else if (yes_fail) {
+            coffin_game(0);
+        });
+    } else if (yes_fail) {
         $("#yes").one("click", function () {
             play_sound(horror_sound_action[story_cursor].sound_yes);
             $("#buttonOptions").hide();
@@ -1698,7 +1730,7 @@ function show_buttons (story_cursor, yes, no, yes_fail, no_fail) {
             play_sound(horror_sound_action[story_cursor].sound_no);
             $("#buttonOptions").hide();
             coffin_game(0);
-		});
+        });
     } else if (no_fail) {
         $("#no").one("click", function () {
             play_sound(horror_sound_action[story_cursor].sound_no);
@@ -1718,88 +1750,60 @@ function show_buttons (story_cursor, yes, no, yes_fail, no_fail) {
     $("#buttonOptions").delay(delay_value).fadeIn();
 }
 
+// you won the game, so show the game result, 
+// then reinitialize counters and get ready to restart game from the beginning.
+function end_game_winner (story_cursor) {
+    show_game_performance();
+    // reinitialize choices and deaths counters for next game
+    total_correct_choices = 0;
+    total_deaths = 0;
+    clear_game_stack();
+    push_story_cursor(0);
+    show_buttons(story_cursor); 
+}
+
+// Start a timer that triggers death if you wait too long to decide!
 function startTimer (duration, clock) {
-	var countdown = setInterval(function seconds() {
-		clock.text("Time is running out!\n " +duration);
-		if (--duration < 0) {
-			clearInterval(countdown);
-			clock.text("");
-			dead_dead(48,71);
-		} else {
-			$("#yes, #no").click(function(){
-				clearInterval(countdown);
-				clock.text("");
-			});
-		}
-		return seconds;
-	}(), 1000);
+    var countdown = setInterval(function seconds() {
+        clock.text("Time is running out!\n " +duration);
+        if (--duration < 0) {
+            clearInterval(countdown);
+            clock.text("");
+            dead_dead(48,71);
+        } else {
+            $("#yes, #no").click(function () {
+                clearInterval(countdown);
+                clock.text("");
+            });
+        }
+        return seconds;
+    }(), 1000);
 }
 
-// Keep track of story cursor so we can unwind the game state when user presses back button.
-function push_story_cursor (story_cursor) {
-	console.log("push story cursor: " + story_cursor);
-	gameStack.push(story_cursor);
-	console.log("gameStack: " + gameStack);
-}
-
-// Get the last story cursor when pressing the Back button.
-function pop_story_cursor () {
-	var story_cursor = gameStack.pop();
-	console.log("pop story cursor: " + story_cursor);
-	console.log("gameStack: " + gameStack);
-	return story_cursor;
-}
-
-// Set up the Back button event handler.
-function backButtonEnable () {
-	// if user clicks the Back button, pop the previous story_cursor and go to that state.
-	$('#buttonBack').on('click', function() {
-        console.log("Back button pressed!");
-        // pop current story off stack (it was pushed earlier)
-		var prev_story_cursor = pop_story_cursor();
-        // don't try to go back if you have already gone all the way to the beginning.
-        if (prev_story_cursor != null) {
-            $("#buttonBack").hide();
-            story_mode(prev_story_cursor);
-        } 
-    });
-}
-
-function revealOptions (story_cursor, yes, no, yes_fail, no_fail) {
-	// var backButtonPushed = false;
-	skippable = false;
-	$('#buttonReveal').delay(delay_value).fadeIn();
-	// $('#buttonBack').delay(delay_value).fadeIn();
-	$('#buttonReveal').one('click', function() {
-		startScrollPageDownLoop;
-		$("#buttonReveal").hide();
-		$("#buttonBack").hide();
-		show_buttons(story_cursor, yes, no, yes_fail, no_fail);
-		clock = $("#time");
-		startTimer(10,clock);
-		endScrollPageDownLoop;
-	});
-	/*
-	$('#buttonBack').one('click', function() {
-		backButtonPushed = true;
-		startScrollPageDownLoop;
-		$("#buttonReveal").hide();
-		$("#buttonBack").hide();
-		show_buttons(story_cursor, yes, no, yes_fail, no_fail);
-		clock = $("#time");
-		startTimer(10,clock);
-		endScrollPageDownLoop;
-	});
-	*/
-    // return backButtonPushed;
+// user picks either Reveal or Back button
+// return the next story cursor depending on user's choice.
+function show_reveal_and_back_buttons (story_cursor) {
+    $('#buttonReveal').delay(delay_value).fadeIn();
+    // Don't let user go back if we're at first item in story.
+    if (story_cursor > 0) {
+        $('#buttonBack').delay(delay_value).fadeIn();
+    }
 }
 
 // Do the story at the current step.
 function story_mode (story_cursor) {
+    // Save the current cursor on the game stack. 
+    // That way we'll know where we are in the state machine
+    // when someone clicks on the REVEAL or BACK button.
+    push_story_cursor(story_cursor);
+    
+    // If we're at a checkpoint, save the checkpoint to local storage.
+    // Then if someone Continues the game, it will start from here 
+    // instead of from the beginning.
     if (horror_info[story_cursor].savePoint == true) {
         localStorage.setItem('save_point', story_cursor);
     }
-	console.log("story mode: " + story_cursor);
+    console.log("story mode: " + story_cursor);
     $("#instructions").empty();
     $("#instructions2").empty();
     $("#story").empty();
@@ -1808,23 +1812,71 @@ function story_mode (story_cursor) {
     $('#buttonBack').hide();
     $('#buttonOptions').hide();
     $("#buttonYes").hide();
-	skippable = false;
-	clickable = false;
-	skip_text = false;
+    skippable = false;
+    clickable = false;
+    skip_text = false;
     keep_iter = 0;
     total_calls = 0;
     iterate = 0;
     adjustGrid();
-	
+    
     if (story_cursor == 70) { // you won the game
         end_game_winner(story_cursor);
         return;
     }
+    // Print the story to the screen dramatically.
     dramatic_parse(false,story_cursor,instructionArray[story_cursor],function() {
         single_callback = false;
-		revealOptions(story_cursor, yes_options[story_cursor], no_options[story_cursor], horror_info[story_cursor].failYes, horror_info[story_cursor].failNo);
-		push_story_cursor(story_cursor);
+        // At the end of the dramatic printing, 
+        // which could be short-circuited if mouse clicked or key pressed,
+        // show the REVEAL and BACK buttons so user can make a choice.
+        show_reveal_and_back_buttons(story_cursor);
     });
+}
+
+// This function should only be called externally from LiveProject.html 
+// when the BACK button is pressed. Do not call this function internally.
+// Note: The BACK button should NEVER be allowed to be pressed if story
+// cursor is 0.
+function back_button_pressed () {
+    // get the current story cursor
+    var game_cursor = pop_story_cursor();
+    if (game_cursor == null) {
+        game_cursor = 0;
+    }
+    console.log("back button was pressed");
+    startScrollPageDownLoop;
+    $("#buttonReveal").hide();
+    $("#buttonBack").hide();
+    endScrollPageDownLoop;
+    var prev_cursor = pop_story_cursor();
+    if (prev_cursor == null) {
+        prev_cursor = 0;
+    }
+    console.log("prev cursor: " + prev_cursor);
+    story_mode(prev_cursor);
+}
+
+// This function should only be called externally from LiveProject.html 
+// when the REVEAL button is pressed. Do not call this function internally.
+function reveal_button_pressed () {
+    // Get the current story cursor.
+    // We don't know it until we pop it off the game stack.
+    var game_cursor = pop_story_cursor();
+    if (game_cursor == null) {
+        game_cursor = 0;
+    }
+    console.log("reveal button clicked");
+    startScrollPageDownLoop;
+    $("#buttonReveal").hide();
+    $("#buttonBack").hide();
+    
+    // Put the current story cursor back on the game stack.
+    push_story_cursor(game_cursor);
+    show_buttons(game_cursor);
+    clock = $("#time");
+    startTimer(10,clock);
+    endScrollPageDownLoop;
 }
 
 // Display the rest of the text when user shows impatience 
@@ -1873,7 +1925,7 @@ function introduction (name) {
     // for adjusting the bootstrap grid columns
     // useful for changing the width of the grid for when the story
     // text actually starts
-    // this needs to match functionstory_mode()!!
+    // this needs to match function story_mode()!!
     adjustGrid();
 
     if (save_point != null) {
@@ -1890,32 +1942,31 @@ function introduction (name) {
         dramatic_parse(false,-1,"My name is " +name+ ". The choices I make will determine if I live or die. \nDo I dare start this horrific journey?",function() {
             single_callback = false;
             $("#buttonYes").delay(240).fadeIn();
-			$("#textInput").hide();
-			$(".yes1").one( "click", function(){
-				$("#buttonYes").hide();
-				$("#instructions").empty();
-				$("#instructions2").empty();
-				//var done_intro = 0;
-				single_callback = false;
-				story_mode(0);
-			});
-			$(".no1").one( "click", function(){
-				localStorage.setItem('name', "");
-				$("#buttonYes").hide();
-				$("#instructions").empty();
-				$("#instructions2").empty();
-				for (var definer = 0; definer < text_timer.length; definer++) {
-					clearTimeout(text_timer[definer]);
-					console.log("i'm clearing timeouts!");
-				}
-				adjustGridBack();
-				naming();
-			});
-		});
+            $("#textInput").hide();
+            $(".yes1").one( "click", function() {
+                $("#buttonYes").hide();
+                $("#instructions").empty();
+                $("#instructions2").empty();
+                single_callback = false;
+                story_mode(0);
+            });
+            $(".no1").one( "click", function() {
+                localStorage.setItem('name', "");
+                $("#buttonYes").hide();
+                $("#instructions").empty();
+                $("#instructions2").empty();
+                for (var definer = 0; definer < text_timer.length; definer++) {
+                    clearTimeout(text_timer[definer]);
+                    console.log("i'm clearing timeouts!");
+                }
+                adjustGridBack();
+                naming();
+            });
+        });
     }
 }
 
-function naming() {
+function naming () {
     // Delay 2.2 seconds for dramatic typing of "What is my name?" 
     // before showing text box and button.
     $("#button").hide();
@@ -1924,7 +1975,7 @@ function naming() {
     $("#textInput").delay(2200).fadeIn();
     
     $('.yes1').off();    
-	$('.no1').off();
+    $('.no1').off();
     $("#button").off();
     $("#instructions").empty();
 
@@ -1936,48 +1987,47 @@ function naming() {
     });
     $("#myText").val("");
 
-	//console.log("starting first print out");
-	dramatic_parse(false,-1,"                 What is my name?",function() {
-		$("#button").one("click",function() {
-			name = document.getElementById("myText").value;
+    //console.log("starting first print out");
+    dramatic_parse(false,-1,"                 What is my name?",function() {
+        $("#button").one("click",function() {
+            name = document.getElementById("myText").value;
             name = name.trim();
             name = name[0].toUpperCase() + name.slice(1);
-		
-			localStorage.setItem('name', name);
-			if ( name !== "" ) {
-				$("#instructions").empty();
-				$("#myText").val("");
-				$('#textInput').val('');
-				$("#textInput").hide();
-				$("#instructions2").empty();
-				dramatic_parse(false,-1,"                 Is " +name+ " my correct name?",function() {
-					$(".yes1").one( "click", function() {
-						$("#buttonYes").hide();
-						$("#instructions").empty();
-						$("#instructions2").empty();
-						localStorage.setItem('name', name);
-
+        
+            localStorage.setItem('name', name);
+            if ( name !== "" ) {
+                $("#instructions").empty();
+                $("#myText").val("");
+                $('#textInput').val('');
+                $("#textInput").hide();
+                $("#instructions2").empty();
+                dramatic_parse(false,-1,"                 Is " +name+ " my correct name?",function() {
+                    $(".yes1").one( "click", function() {
+                        $("#buttonYes").hide();
+                        $("#instructions").empty();
+                        $("#instructions2").empty();
+                        localStorage.setItem('name', name);
                         $("#instructions").css("text-align", "left");
-						introduction(name);
-					});
-					$(".no1").one( "click", function() {
-						$("#buttonYes").hide();
-						$("#instructions").empty();
-						$("#instructions2").empty();
-						naming();
-					});
-					$("#buttonYes").delay(30).fadeIn();
-				});
-			} else {
-				$("#instructions").empty();
-				$("#instructions2").empty();
-				$("#myText").val("");
-				$('#textInput').val('');
-				$("#instructions2").append("                 Please type in my name.");
-				naming();
-			}
-		});
-	});
+                        introduction(name);
+                    });
+                    $(".no1").one( "click", function() {
+                        $("#buttonYes").hide();
+                        $("#instructions").empty();
+                        $("#instructions2").empty();
+                        naming();
+                    });
+                    $("#buttonYes").delay(30).fadeIn();
+                });
+            } else {
+                $("#instructions").empty();
+                $("#instructions2").empty();
+                $("#myText").val("");
+                $('#textInput').val('');
+                $("#instructions2").append("                 Please type in my name.");
+                naming();
+            }
+        });
+    });
 }
 
 //function start_game()
@@ -1989,7 +2039,7 @@ function start_game() {
         name = myName;
     } else {
         name = "";
-    };
+    }
     console.log(myName);
     $("#buttonOptions").hide();
     $("#buttonReveal").hide();
@@ -2002,9 +2052,8 @@ function start_game() {
         introduction(name);
     } else {
         naming();
-    };
-};
-
+    }
+}
 
 //this function pair is from the original game; makes lightning flash and creates the creepy laugh after the user has clicked
 function timerIncrement() {
@@ -2020,7 +2069,7 @@ function timerIncrement() {
 }
 
 $(document).ready(function() {
-	document.addEventListener("keydown", function(event) {
+    document.addEventListener("keydown", function(event) {
         if (skippable) {impatience();}
     });
     document.addEventListener("click", function(event) {
@@ -2028,5 +2077,5 @@ $(document).ready(function() {
     });
 
     var interval = setInterval(timerIncrement, 60000);
-	start_game();
+    start_game();
 });
