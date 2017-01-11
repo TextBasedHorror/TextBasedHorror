@@ -2066,7 +2066,7 @@ function start_game() {
 //this function pair is from the original game; makes lightning flash and creates the creepy laugh after the user has clicked
 function timerIncrement() {
     idleTime = idleTime +1;
-    if (idleTime > 5) {
+    if (idleTime > 4) {
         //document.getElementById('laugh').play();
         setTimeout(function(){document.body.style.backgroundColor = '#000000'},0);
         setTimeout(function(){document.body.style.backgroundColor = '#FFFFFF'},100);
