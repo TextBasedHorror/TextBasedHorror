@@ -45,7 +45,6 @@ var clear_callback = function clear_callback() { };
 var total_correct_choices = 0;
 var total_deaths = 0;
 
-//var last_print = 0;
 //vars that refer to sound elements
 var s_pistol = "pistol";
 var s_rifle = "rifle_shot";
@@ -121,8 +120,17 @@ var s_bullet_impacts = "bullet_impacts";
 var s_delayedshot = "delayedshot";
 var s_beating = "beating";
 var s_nosound = "silence";
-
 var s_page_turn = "page_turn";
+var s_pickup_hatchet = "pickup_hatchet";
+var s_axe_impact = "axe_impact";
+var s_footsteps_indoor = "footsteps_indoor";
+var s_clothing_rustle = "clothing_rustle";
+var s_dropping_books = "dropping_books";
+var s_door_close = "door_close";
+var s_yell_man = "yell_man";
+var s_walk_downstairs = "walk_downstairs";
+var s_computer_beeps = "computer_beeps";
+var s_victory = "victory";
 
 //note: the new game option simply deletes local storage.
 //so save game checks can just look for storage
@@ -173,7 +181,7 @@ function horror (flag_save, flag_fail_yes, flag_fail_no, link_yes, link_no,coffi
 //this function will play a sound, specified by element id, which is a string value. laugh makes a spooky laugh happen, for example.
 function play_sound (sound_id) {
     if (sound_id != "silence") {
-            document.getElementById(sound_id).play();
+        document.getElementById(sound_id).play();
     }
 }
 
@@ -232,38 +240,38 @@ instructionArray[1] = "I made my way up to the house. It appeared to be old and 
 yes_options[1] = "LEAVE THE HATCHET";
 no_options[1] = "PICK UP THE HATCHET";
 horror_info[1] = new horror(true,false,false,2,3,false,false);
-horror_sound_action[1] = new action_sound(s_footsteps_outside,s_footsteps_outside);
-horror_sound_scary[1] = new scary_sound(s_axe,-1);
-horror_sound_death[1] = new scary_sound(s_axe,30);
+horror_sound_action[1] = new action_sound(s_footsteps_outside,s_pickup_hatchet);
+horror_sound_scary[1] = new scary_sound(s_nosound,-1); // no sound indicated by story
+horror_sound_death[1] = new scary_sound(s_nosound,-1); // unused
 
 //instruction two:
 /*
     Selecting yes_option[2] will result in failArray[1]
     Selecting no_option[2] will result in failArray[2]
 */
-instructionArray[2] = "I left the hatchet and continued on toward the house. As I climbed the porch, the planks protested my presence through sharp whining. I reached for the door and heard rustling behind me. I swiveled my head and saw a dark figure hulking toward me. I couldn't make out its eyes but noticed an ax in its hand. I said, \"Hello?\"... no response. It then swung an ax in my direction and growled. I was in danger.||WHAT DID I DO?";
+instructionArray[2] = "I left the hatchet and continued on toward the house. As I climbed the porch, the planks protested my presence through sharp whining. I reached for the door and heard rustling behind me. I swiveled my head and saw a dark figure hulking toward me. I couldn\'t make out its eyes but noticed an ax in its hand. I said, \"Hello?\"... no response. It then swung an ax in my direction and growled. I was in danger.||WHAT DID I DO?";
 yes_options[2] = "ATTACK";
 no_options[2] = "RUN";
 failArray[1] = "I ran at it, swinging my fists. It stopped me with ease through use of a sharpened ax. The last thing I saw was red on silver. This is the end of my story.";
 failArray[2] = "I attempted to run and heard a whoosh. The ax tore through the upper section of my spine. I could feel my shoulder blades separating. This is the end of my story...";
 horror_info[2] = new horror(false,true,true,1,2,false,false);
-horror_sound_action[2] = new action_sound(s_rustle,s_rustle);
-horror_sound_scary[2] = new scary_sound(s_floor_creak,89);
-horror_sound_death[2] = new scary_sound(s_stab,120); /* CAN BARELY HEAR */
+horror_sound_action[2] = new action_sound(s_rustle,s_rustle); // sounds like running
+horror_sound_scary[2] = new scary_sound(s_floor_creak,83);
+horror_sound_death[2] = new scary_sound(s_axe_impact,39);
 
 //instruction three: checkpoint
 /*
     Selecting yes_option[3] will advance to instructionArray[4]
     Selecting no_option[3] will result in failArray[3]
 */
-instructionArray[3] = "I picked the hatchet up and continued on toward the house. As I climbed the porch, the planks protested my presence through sharp whining. I reached for the door and heard rustling behind me. I swiveled my head and saw a dark figure hulking toward me. I couldn't make out its eyes but noticed an ax in its hand. I said, \"Hello?\"... no response. It then swung an ax in my direction and growled. I knew at this point I was in danger.||WHAT DID I DO?";
+instructionArray[3] = "I picked the hatchet up and continued on toward the house. As I climbed the porch, the planks protested my presence through sharp whining. I reached for the door and heard rustling behind me. I swiveled my head and saw a dark figure hulking toward me. I couldn\'t make out its eyes but noticed an ax in its hand. I said, \"Hello?\"... no response. It then swung an ax in my direction and growled. I knew at this point I was in danger.||WHAT DID I DO?";
 yes_options[3] = "ATTACK";
 no_options[3] = "RUN";
 failArray[3] = "I attempted to run and heard a whoosh. The ax tore through the upper section of my spine. I could feel my shoulder blades separating. This is the end of my story...";
 horror_info[3] = new horror(true, false, true, 4, 3, false, false);
-horror_sound_action[3] = new action_sound(s_rustle,s_rustle);
+horror_sound_action[3] = new action_sound(s_rustle,s_rustle); // sounds like running
 horror_sound_scary[3] = new scary_sound(s_floor_creak,94);
-horror_sound_death[3] = new scary_sound(s_stab,86); /* CAN BARELY HEAR */
+horror_sound_death[3] = new scary_sound(s_axe_impact,86);
 
 //instruction four:
 /*
@@ -274,9 +282,9 @@ instructionArray[4] = "I ran at it, it swung an ax and I ducked. I swung my hatc
 yes_options[4] = "HEAD TOWARDS THE HOUSE";
 no_options[4] = "EXAMINE THE BODY";
 horror_info[4] = new horror(false, false, false, 5, 6, false, false);
-horror_sound_action[4] = new action_sound(s_fast_heartbeat,s_fast_heartbeat); /* CAN BARELY HEAR */
-horror_sound_scary[4] = new scary_sound(s_man_growl,84); /* CAN BARELY HEAR */
-horror_sound_death[4] = new scary_sound(s_axe,30);
+horror_sound_action[4] = new action_sound(s_fast_heartbeat,s_fast_heartbeat);
+horror_sound_scary[4] = new scary_sound(s_man_growl,84);
+horror_sound_death[4] = new scary_sound(s_nosound,-1); // unused
 
 //instruction five: checkpoint
 /*
@@ -289,7 +297,7 @@ yes_options[5] = "OPEN A WINDOW";
 no_options[5] = "STAY OUTSIDE THE HOUSE";
 failArray[4] = "I stood on the porch with an ax and a hatchet. A couple minutes passed and several large men with weapons of various assortments arrived at the porch. I attempted to fight them off, regretting not having climbed through a window, but there were too many. I couldn't tell you if it was blades or bludgeoning that killed me. This is the end of my story."
 horror_info[5] = new horror(true, false, true, 7, 4, false, false);
-horror_sound_action[5] = new action_sound(s_slow_heartbeat,s_slow_heartbeat); /* CAN BARELY HEAR */
+horror_sound_action[5] = new action_sound(s_slow_heartbeat,s_slow_heartbeat);
 horror_sound_scary[5] = new scary_sound(s_locked_door,224);
 horror_sound_death[5] = new scary_sound(s_rage_of_blades,164);
 
@@ -303,7 +311,7 @@ yes_options[6] = "OPEN A WINDOW";
 no_options[6] = "STAY OUTSIDE THE HOUSE";
 failArray[5] = "I stood on the porch with an ax and a hatchet. A couple minutes passed and several large men with weapons of various assortments arrived at the porch. I attempted to fight them off, regretting not having climbed through a window, but there were too many. I couldn't tell you if it was blades or bludgeoning that killed me. This is the end of my story.";
 horror_info[6] = new horror(true, false, true, 7, 5, false, false);
-horror_sound_action[6] = new action_sound(s_slow_heartbeat,s_slow_heartbeat); /* CAN BARELY HEAR */
+horror_sound_action[6] = new action_sound(s_slow_heartbeat,s_slow_heartbeat);
 horror_sound_scary[6] = new scary_sound(s_locked_door,351);
 horror_sound_death[6] = new scary_sound(s_rage_of_blades,153);
 
@@ -318,8 +326,8 @@ yes_options[7] = "OPEN THE LEFT WINDOW";
 no_options[7] = "OPEN THE RIGHT WINDOW";
 horror_info[7] = new horror(false, false, false, 8, 8, false, false);
 horror_sound_action[7] = new action_sound(s_window_open,s_window_open);
-horror_sound_scary[7] = new scary_sound(s_axe,-1);
-horror_sound_death[7] = new scary_sound(s_axe,30);
+horror_sound_scary[7] = new scary_sound(s_nosound,-1); // no sound indicated
+horror_sound_death[7] = new scary_sound(s_nosound,-1); // unused
 
 //instruction eight:
 /*
@@ -348,7 +356,7 @@ no_options[9] = "HIDE IN THE CLOSET";
 horror_info[9] = new horror(false, false, false, 10, 10, false, false);
 horror_sound_action[9] = new action_sound(s_long_heartbeat,s_long_heartbeat);
 horror_sound_scary[9] = new scary_sound(s_pump_shotgun,488);
-horror_sound_death[9] = new scary_sound(s_axe,30);
+horror_sound_death[9] = new scary_sound(s_nosound,-1); // unused
 
 //instruction ten: checkpoint
 /*
@@ -376,8 +384,8 @@ yes_options[11] = "USE THE CANDLE TO START A FIRE";
 no_options[11] = "KEEP EXPLORING THE HALLWAY";
 failArray[8] = "I lit the paper on fire and threw it on the floor. I then used the candle to light the wallpaper on fire. It was peeling and dry and made for highly flammable material. The house began to burn. I made my way away from the fire and hit a locked door at the end of the hallway. I turned back to pass through the fire but it was too large. I was trapped. I tried to run through the fire but it burned me. I ran back to the door and tried to kick it in, to no avail. There was no escaping. My choice ended with my body being burnt alive. A terrible, overly-long experience of the most unimaginable pain. This is the end of my story.";
 horror_info[11] = new horror(true, true, false, 8, 12, false, false);
-horror_sound_action[11] = new action_sound(s_demon_girl,s_page_turn);
-horror_sound_scary[11] = new scary_sound(s_tense3,592);
+horror_sound_action[11] = new action_sound(s_demon_girl,s_footsteps_indoor);
+horror_sound_scary[11] = new scary_sound(s_page_turn,230);
 horror_sound_death[11] = new scary_sound(s_fire,336);
 
 //instruction twelve: checkpoint
@@ -408,7 +416,7 @@ no_options[13] = "INSPECT THE BODY";
 horror_info[13] = new horror(true, false, false, 14, 15, false, false);
 horror_sound_action[13] = new action_sound(s_fast_heartbeat,s_fast_heartbeat);
 horror_sound_scary[13] = new scary_sound(s_flesh_split,496);
-horror_sound_death[13] = new scary_sound(s_axe,30);
+horror_sound_death[13] = new scary_sound(s_nosound,-1); // unused
 
 //instruction fourteen
 /*
@@ -416,26 +424,26 @@ horror_sound_death[13] = new scary_sound(s_axe,30);
     Selecting no_options[14] will advance to instructionArray[18]
 
 */
-instructionArray[14] = "I asked the woman, \"How did you end up here and what the hell is going on?\" |She stared at me. She looked half angry and half exhausted. \"Same question to you. Thank you for saving me though. I don\'t remember how I got here. This place is full of psychotics who seem to want to murder us,\" she said. \"What\'s your name?\" |\"My name is " + name + ".\" |\"Hello, " + name + ", my name is Jessica.\" she replied. |\"I also don\'t know how I ended up here. People have been trying to kill me. And some even have pictures of me with \"KILL\" written on it.\" |Jessica responded with, \"We should get out of here together.\" |\"Can I trust her?\" I thought to myself.||WHAT DID I DO?";
+instructionArray[14] = "I asked the woman, \"How did you end up here and what the hell is going on?\" |She stared at me. She looked half angry and half exhausted. \"Same question to you. Thank you for saving me though. I don\'t remember how I got here. This place is full of psychotics who seem to want to murder us,\" she said. \"What\'s your name?\" |\"My name is " + name + ".\" |\"Hello, " + name + ", my name is Jessica,\" she replied. |\"I also don\'t know how I ended up here. People have been trying to kill me. And some even have pictures of me with \"KILL\" written on it.\" |Jessica responded with, \"We should get out of here together.\" |\"Can I trust her?\" I thought to myself.||WHAT DID I DO?";
 yes_options[14] = "YES, LEAVE WITH THE WOMAN";
 no_options[14] = "NO, LEAVE HER BEHIND";
 horror_info[14] = new horror(false, false, false, 17, 18, false, false);
 horror_sound_action[14] = new action_sound(s_nosound,s_nosound);
-horror_sound_scary[14] = new scary_sound(s_axe,-1);
-horror_sound_death[14] = new scary_sound(s_axe,30);
+horror_sound_scary[14] = new scary_sound(s_nosound,-1); // unused
+horror_sound_death[14] = new scary_sound(s_nosound,-1); // unused
 
 //instruction fifteen: checkpoint
 /*
     Selecting yes_options[15] will advance to instructionArray[16]
     Selecting no_options[15] will result in failArray[10]
 */
-instructionArray[15] = "The woman watched me from the corner of the room. I searched the man's pockets. A picture of me with KILL written on it. I also found prescription psychotropic pills. I asked the woman, \"How did you end up here and what the hell is going on?\" |She stared at me. She looked half angry and half exhausted. \"Same question to you. Thank you for saving me though. I don\'t remember how I got here. This place is full of psychotics who seem to want to murder us.\" she said.||WHAT DID I DO?";
+instructionArray[15] = "The woman watched me from the corner of the room. I searched the man's pockets. A picture of me with KILL written on it. I also found prescription psychotropic pills. I asked the woman, \"How did you end up here and what the hell is going on?\" |She stared at me. She looked half angry and half exhausted. \"Same question to you. Thank you for saving me though. I don\'t remember how I got here. This place is full of psychotics who seem to want to murder us,\" she said.||WHAT DID I DO?";
 yes_options[15] = "TALK MORE WITH THE WOMAN";
 no_options[15] = "LEAVE THE ROOM";
 failArray[10] = "I left the woman and re-entered the hallway I had come from. I walked right into a large man. He grinned and then everything went black. The last thing I felt was explosive pain on the top of my head. This is the end of my story.";
 horror_info[15] = new horror(true, false, true, 16, 10, false, false);
-horror_sound_action[15] = new action_sound(s_nosound,s_nosound);
-horror_sound_scary[15] = new scary_sound(s_axe,-1);
+horror_sound_action[15] = new action_sound(s_nosound,s_footsteps_indoor);
+horror_sound_scary[15] = new scary_sound(s_clothing_rustle,50);
 horror_sound_death[15] = new scary_sound(s_panic,93);
 
 //instruction sixteen
@@ -448,8 +456,8 @@ yes_options[16] = "YES, LEAVE WITH THE WOMAN";
 no_options[16] = "NO, LEAVE HER BEHIND";
 horror_info[16] = new horror(false, false, false, 17, 18, false, false);
 horror_sound_action[16] = new action_sound(s_nosound,s_nosound);
-horror_sound_scary[16] = new scary_sound(s_axe,-1);
-horror_sound_death[16] = new scary_sound(s_axe,30);
+horror_sound_scary[16] = new scary_sound(s_nosound,-1); // no sound indicated
+horror_sound_death[16] = new scary_sound(s_nosound,-1); // unused
 
 //instruction seventeen: checkpoint
 /*
@@ -503,8 +511,8 @@ yes_options[20] = "EXPLORE THE BACK OF THE ROOM";
 no_options[20] = "HEAD OUT THE DOOR I CAME IN";
 failArray[14] = "Jessica and I went out the door. In the hallway was a crowd of men, wearing similar red robes to the man with the pistol. I immediately began firing my pistol but there was a problem; they had guns too. This is the end of my story.";
 horror_info[20] = new horror(true, false, true, 21, 14, false, false);
-horror_sound_action[20] = new action_sound(s_nosound,s_nosound);
-horror_sound_scary[20] = new scary_sound(s_stab,61);
+horror_sound_action[20] = new action_sound(s_footsteps_indoor,s_panic);
+horror_sound_scary[20] = new scary_sound(s_axe_impact,61);
 horror_sound_death[20] = new scary_sound(s_gun_fight,121);
 
 //instruction twentyone
@@ -518,8 +526,8 @@ yes_options[21] = "HEAD UP FIRST";
 no_options[21] = "HAVE JESSICA LEAD";
 horror_info[21] = new horror(false, false, false, 22, 22, false, false);
 horror_sound_action[21] = new action_sound(s_tense2,s_tense2);
-horror_sound_scary[21] = new scary_sound(s_axe,-1);
-horror_sound_death[21] = new scary_sound(s_axe,30);
+horror_sound_scary[21] = new scary_sound(s_door_close,265);
+horror_sound_death[21] = new scary_sound(s_nosound,-1); // unused
 
 //instruction twentytwo
 /*
@@ -532,9 +540,9 @@ yes_options[22] = "INSPECT THE BOOKS";
 no_options[22] = "INSPECT THE BODY";
 failArray[15] = "I called Jessica over. We walked over to the books. I picked one up. It was then I realized that the book triggered the spikes. Faster than I could react, the spikes fell from the ceiling. Jessica and I were impaled from above and this is the end of my story.";
 horror_info[22] = new horror(true, true, false, 15, 23, false, false);
-horror_sound_action[22] = new action_sound(s_nosound,s_nosound);
-horror_sound_scary[22] = new scary_sound(s_door_wood,37);
-horror_sound_death[22] = new scary_sound(s_flesh_split,189);
+horror_sound_action[22] = new action_sound(s_dropping_books,s_clothing_rustle);
+horror_sound_scary[22] = new scary_sound(s_door_wood,25);
+horror_sound_death[22] = new scary_sound(s_decapitation,189);
 
 //instruction twentythree: checkpoint
 /*
@@ -546,21 +554,21 @@ yes_options[23] = "READ THE NOTE";
 no_options[23] = "INSPECT THE BOOKS";
 failArray[16] = "We walked over to the books. I picked one up. It was then I realized the reason for the spikes. Faster than I could react, the spikes fell from the ceiling. Jessica and I were impaled from above. This is the end of my story.";
 horror_info[23] = new horror(true, false, true, 24, 16, false, false);
-horror_sound_action[23] = new action_sound(s_nosound,s_nosound);
-horror_sound_scary[23] = new scary_sound(s_blood_drip,140);
-horror_sound_death[23] = new scary_sound(s_flesh_split,157);
+horror_sound_action[23] = new action_sound(s_page_turn,s_dropping_books);
+horror_sound_scary[23] = new scary_sound(s_blood_drip,310);
+horror_sound_death[23] = new scary_sound(s_decapitation,157);
 
 //instruction twentyfour: checkpoint
 /*
     Selecting yes_options[24] will advance to instructionArray[25]
     Selecting no_options[24] will result in failArray[17]
 */
-instructionArray[24] = "The note said \"Death from above - avoid the books\". |Something suddenly dropped onto my cheek from the ceiling. Cold. Wet. It was blood. I looked up, the spikes above the body were red with blood. It appeared that the books triggered the spikes somehow. |\"Jessica, we need to leave this library.\" I said.||WHAT DID I DO?";
+instructionArray[24] = "The note said \"Death from above - avoid the books.\" |Something suddenly dropped onto my cheek from the ceiling. Cold. Wet. It was blood. I looked up, the spikes above the body were red with blood. It appeared that the books triggered the spikes somehow. |\"Jessica, we need to leave this library.\" I said.||WHAT DID I DO?";
 yes_options[24] = "HEAD TOWARD THE UNEXPLORED DOOR";
 no_options[24] = "GO BACK FROM WHERE WE CAME";
 failArray[17] = "We headed back toward the staircase we came in on. We got to the top of the stairs and began walking down. A man burst through the door at the bottom of the staircase and shot at us. I caught three bullets and saw Jessica go down as well. This is the end of my story.";
 horror_info[24] = new horror(true, false, true, 25, 17, false, false);
-horror_sound_action[24] = new action_sound(s_nosound,s_nosound);
+horror_sound_action[24] = new action_sound(s_rustle,s_footsteps_indoor); // rustle sounds like running
 horror_sound_scary[24] = new scary_sound(s_blood_drip,61);
 horror_sound_death[24] = new scary_sound(s_shotgun_shot,182);
 
@@ -574,7 +582,7 @@ yes_options[25] = "GO FOR THE DOOR";
 no_options[25] = "GRAB A BOOK";
 failArray[18] = "I ran toward the door and was shot in the back. I saw Jessica go down as well. A bullet had torn through her head. I felt an unbearable pain and burning in my lower back. I grabbed a book, the spikes came down. I figured if I was going, I was taking them with me. This is the end of my story.";
 horror_info[25] = new horror(true, true, false, 18, 26, false, false);
-horror_sound_action[25] = new action_sound(s_pistol,s_nosound);
+horror_sound_action[25] = new action_sound(s_pistol,s_dropping_books);
 horror_sound_scary[25] = new scary_sound(s_kick_door_down,105);
 horror_sound_death[25] = new scary_sound(s_flesh_split,210);
 
@@ -605,9 +613,9 @@ instructionArray[26] = "Against my better judgement, I grabbed a book off the sh
 yes_options[26] = "CHECK OUT THE ROOM";
 no_options[26] = "TALK TO JESSICA";
 horror_info[26] = new horror(false, false, false, 27, 28, false, false);
-horror_sound_action[26] = new action_sound(s_nosound,s_nosound);
+horror_sound_action[26] = new action_sound(s_blood_drip,s_blood_drip);
 horror_sound_scary[26] = new scary_sound(s_men_screaming,172);
-horror_sound_death[26] = new scary_sound(s_axe,30);
+horror_sound_death[26] = new scary_sound(s_nosound,-1); // unused
 
 //instruction twentyseven
 /*
@@ -618,9 +626,9 @@ instructionArray[27] = "I scanned the room we found ourselves in. It was small a
 yes_options[27] = "OPEN THE DOOR";
 no_options[27] = "TALK TO JESSICA";
 horror_info[27] = new horror(false, false, false, 32, 29, false, false);
-horror_sound_action[27] = new action_sound(s_nosound,s_nosound);
+horror_sound_action[27] = new action_sound(s_door_close,s_nosound);
 horror_sound_scary[27] = new scary_sound(s_tense3,247);
-horror_sound_death[27] = new scary_sound(s_axe,30);
+horror_sound_death[27] = new scary_sound(s_nosound,-1); // unused
 
 //instruction twentyeight
 /*
@@ -631,9 +639,9 @@ instructionArray[28] = "\"This is utter madness.\" I said, \"It\'s like we\'re i
 yes_options[28] = "SCAN THE ROOM";
 no_options[28] = "SEARCH FOR A DOOR OUT";
 horror_info[28] = new horror(false, false, false, 30, 31, false, false);
-horror_sound_action[28] = new action_sound(s_nosound,s_nosound);
-horror_sound_scary[28] = new scary_sound(s_axe,-1);
-horror_sound_death[28] = new scary_sound(s_axe,30);
+horror_sound_action[28] = new action_sound(s_footsteps_indoor,s_footsteps_indoor);
+horror_sound_scary[28] = new scary_sound(s_nosound,-1); // no sound indicated
+horror_sound_death[28] = new scary_sound(s_nosound,-1); // unused
 
 //instruction twentynine
 /*
@@ -644,9 +652,9 @@ instructionArray[29] = "\"This is utter madness.\" I said, \"It\'s like we\'re i
 yes_options[29] = "GO THROUGH THE DOOR";
 no_options[29] = "FOLLOW JESSICA";
 horror_info[29] = new horror(false, false, false, 32, 32, false, false);
-horror_sound_action[29] = new action_sound(s_nosound,s_nosound);
-horror_sound_scary[29] = new scary_sound(s_axe,-1);
-horror_sound_death[29] = new scary_sound(s_axe,30);
+horror_sound_action[29] = new action_sound(s_door_close,s_door_close);
+horror_sound_scary[29] = new scary_sound(s_nosound,-1); // no sound indicated`
+horror_sound_death[29] = new scary_sound(s_nosound,-1); // unused
 
 //instruction thirty
 /*
@@ -657,9 +665,9 @@ instructionArray[30] = "I scanned the room we found ourselves in. It was small a
 yes_options[30] = "GO THROUGH THE DOOR";
 no_options[30] = "FOLLOW JESSICA";
 horror_info[30] = new horror(false, false, false, 32, 32, false, false);
-horror_sound_action[30] = new action_sound(s_nosound,s_nosound);
+horror_sound_action[30] = new action_sound(s_door_close,s_door_close);
 horror_sound_scary[30] = new scary_sound(s_tense3,255);
-horror_sound_death[30] = new scary_sound(s_axe,30);
+horror_sound_death[30] = new scary_sound(s_nosound,-1); // unused
 
 //instruction thirtyone
 /*
@@ -670,9 +678,9 @@ instructionArray[31] = "I scanned the room we found ourselves in. It was small a
 yes_options[31] = "GO THROUGH THE DOOR";
 no_options[31] = "FOLLOW JESSICA";
 horror_info[31] = new horror(false, false, false, 32, 32, false, false);
-horror_sound_action[31] = new action_sound(s_nosound,s_nosound);
+horror_sound_action[31] = new action_sound(s_door_close,s_door_close);
 horror_sound_scary[31] = new scary_sound(s_tense3,255);
-horror_sound_death[31] = new scary_sound(s_axe,30);
+horror_sound_death[31] = new scary_sound(s_nosound,-1); // unused
 
 //instruction thirty two
 //all paths have rejoined at this point.
@@ -685,9 +693,9 @@ instructionArray[32] = "We entered the door and what I saw shocked me. A brand-n
 yes_options[32] = "IGNORE THEM";
 no_options[32] = "TALK WITH THEM";
 horror_info[32] = new horror(true, false, false, 33, 34, false, false);
-horror_sound_action[32] = new action_sound(s_nosound,s_nosound);
-horror_sound_scary[32] = new scary_sound(s_tense,200);
-horror_sound_death[32] = new scary_sound(s_axe,30);
+horror_sound_action[32] = new action_sound(s_footsteps_indoor,s_footsteps_indoor);
+horror_sound_scary[32] = new scary_sound(s_tense,280);
+horror_sound_death[32] = new scary_sound(s_nosound, -1); // unused
 
 //instruction thirtythree: checkpoint
 /*
@@ -699,7 +707,7 @@ yes_options[33] = "ATTACK THEM";
 no_options[33] = "TALK WITH THEM";
 failArray[19] = "I pulled out my pistol and methodically shot the three of them. Boom, boom, boom. Three head shots. I heard a bang from behind me and turned just as I felt a crushing blow on the left side of my head. I couldn\'t make out my attacker. This is the end of my story.";
 horror_info[33] = new horror(true, true, false, 19, 34, false, false);
-horror_sound_action[33] = new action_sound(s_tense,s_tense);
+horror_sound_action[33] = new action_sound(s_panic,s_panic);
 horror_sound_scary[33] = new scary_sound(s_tense,7);
 horror_sound_death[33] = new scary_sound(s_threeshots,65);
 
@@ -714,7 +722,7 @@ no_options[34] = "ATTACK THEM";
 failArray[20] = "I pulled out my pistol and methodically shot the three of them. Boom, boom, boom. Three head shots. I heard a bang from behind me and turned just as I felt a crushing blow on the left side of my head. I couldn't make out my attacker. This is the end of my story.";
 horror_info[34] = new horror(true, false, true, 35, 20, false, false);
 horror_sound_action[34] = new action_sound(s_tense,s_tense);
-horror_sound_scary[34] = new scary_sound(s_threeshots,-1);
+horror_sound_scary[34] = new scary_sound(s_scream_woman,110);
 horror_sound_death[34] = new scary_sound(s_threeshots,65);
 
 //instruction thirtyfive
@@ -727,8 +735,8 @@ yes_options[35] = "SIT IN SILENCE";
 no_options[35] = "TALK WITH JESSICA";
 horror_info[35] = new horror(false, false, false, 36, 37, false, false);
 horror_sound_action[35] = new action_sound(s_sobbing,s_nosound);
-horror_sound_scary[35] = new scary_sound(s_sobbing,-1);
-horror_sound_death[35] = new scary_sound(s_axe,30);
+horror_sound_scary[35] = new scary_sound(s_door_close,40);
+horror_sound_death[35] = new scary_sound(s_nosound,-1); // unused
 
 //instruction thirtysix: checkpoint
 /*
@@ -740,7 +748,7 @@ yes_options[36] = "ENTER THE ROOM WITH THE BREEZE";
 no_options[36] = "ENTER THE DOOR WITH THE LIGHT";
 failArray[21] = "I stood up, grabbed Jessica\'s hand and lifted her to a standing position. We walked to the door and opened it. It was a mistake. In front of us was a large conference table with about 30 people at it. They held an assortment of weapons. I mustered my words and began saying, \"Please don\'t kill-\". This is the end of my story.";
 horror_info[36] = new horror(true, false, true, 38, 21, false, false);
-horror_sound_action[36] = new action_sound(s_pin_drop,s_pin_drop);
+horror_sound_action[36] = new action_sound(s_door_unlock,s_panic);
 horror_sound_scary[36] = new scary_sound(s_tense2,208);
 horror_sound_death[36] = new scary_sound(s_pistol,297);
 
@@ -754,7 +762,7 @@ yes_options[37] = "ENTER THE ROOM WITH THE BREEZE";
 no_options[37] = "ENTER THE DOOR WITH THE LIGHT";
 failArray[22] = "I stood up, grabbed Jessica\'s hand and lifted her to a standing position. We walked to the door and opened it. It was a mistake. In front of us was a large conference table with about 30 people at it. They held an assortment of weapons. I mustered my words and began saying, \"Please don\'t kill-\". This is the end of my story.";
 horror_info[37] = new horror(true, false, true, 38, 22, false, false);
-horror_sound_action[37] = new action_sound(s_pin_drop,s_pin_drop);
+horror_sound_action[37] = new action_sound(s_door_unlock,s_panic);
 horror_sound_scary[37] = new scary_sound(s_tense2,545);
 horror_sound_death[37] = new scary_sound(s_pistol,297);
 
@@ -770,7 +778,7 @@ failArray[23] = "I walked over the fence and gripped the bars. |\"Are you sure t
 horror_info[38] = new horror(true, true, false, 23, 39, false, false);
 horror_sound_action[38] = new action_sound(s_wind,s_wind);
 horror_sound_scary[38] = new scary_sound(s_wind,116);
-horror_sound_death[38] = new scary_sound(s_stab,622);
+horror_sound_death[38] = new scary_sound(s_scream_woman,542);
 
 //instruction thirtyeight: checkpoint
 /*
@@ -782,23 +790,22 @@ yes_options[39] = "LOOK FOR THE KEY";
 no_options[39] = "KICK THE DOOR DOWN";
 failArray[24] = "\"I have always wanted to do this,\" I said to Jessica. |She grinned. I lifted my leg and kicked the door. Bang! It cracked near the handle but didn\'t give. I lifted my leg for a second blow and heard a noise behind us. The door we had entered from opened. I turned to see a crowd of people pouring out. |\"They heard us!\" Jessica yelled. She held her hatchet up and I pulled out my pistol. We didn\'t stand a chance. We were outmanned and outgunned. The last thing I saw was a barrel of a shotgun. This is the end of my story.";
 horror_info[39] = new horror(true, false, true, 40, 24, false, false);
-horror_sound_action[39] = new action_sound(s_nosound,s_nosound);
+horror_sound_action[39] = new action_sound(s_nosound,s_kick_door_down);
 horror_sound_scary[39] = new scary_sound(s_walking_gravel,175);
-horror_sound_death[39] = new scary_sound(s_kick_door_down,108);
+horror_sound_death[39] = new scary_sound(s_shotgun_shot,108);
 
 //instruction forty
 /*
     selecting yes_options[40] will advance to instructionArray[41]
     selecting no_options[40] will advance to instructionArray[42]
-
 */
 instructionArray[40] = "\"Jessica, help me find the key.\" I said. |I looked on the path. Jessica lifted the doormat and what do you know? There was a key. It was an old-fashioned, large, fancy-looking key. |\"You\'re welcome,\" she winked as she handed it to me. |I tried it and it worked! The door clicked and opened. Immediately something jumped on top of me and knocked me on my back.||WHAT DID I DO?";
 yes_options[40] = "CALL FOR HELP";
 no_options[40] = "ATTACK WHATEVER WAS ON TOP OF ME";
 horror_info[40] = new horror(true, false, false, 41, 42, false, false);
-horror_sound_action[40] = new action_sound(s_nosound,s_nosound);
+horror_sound_action[40] = new action_sound(s_yell_man,s_yelp);
 horror_sound_scary[40] = new scary_sound(s_thump,344);
-horror_sound_death[40] = new scary_sound(s_axe,30);
+horror_sound_death[40] = new scary_sound(s_nosound,-1); // unused
 
 //instruction fortyone: checkpoint
 /*
@@ -810,9 +817,9 @@ yes_options[41] = "TURN THE SCREENS ON";
 no_options[41] = "LEAVE THEM BE";
 failArray[25] = "I didn\'t turn on the security camera screens. Jessica and I scanned the room. I searched a nearby bookcase. There were books on human anatomy and neurology. I picked up one entitled \"Brains and Minds\" and flipped through it. There were diagrams of different sections of the brain indicating where to cut to supposedly affect behavior. |\"Jessica, you have to see -\" |I turned my head and saw Jessica being held from behind by a tall man. How did I not hear him? He had a knife to her throat. I raised my weapon and while staring directly at me, the man ran the knife through the front of her neck. Jessica died. I took my ax and charged at him. He made an attempt to stab me but I dodged and brought my ax down on his head. Two more men entered the room, and before I could react they shot me in the back. This is the end of my story.";
 horror_info[41] = new horror(true, false, true, 43, 25, false, false);
-horror_sound_action[41] = new action_sound(s_nosound,s_nosound);
+horror_sound_action[41] = new action_sound(s_computer_beeps,s_nosound);
 horror_sound_scary[41] = new scary_sound(s_yelp,72);
-horror_sound_death[41] = new scary_sound(s_stab,719);
+horror_sound_death[41] = new scary_sound(s_axe_impact,719);
 
 //instruction fortytwo: checkpoint
 /*
@@ -824,7 +831,7 @@ yes_options[42] = "TURN THE SCREENS ON";
 no_options[42] = "LEAVE THEM BE";
 failArray[26] = "I didn\'t turn on the security camera screens. Jessica and I scanned the room. I searched a nearby bookcase. There were books on human anatomy and neurology. I picked up one entitled \"Brains and Minds\" and flipped through it. There were diagrams of different sections of the brain indicating where to cut to supposedly affect behavior. |\"Jessica, you have to see -\" |I turned my head and saw Jessica being held from behind by a tall man. How did I not hear him? He had a knife to her throat. I raised my weapon and while staring directly at me, the man ran the knife through the front of her neck. Jessica died. I took my ax and charged at him. He made an attempt to stab me but I dodged and brought my ax down on his head. Two more men entered the room, and before I could react they shot me in the back. This is the end of my story.";
 horror_info[42] = new horror(true, false, true, 43, 26, false, false);
-horror_sound_action[42] = new action_sound(s_nosound,s_nosound);
+horror_sound_action[42] = new action_sound(s_computer_beeps,s_page_turn);
 horror_sound_scary[42] = new scary_sound(s_yelp,100);
 horror_sound_death[42] = new scary_sound(s_stab,719);
 
@@ -838,7 +845,7 @@ yes_options[43] = "HIDE";
 no_options[43] = "PREPARE TO ATTACK";
 failArray[27] = "\"Get your weapon ready.\" I told Jessica. |I stood by the door readied. I heard a small noise and turned my head and saw Jessica being held from behind my a tall man. He had a knife to her throat. How did he get by us? How did we not see or hear him? I raised my weapon and while staring directly at me, the man ran the knife through the front of her neck. Jessica died. I took my ax and charged at him. He made an attempt to stab me but I dodged and brought my ax down on his head. Two more men entered the room, and before I could react they shot me in the back. This is the end of my story.";
 horror_info[43] = new horror(true, false, true, 44, 27, false, false);
-horror_sound_action[43] = new action_sound(s_tense,s_begging);
+horror_sound_action[43] = new action_sound(s_fast_heartbeat,s_begging);
 horror_sound_scary[43] = new scary_sound(s_panic,193);
 horror_sound_death[43] = new scary_sound(s_pistol,545);
 
@@ -853,7 +860,7 @@ no_options[44] = "ATTACK";
 failArray[28] = "I took my ax, smashed opened the closet doors and charged at him. He made an attempt to stab me but I dodged and brought my ax down on his head. Two more men entered the room, and before I could react they shot me in the back. This is the end of my story.";
 horror_info[44] = new horror(true, false, true, 45, 28, false, false);
 horror_sound_action[44] = new action_sound(s_fast_heartbeat,s_kick_door_down);
-horror_sound_scary[44] = new scary_sound(s_stab,-1);
+horror_sound_scary[44] = new scary_sound(s_footsteps_indoor,175);
 horror_sound_death[44] = new scary_sound(s_pistol,206);
 
 //instruction fortyfive
@@ -865,9 +872,9 @@ instructionArray[45] = "My heart raced. I hoped he wouldn't hear it pounding. Af
 yes_options[45] = "LOOK AT SECURITY SCREENS AGAIN";
 no_options[45] = "SEARCH THE ROOM";
 horror_info[45] = new horror(true, false, false, 46, 47, false, false);
-horror_sound_action[45] = new action_sound(s_door_unlock,s_door_unlock);
-horror_sound_scary[45] = new scary_sound(s_slow_heartbeat,12);
-horror_sound_death[45] = new scary_sound(s_axe,30);
+horror_sound_action[45] = new action_sound(s_computer_beeps,s_footsteps_indoor);
+horror_sound_scary[45] = new scary_sound(s_walking_away,120);
+horror_sound_death[45] = new scary_sound(s_nosound,-1); // unused
 
 //instruction fortysix: checkpoint
 /*
@@ -880,7 +887,7 @@ no_options[46] = "ENTER THE ROOM WITH THE COFFINS";
 failArray[29] = "I readied my gun, opened the door and opened fire on the three men. Bam! One down. Bam! Another down. The third one had made his way close to me and grabbed for the gun. There was a struggle. He was twice my size and overpowered me. Bam! A shot went off. I heard a noise. Jessica had fallen to the ground - blood rushing out of her head. And then... Bam! This is the end of my story.";
 horror_info[46] = new horror(true, true, false, 29, 48, false, false);
 horror_sound_action[46] = new action_sound(s_guncock,s_door_wood);
-horror_sound_scary[46] = new scary_sound(s_axe,-1);
+horror_sound_scary[46] = new scary_sound(s_panic,90);
 horror_sound_death[46] = new scary_sound(s_pistol,234);
 
 
@@ -894,8 +901,8 @@ yes_options[47] = "MOVE BACKWARD";
 no_options[47] = "MOVE FORWARD";
 failArray[30] = "I readied my gun, opened the door and opened fire on the three men. Bam! One down. Bam! Another down. The third one had made his way close to me and grabbed for the gun. There was a struggle. He was twice my size and overpowered me. Bam! A shot went off. I heard a noise. Jessica had fallen to the ground - blood rushing out of her head. And then... Bam! This is the end of my story.";
 horror_info[47] = new horror(true, true, false, 30, 48, false, false);
-horror_sound_action[47] = new action_sound(s_guncock,s_door_wood);
-horror_sound_scary[47] = new scary_sound(s_axe,-1);
+horror_sound_action[47] = new action_sound(s_guncock,s_door_metal);
+horror_sound_scary[47] = new scary_sound(s_panic,140);
 horror_sound_death[47] = new scary_sound(s_pistol,234);
 
 //instruction forty eight
@@ -909,7 +916,7 @@ no_options[48] = "OPEN A COFFIN";
 horror_info[48] = new horror(false, false, false, 49, 0, false, true);
 horror_sound_action[48] = new action_sound(s_blood_drip,s_coffin_creaky);
 horror_sound_scary[48] = new scary_sound(s_blood_drip,78);
-horror_sound_death[48] = new scary_sound(s_axe,30);
+horror_sound_death[48] = new scary_sound(s_nosound,-1); // unused
 
 //instruction fortynine: checkpoint
 /*
@@ -976,9 +983,9 @@ instructionArray[51] = "We pushed a coffin against the door. It was very heavy a
 yes_options[51] = "CONTINUE DOWN THE STAIRS";
 no_options[51] = "SIT DOWN";
 horror_info[51] = new horror(false, false, false, 52, 53, false, false);
-horror_sound_action[51] = new action_sound(s_nosound,s_nosound);
+horror_sound_action[51] = new action_sound(s_walk_downstairs,s_nosound);
 horror_sound_scary[51] = new scary_sound(s_move_coffin,11);
-horror_sound_death[51] = new scary_sound(s_axe,30);
+horror_sound_death[51] = new scary_sound(s_nosound,-1); // unused
 
 //instruction fifty two: checkpoint
 /*
@@ -990,7 +997,7 @@ yes_options[52] = "ATTACK";
 no_options[52] = "TALK";
 failArray[36] = "\"What is happen-\" I started. |The man moved quickly and his cleaver struck me in the side of the head. The first blow knocked me down. I attempted to raise my weapon but my arm wouldn\'t move. He struck me again. This is the end of my story.";
 horror_info[52] = new horror(true, false, true, 54, 36, false, false);
-horror_sound_action[52] = new action_sound(s_pin_drop,s_thump);
+horror_sound_action[52] = new action_sound(s_pistol,s_panic);
 horror_sound_scary[52] = new scary_sound(s_tense3,109);
 horror_sound_death[52] = new scary_sound(s_flesh_split,17);
 
@@ -1004,23 +1011,23 @@ yes_options[53] = "ATTACK";
 no_options[53] = "TALK";
 failArray[37] = "\"What is happen-\" I started. |The man moved quickly and his cleaver struck me in the side of the head. The first blow knocked me down. I attempted to raise my weapon but my arm wouldn\'t move. He struck me again. This is the end of my story.";
 horror_info[53] = new horror(true, false, true, 54, 37, false, false);
-horror_sound_action[53] = new action_sound(s_pin_drop,s_thump);
+horror_sound_action[53] = new action_sound(s_pistol,s_panic);
 horror_sound_scary[53] = new scary_sound(s_tense3,304);
 horror_sound_death[53] = new scary_sound(s_flesh_split,17);
 
 //instruction fiftyfour: checkpoint
 /*
     yesOption = failarray[38]
-    noOption = advanbce to instruction array 55
+    noOption = advance to instruction array 55
 */
 instructionArray[54] = "Without delay, I raised my pistol and shot him between the eyes. He collapsed several feet backward and landed flat on his back. Suddenly another person entered the room. He had a long knife.||WHAT DID I DO?";
 yes_options[54] = "SHOOT";
 no_options[54] = "ORDER HIM TO DROP KNIFE";
 failArray[38] = "I pulled the trigger. Bam! He dodged to the left and I missed! I attempted another shot but he was upon me. His knife slid deep into my right eye. The pain was deathly. I saw red. This is the end of my story.";
 horror_info[54] = new horror(true, true, false, 38, 55, false, false);
-horror_sound_action[54] = new action_sound(s_pistol,s_nosound);
-horror_sound_scary[54] = new scary_sound(s_pistol,70);
-horror_sound_death[54] = new scary_sound(s_stab,119);
+horror_sound_action[54] = new action_sound(s_pistol,s_yell_man);
+horror_sound_scary[54] = new scary_sound(s_thump,70);
+horror_sound_death[54] = new scary_sound(s_axe_impact,119);
 
 //instruction fifty five: checkpoint
 /*
@@ -1032,9 +1039,9 @@ yes_options[55] = "TIE HIM UP";
 no_options[55] = "WALK PAST HIM";
 failArray[39] = "I figured he was insane and continued past him. I heard a rapid shuffling and felt a sharp sting in the back of my neck. The stinging became an unbearable pain. I coughed blood. The man had stabbed me in the back of the neck. This is the end of my story.";
 horror_info[55] = new horror(true, false, true, 56, 39, false, false);
-horror_sound_action[55] = new action_sound(s_nosound,s_nosound);
+horror_sound_action[55] = new action_sound(s_rustle,s_footsteps_indoor);
 horror_sound_scary[55] = new scary_sound(s_tense2,108);
-horror_sound_death[55] = new scary_sound(s_stab,119);
+horror_sound_death[55] = new scary_sound(s_axe_impact,119);
 
 //instruction fifty six
 /*
@@ -1045,9 +1052,9 @@ instructionArray[56] = "I grabbed the rope. I had learned knots as a child. I co
 yes_options[56] = "SEARCH THE ROOM";
 no_options[56] = "LOOK FOR A WAY OUT";
 horror_info[56] = new horror(true, false, false, 57, 58, false, false);
-horror_sound_action[56] = new action_sound(s_pin_drop,s_pin_drop);
+horror_sound_action[56] = new action_sound(s_footsteps_indoor,s_footsteps_indoor);
 horror_sound_scary[56] = new scary_sound(s_punch,248);
-horror_sound_death[56] = new scary_sound(s_axe,30);
+horror_sound_death[56] = new scary_sound(s_nosound,-1); // unused
 
 //instruction fifty seven
 /*
@@ -1060,7 +1067,7 @@ no_options[57] = "OPEN THE DOOR TO THE RIGHT";
 horror_info[57] = new horror(false, false, false, 59, 60, false, false);
 horror_sound_action[57] = new action_sound(s_door_unlock,s_door_unlock);
 horror_sound_scary[57] = new scary_sound(s_blood_drip,47);
-horror_sound_death[57] = new scary_sound(s_axe,30);
+horror_sound_death[57] = new scary_sound(s_nosound,-1); // unused
 
 //instruction fifty eight
 /*
@@ -1085,7 +1092,7 @@ yes_options[59] = "WAIT FOR THEM TO ARRIVE AND FIGHT";
 no_options[59] = "HEAD INTO THE DARKNESS";
 failArray[40] = "I readied my pistol, aiming it toward the door. A man appeared at the bottom of the stairs. His face was filthy and he held a large ax in either hand. BANG! I shot him in the arm. He dropped one ax. Behind him several more large, armed, men arrived in the room. Jessica impaled one of them with her knife. We were no match for them. The last thing I saw was gleaming steel. This is the end of my story.";
 horror_info[59] = new horror(true, true, false, 40, 61, false, false);
-horror_sound_action[59] = new action_sound(s_nosound,s_nosound);
+horror_sound_action[59] = new action_sound(s_slow_heartbeat,s_door_close);
 horror_sound_scary[59] = new scary_sound(s_click,461);
 horror_sound_death[59] = new scary_sound(s_pistol,152);
 
@@ -1099,7 +1106,7 @@ yes_options[60] = "WAIT FOR THEM TO ARRIVE AND FIGHT";
 no_options[60] = "HEAD INTO THE DARKNESS";
 failArray[41] = "I readied my pistol, aiming it toward the door. A man appeared at the bottom of the stairs. His face was filthy and he held a large ax in either hand. BANG! I shot him in the arm. He dropped one ax. Behind him several more large, armed, men arrived in the room. Jessica impaled one of them with her knife. We were no match for them. The last thing I saw was gleaming steel. This is the end of my story.";
 horror_info[60] = new horror(true, true, false, 41, 61, false, false);
-horror_sound_action[60] = new action_sound(s_nosound,s_nosound);
+horror_sound_action[60] = new action_sound(s_slow_heartbeat,s_door_close);
 horror_sound_scary[60] = new scary_sound(s_click,133);
 horror_sound_death[60] = new scary_sound(s_pistol,152);
 
@@ -1114,7 +1121,7 @@ no_options[61] = "REMAIN MOTIONLESS";
 horror_info[61] = new horror(true, false, false, 62, 63, false, false);
 horror_sound_action[61] = new action_sound(s_axe,s_nosound);
 horror_sound_scary[61] = new scary_sound(s_growl,498);
-horror_sound_death[61] = new scary_sound(s_axe,30);
+horror_sound_death[61] = new scary_sound(s_nosound,-1); // unused
 
 //instruction sixty-two: checkpoint
 /*
@@ -1152,10 +1159,10 @@ horror_sound_death[63] = new scary_sound(s_dog_eating,184);
 instructionArray[64] = "I shot at one of the men and missed. Another yelled and pointed at me. The beast then turned to the men and charged. I grabbed Jessica and made our way to the nearest door. I pulled her out of the room, shut the door behind us and locked it. I could hear screams from where we had just left. I turned around and found us in a hallway. It was long and there appeared to be only one door. A red door.||WHAT DID I DO?";
 yes_options[64] = "SEARCH THE HALLWAY";
 no_options[64] = "GO THROUGH THE DOOR";
-horror_info[64] = new horror(true, false, false, 65, 66, false, false);
-horror_sound_action[64] = new action_sound(s_nosound,s_door_unlock);
+horror_info[64] = new horror(false, false, false, 65, 66, false, false);
+horror_sound_action[64] = new action_sound(s_footsteps_indoor,s_door_unlock);
 horror_sound_scary[64] = new scary_sound(s_men_screaming,248);
-horror_sound_death[64] = new scary_sound(s_axe,30);
+horror_sound_death[64] = new scary_sound(s_nosound,-1);
 
 //instruction sixty-five: checkpoint
 /*
@@ -1195,8 +1202,8 @@ yes_options[67] = "GO THROUGH THE FENCE FIRST";
 no_options[67] = "LET JESSICA ESCAPE";
 failArray[46] = "I crawled through the fence. Jessica was behind me. I heard a gunshot. Jessica yelled and fell to the dirt. I stood up and looked behind. The men were running towards me, shooting. I began to run. A bullet tore at my leg. I stumbled and dropped my pistol. Another in my lower back. I fell. I crawled further but a final bullet ended me. This is the end of my story.";
 horror_info[67] = new horror(true, true, false, 46, 68, false, false);
-horror_sound_action[67] = new action_sound(s_delayedshot,s_nosound);
-horror_sound_scary[67] = new scary_sound(s_kicking_fence,134);
+horror_sound_action[67] = new action_sound(s_delayedshot,s_delayedshot);
+horror_sound_scary[67] = new scary_sound(s_kicking_fence,118);
 horror_sound_death[67] = new scary_sound(s_bullet_impacts,281);
 
 //instruction sixtyeight: checkpoint
@@ -1209,8 +1216,8 @@ yes_options[68] = "FIGHT THEM";
 no_options[68] = "RUN INTO THE BUILDING";
 failArray[47] = "I gripped my ax and ran toward the men. One of them sidestepped and punched me in the side of my face. I was dazed and I dropped my ax. I reached down to pick up my weapon and felt another blow on the back of my head. I collapsed next to the group. The men proceeded to kick my head in. This is the end of my story.";
 horror_info[68] = new horror(true, true, false, 47, 69, false, false);
-horror_sound_action[68] = new action_sound(s_nosound,s_tense);
-horror_sound_scary[68] = new scary_sound(s_flesh_split,616);
+horror_sound_action[68] = new action_sound(s_tense,s_tense);
+horror_sound_scary[68] = new scary_sound(s_flesh_split,606);
 horror_sound_death[68] = new scary_sound(s_beating,285);
 
 //this is the end of the game
@@ -1218,9 +1225,9 @@ instructionArray[69] = "I turned and ran toward the nearby building. Jessica had
 yes_options[69] = "SUBMIT";
 no_options[69] = "RESIST";
 horror_info[69] = new horror(false,false,false,70,70,false,false);
-horror_sound_action[69] = new action_sound(s_nosound,s_nosound);
-horror_sound_scary[69] = new scary_sound(s_axe,-1);
-horror_sound_death[69] = new scary_sound(s_axe,-1);
+horror_sound_action[69] = new action_sound(s_victory,s_victory);
+horror_sound_scary[69] = new scary_sound(s_nosound,-1);
+horror_sound_death[69] = new scary_sound(s_nosound,-1);
 
 // Congratulate the winner, show them the score, then restart game
 //instructionArray[70] = "You're so awesome!  Now what do you want to do?";
@@ -1228,13 +1235,13 @@ yes_options[70] = "RESTART FROM BEGINNING";
 no_options[70] = "RESTART FROM BEGINNING (IS THERE A CHOICE?)";
 horror_info[70] = new horror(false, false, false, 0, 0, false, false);
 horror_sound_action[70] = new action_sound(s_nosound,s_nosound);
-horror_sound_scary[70] = new scary_sound(s_axe,-1);
-horror_sound_death[70] = new scary_sound(s_axe,30);
+horror_sound_scary[70] = new scary_sound(s_nosound,-1);
+horror_sound_death[70] = new scary_sound(s_nosound,-1);
 
 // These settings fire off when time to make a choice expires.
 horror_sound_action[71] = new action_sound(s_nosound,s_nosound);
-horror_sound_scary[71] = new scary_sound(s_axe,-1);
-horror_sound_death[71] = new scary_sound(s_axe,-1);
+horror_sound_scary[71] = new scary_sound(s_nosound,-1);
+horror_sound_death[71] = new scary_sound(s_nosound,-1);
 failArray[48] = "I couldn't make a decision in time and this is the end of my story.";
 
 } // initialize_choice_arrays() 
@@ -1433,10 +1440,11 @@ function dramatic_parse (is_death,sound_index,sentence, callback) {
                 //at the end of our timeout events. keep iter is incremented;
                 //this allows us to type the characters in order
 
-                //this check will tell the program to use pipes as a marker for a newline.
                 if ((keep_iter == when_to_play) && (has_dramatic_sound)) {
                     play_sound(sound_to_play);
                 }
+
+                //this check will tell the program to use pipes as a marker for a newline.
                 if (next_chara[keep_iter] == '|') {
                     $("#instructions").append("<br>&nbsp;&nbsp;&nbsp;&nbsp;");
                 } else {
