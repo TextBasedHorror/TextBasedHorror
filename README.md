@@ -4,7 +4,15 @@ Repository for the TextBasedHorror game by The Tech Academy
 # This project is a collaboration of efforts by students at the tech academy
 Project Manager:
 
-Tony Thach - https://github.com/tonythach
+Tony Thach (former) - https://github.com/tonythach
+
+Aja Brofferio (current) - https://github.com/ABrofferio
+
+
+Scrum Master:
+
+Brandon Westerman - https://github.com/dekhaz
+
 
 Team Members:
 
@@ -17,8 +25,6 @@ Jessie Lee - https://github.com/CodeIrish
 Navjot Dhillon - https://github.com/Najdhillon
 
 Maurice Sandoval - https://github.com/mauricesandoval
-
-Brandon Westerman - https://github.com/dekhaz
 
 Samuel Sanseri - https://github.com/ssanseri
 
