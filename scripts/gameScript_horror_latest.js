@@ -1883,7 +1883,7 @@ function reveal_button_pressed () {
     push_story_cursor(game_cursor);
     show_buttons(game_cursor);
     clock = $("#time");
-    startTimer(10,clock);
+    startTimer(8,clock);
     endScrollPageDownLoop;
 }
 
