@@ -28,7 +28,7 @@ $(document).ready(function(){
 
 // this is for the timed thunder strikes
 $(document).ready(function(){
-  var interval = setInterval(timerIncrement, 5000);
+  var interval = setInterval(timerIncrement, 3500);
   $(this).mousedown(function(e){
       idleTime = 0;
   });
