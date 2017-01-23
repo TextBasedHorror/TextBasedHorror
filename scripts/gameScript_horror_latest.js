@@ -1333,10 +1333,10 @@ function random_type (chara) {
     sine_wave++;
     if (sine_wave = 101) {sine_wave = 1;}
     if (chara === '.' || chara === '?' || chara === '!') {
-        rando_value = (Math.random() * 20) + (Math.sin(sine_wave) * 60) + 40;
+        rando_value = (Math.random() * 20) + (Math.sin(sine_wave) * 60) + 32;
     }
     else {
-        rando_value = (Math.random() * 10) + (Math.sin(sine_wave) * 20) + 25;
+        rando_value = (Math.random() * 10) + (Math.sin(sine_wave) * 20) + 21;
     }
     return rando_value;
 }
@@ -1996,7 +1996,7 @@ function naming () {
     $("#myText").val("");
 
     //console.log("starting first print out");
-    dramatic_parse(false,-1,"                 What is my name?",function() {
+    dramatic_parse(false,-1,"                                What is my name?",function() {
         $("#button").one("click",function() {
             name = document.getElementById("myText").value;
             name = name.trim();

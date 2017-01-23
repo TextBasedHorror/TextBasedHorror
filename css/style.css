@@ -135,7 +135,49 @@ body {
 #button {
     padding: 3px;
     margin: 5px;
+	width: 65px;
     
+}
+
+#buttonYesNo {
+    padding: 0px 10px 0px 10px;
+    margin: 20px;
+	width: 65px;
+    
+}
+
+#yes {
+	position: relative;
+	left: -40px;
+	margin: 0px 50px 0px 50px;
+	
+}
+
+#no {
+	position: relative;
+	left: 40px;
+	margin: 0px 50px 0px 50px;
+}
+
+#buttonReveal {
+	position: relative;	
+	left: -30px;
+	margin: 0px 50px 0px 50px;
+}
+
+#buttonBack {
+	position: relative;
+	left: 10px;
+	margin: 0px 50px 0px 50px;
+}
+
+#myText {
+	margin-right: 10px;
+	width: 300px;
+	position: relative;
+	left: -30px;
+	font-family: 'traveling_typewriter';
+	
 }
 
 footer {
