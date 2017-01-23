@@ -1579,7 +1579,7 @@ function dead_dead (death_cursor,origin) {
         });
         $(".noDead").one("click", function () {
             $('#buttonYes').hide();
-            dramatic_parse(false,-1,"I have failed...|||      ", function() {
+            dramatic_parse(false,-1,"Wise choice. Come back if you change your mind...|||      ", function() {
                 total_deaths = 0;
                 total_correct_choices = 0;
                 clear_game_stack();
@@ -1593,7 +1593,8 @@ function dead_dead (death_cursor,origin) {
                     console.log("i'm clearing timeouts!");
                 }
                 adjustGridBack();
-                naming();
+                //naming();
+                window.location = "Index.html";
             });
         });
         // Laugh at user when they die.  Wait until death spooky parse finished.
