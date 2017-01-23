@@ -7,7 +7,31 @@
 }
 @font-face {
 	font-family: 'face_your_fears';
-	src: url('../fonts/faceYourFears/FaceYourFears.ttf') format ('truetype');
+	src: url('../fonts/faceYourFears/FaceYourFears.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'ghastly_panic';
+	src: url('../fonts/Ghastly_Panic.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'gypsy_curse';
+	src: url('../fonts/Gypsy_Curse.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'metal_macabre';
+	src: url('../fonts/MetalMacabre.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'traveling_typewriter';
+	src: url('../fonts/TravelingTypewriter.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -49,8 +73,9 @@
      border-radius:0;
      background-color:#000;
      transition: border-color 0.3s ease-out, color 0.3s ease-out;
-
-
+	 font-family: 'gypsy_curse';
+	 -webkit-transform: scale(1.5,1);
+	 font-size: 28px;
 }
 
 .btn:focus, .btn:active:focus, .btn.active:focus, .btn:hover {
@@ -95,9 +120,10 @@ body {
     background-color: black;
 }
 
-#intro {
-    font-family: 'you_murderer';
-    font-size: 60px;
+#header {
+    font-family: 'metal_macabre';
+    font-size: 40px;
+	padding-top: 40px;
 }
 
 #time {
@@ -113,11 +139,11 @@ body {
 }
 
 footer {
-    font-family: 'Raleway', sans-serif;
-    font-size: 16px;
-    font-weight:bold;
+    font-family: 'ghastly_panic', sans-serif;
+    font-size: 20px;
     margin: auto;
     margin-left: -9.5%;
+	-webkit-transform: scale(1.8,1);
 }
 
 #footer{
@@ -160,6 +186,7 @@ footer {
 /*9/30/2016 change to alignment of the typed effect*/
 #instructions {
     text-align: left;
+	font-family: 'traveling_typewriter';
 }
 
 #yes, #no {

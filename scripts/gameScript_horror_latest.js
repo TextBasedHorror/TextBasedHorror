@@ -1333,10 +1333,10 @@ function random_type (chara) {
     sine_wave++;
     if (sine_wave = 101) {sine_wave = 1;}
     if (chara === '.' || chara === '?' || chara === '!') {
-        rando_value = (Math.random() * 20) + (Math.sin(sine_wave) * 60) + 68;
+        rando_value = (Math.random() * 20) + (Math.sin(sine_wave) * 60) + 40;
     }
     else {
-        rando_value = (Math.random() * 10) + (Math.sin(sine_wave) * 20) + 42;
+        rando_value = (Math.random() * 10) + (Math.sin(sine_wave) * 20) + 25;
     }
     return rando_value;
 }
