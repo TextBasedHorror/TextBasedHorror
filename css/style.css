@@ -76,6 +76,14 @@
 	 font-family: 'gypsy_curse';
 	 -webkit-transform: scale(1.5,1);
 	 font-size: 28px;
+	 border-radius: 4px;
+     -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+	 box-shadow: 2px 2px 2px red, 3px 3px 8px #830303;
+	 color: #EEE;
+	 text-shadow: 2px 2px 2px #300000, 2px 3px 2px #400000, 2px 4px 2px #500000, 2px 5px 2px #600000, 2px 6px 2px #700000, 2px 7px 2px #800000, 2px 8px 2px #900000;
+	 
+	 
 }
 
 .btn:focus, .btn:active:focus, .btn.active:focus, .btn:hover {
