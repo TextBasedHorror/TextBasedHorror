@@ -64,6 +64,7 @@
      height:auto;*/
      display:inline-block;
      width:200px;
+	 white-space: normal;
      padding:10px;
      color: #fff;
      border:2px solid #fff;
@@ -156,20 +157,24 @@ body {
 
 #yes {
 	position: relative;
-	left: -40px;
+	left: -50px;
 	margin: 0px 50px 0px 50px;
+	width: 100px;
+	white-space: normal;
 	
 }
 
 #no {
 	position: relative;
-	left: 40px;
+	left: 50px;
 	margin: 0px 50px 0px 50px;
+	width: 100px;
+	white-space: normal;
 }
 
 #buttonReveal {
 	position: relative;	
-	left: -30px;
+	/*left: -30px;*/
 	margin: 0px 50px 0px 50px;
 }
 
@@ -235,8 +240,12 @@ footer {
 
 /*9/30/2016 change to alignment of the typed effect*/
 #instructions {
-    text-align: left;
+    text-align: center;
 	font-family: 'traveling_typewriter';
+}
+
+#instructions2 {
+	text-align: center;
 }
 
 #yes, #no {

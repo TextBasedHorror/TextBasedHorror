@@ -337,8 +337,8 @@ horror_sound_death[7] = new scary_sound(s_nosound,-1); // unused
     failArray is now at -2 places (gap elimination)
 */
 instructionArray[8] = "I messed around with the window and it opened with no resistance. I climbed inside and shut the window behind me. For good measure, I locked both windows. I took a moment and viewed the room I was in. It was a large hall. Suddenly a memory flashed... I am an investigator. I was on a major case. What was that case about...? Bang! A loud noise from the next room over. Two doors. One door leading to the noise and another door leading away from it.||WHAT DID I DO?";
-yes_options[8] = "OPEN THE DOOR LEADING TOWARD THE NOISE";
-no_options[8] = "GO THROUGH THE DOOR LEADING AWAY FROM THE NOISE";
+yes_options[8] = "OPEN DOOR LEADING TOWARD THE NOISE";
+no_options[8] = "OPEN DOOR LEADING AWAY FROM THE NOISE";
 failArray[6] = "I bravely opened the door that led to the noise. The mystery was instantly solved. There stood a man with a large shotgun in his hands. He wasted no time in taking aim at my body. Not that aim mattered with a gun like that. I quickly threw my hatchet at him. He moved to the left but my hatchet cut his thigh. It delayed the shooter slightly but didn't stop him. Pow! The shot tore through my midsection. This is the end of my story.";
 horror_info[8] = new horror(true, true, false, 6, 9, false, false);
 horror_sound_action[8] = new action_sound(s_door_unlock,s_door_unlock);
