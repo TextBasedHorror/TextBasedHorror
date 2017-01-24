@@ -121,7 +121,7 @@ ul{
 
 #aboutUs{
 	margin-top: 150px;
-	font-family: 'faceYourFears';
+	/*font-family: 'gypsy_curse';*/
 }
 
 #contact{
@@ -141,9 +141,8 @@ ul{
 
 
 #contact_text{
-	margin-top: 2%;
-	font-family: 'faceYourFears';
-	/*font-family:"Visions of the Dead";*/
+	margin-top: 2%;	
+	font-family:"gypsy_curse";
 	font-size:25px;
 	letter-spacing: 2px;
 }

@@ -261,6 +261,14 @@ footer {
    outline: none !important;
 }
 
+a {
+	color: #d62c1a;
+}
+
+a:hover, a:active {
+	color: #830303;
+}
+
 
 .hiddenstuff {
 	visibility:hidden;
