@@ -1598,7 +1598,7 @@ function dead_dead (death_cursor,origin) {
             });
         });
         // Laugh at user when they die.  Wait until death spooky parse finished.
-        document.getElementById('laugh').play();
+        document.getElementById('scream').play();
         $('#buttonYes').delay(delay_value).fadeIn();
     });
 }
