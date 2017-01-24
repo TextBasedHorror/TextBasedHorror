@@ -240,12 +240,13 @@ footer {
 
 /*9/30/2016 change to alignment of the typed effect*/
 #instructions {
-    text-align: center;
+    text-align: left;
 	font-family: 'traveling_typewriter';
 }
 
 #instructions2 {
 	text-align: center;
+	font-family: 'traveling_typewriter';
 }
 
 #yes, #no {
