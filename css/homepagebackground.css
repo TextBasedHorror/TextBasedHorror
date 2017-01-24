@@ -15,19 +15,42 @@
     font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
 	font-family: 'face_your_fears';
-	src: url('../fonts/faceYourFears/FaceYourFears.ttf') format ('truetype');
+	src: url('../fonts/faceYourFears/FaceYourFears.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'ghastly_panic';
+	src: url('../fonts/Ghastly_Panic.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'gypsy_curse';
+	src: url('../fonts/Gypsy_Curse.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'metal_macabre';
+	src: url('../fonts/MetalMacabre.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'traveling_typewriter';
+	src: url('../fonts/TravelingTypewriter.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }
 
-
+/* I'm going to style this by using #header instead, and do it all in style.css.
 #intro2{
 	font-size: 60px;
 	font-family: 'you_murderer';
-}
+} */
 
 
 
@@ -98,7 +121,7 @@ ul{
 
 #aboutUs{
 	margin-top: 150px;
-	font-family: 'faceYourFears';
+	/*font-family: 'gypsy_curse';*/
 }
 
 #contact{
@@ -118,9 +141,8 @@ ul{
 
 
 #contact_text{
-	margin-top: 2%;
-	font-family: 'faceYourFears';
-	/*font-family:"Visions of the Dead";*/
+	margin-top: 2%;	
+	font-family:"gypsy_curse";
 	font-size:25px;
 	letter-spacing: 2px;
 }

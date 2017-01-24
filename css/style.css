@@ -7,7 +7,31 @@
 }
 @font-face {
 	font-family: 'face_your_fears';
-	src: url('../fonts/faceYourFears/FaceYourFears.ttf') format ('truetype');
+	src: url('../fonts/faceYourFears/FaceYourFears.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'ghastly_panic';
+	src: url('../fonts/Ghastly_Panic.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'gypsy_curse';
+	src: url('../fonts/Gypsy_Curse.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'metal_macabre';
+	src: url('../fonts/MetalMacabre.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'traveling_typewriter';
+	src: url('../fonts/TravelingTypewriter.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -40,6 +64,7 @@
      height:auto;*/
      display:inline-block;
      width:200px;
+	 white-space: normal;
      padding:10px;
      color: #fff;
      border:2px solid #fff;
@@ -49,8 +74,17 @@
      border-radius:0;
      background-color:#000;
      transition: border-color 0.3s ease-out, color 0.3s ease-out;
-
-
+	 font-family: 'gypsy_curse';
+	 -webkit-transform: scale(1.5,1);
+	 font-size: 28px;
+	 border-radius: 4px;
+     -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+	 box-shadow: 2px 2px 2px red, 3px 3px 8px #830303;
+	 color: #EEE;
+	 text-shadow: 2px 2px 2px #300000, 2px 3px 2px #400000, 2px 4px 2px #500000, 2px 5px 2px #600000, 2px 6px 2px #700000, 2px 7px 2px #800000, 2px 8px 2px #900000;
+	 
+	 
 }
 
 .btn:focus, .btn:active:focus, .btn.active:focus, .btn:hover {
@@ -95,9 +129,10 @@ body {
     background-color: black;
 }
 
-#intro {
-    font-family: 'you_murderer';
-    font-size: 60px;
+#header {
+    font-family: 'metal_macabre';
+    font-size: 40px;
+	padding-top: 40px;
 }
 
 #time {
@@ -109,15 +144,61 @@ body {
 #button {
     padding: 3px;
     margin: 5px;
+	width: 65px;
     
 }
 
+#buttonYesNo {
+    padding: 0px 10px 0px 10px;
+    margin: 20px;
+	width: 65px;
+    
+}
+
+#yes {
+	position: relative;
+	left: -50px;
+	margin: 0px 50px 0px 50px;
+	width: 100px;
+	white-space: normal;
+	
+}
+
+#no {
+	position: relative;
+	left: 50px;
+	margin: 0px 50px 0px 50px;
+	width: 100px;
+	white-space: normal;
+}
+
+#buttonReveal {
+	position: relative;	
+	/*left: -30px;*/
+	margin: 0px 50px 0px 50px;
+}
+
+#buttonBack {
+	position: relative;
+	left: 10px;
+	margin: 0px 50px 0px 50px;
+}
+
+#myText {
+	margin-right: 10px;
+	width: 300px;
+	position: relative;
+	left: -30px;
+	font-family: 'traveling_typewriter';
+	
+}
+
 footer {
-    font-family: 'Raleway', sans-serif;
-    font-size: 16px;
-    font-weight:bold;
+    font-family: 'ghastly_panic', sans-serif;
+    font-size: 20px;
     margin: auto;
     margin-left: -9.5%;
+	-webkit-transform: scale(1.8,1);
 }
 
 #footer{
@@ -160,6 +241,12 @@ footer {
 /*9/30/2016 change to alignment of the typed effect*/
 #instructions {
     text-align: left;
+	font-family: 'traveling_typewriter';
+}
+
+#instructions2 {
+	text-align: center;
+	font-family: 'traveling_typewriter';
 }
 
 #yes, #no {
@@ -172,6 +259,14 @@ footer {
 
 .btn:focus,.btn:active {
    outline: none !important;
+}
+
+a, a:visited {
+	color: #d62c1a;
+}
+
+a:hover, a:active {
+	color: #830303;
 }
 
 
