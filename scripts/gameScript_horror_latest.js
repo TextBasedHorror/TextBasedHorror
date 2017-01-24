@@ -2056,7 +2056,7 @@ function start_game() {
     $("#buttonBack").hide();
     $("#buttonYes").hide();
     $("#coffins").hide();
-    $("#intro").append("TEXT-BASED HORROR");
+    $("#intro").append("Text-Based Horror");
     $("input:text:visible:first").focus();
     if (name !== "") {
         introduction(name);

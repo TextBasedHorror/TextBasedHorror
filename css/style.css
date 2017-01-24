@@ -261,7 +261,7 @@ footer {
    outline: none !important;
 }
 
-a {
+a, a:visited {
 	color: #d62c1a;
 }
 
