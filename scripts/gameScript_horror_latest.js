@@ -1594,7 +1594,7 @@ function dead_dead (death_cursor,origin) {
                 }
                 adjustGridBack();
                 //naming();
-                window.location = "Index.html";
+                window.location = "index.html";
             });
         });
         // Laugh at user when they die.  Wait until death spooky parse finished.
