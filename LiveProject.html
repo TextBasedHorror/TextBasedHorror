@@ -10,21 +10,21 @@
     <link rel="stylesheet" href="css/bootstrap.css" >
     <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="scripts/jquery-1.11.3.js"></script>
-
     <script type="text/javascript" src="scripts/thunderAndFlicker.js"></script>
 
   </head>
 
-  <body>
-    <audio id="thunder">
-      <source src="soundEffects/thunder.mp3" type="audio/mpeg"/>
-    </audio>
+  <body>    
 
   	<audio autoplay="autoplay" loop="loop">
 	<!-- Comment out background audio for debugging of sounds.  Be sure to turn this back on. -->
   	   <source src="soundEffects/Welcome_to_HorrorLand.mp3" type="audio/mpeg">
 	<!-- -->
   	</audio>
+	
+	<audio id="thunder">
+      <source src="soundEffects/thunder.mp3" type="audio/mpeg" />
+    </audio>
 
     <audio id="laugh">
   	   <source  src="soundEffects/Evil_Laugh_Male.mp3" type="audio/mpeg">
@@ -383,10 +383,10 @@
     </audio>
 	
     <div id="container">
-      <div id="header">
-          <!-- <br> -->
-          <p id="intro"></p>
-          <p id="story"></p>
+      <div id="header">		
+		<!-- <br> -->
+		<p id="intro"></p>
+		<p id="story"></p>
       </div>
 
       <div id="content" class="hiddenstuff">
