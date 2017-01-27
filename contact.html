@@ -1,15 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
     	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Text-Based Horror</title>
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />		
 		<link rel="stylesheet" type="text/css" href="css/homepagebackground.css" />
-		<link rel="stylesheet" type="text/css" href="css/style.css" />
-		<script type="text/javascript" src="scripts/jquery-1.11.3.js"></script>
-    	<script type="text/javascript" src="scripts/gameScript.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />		
+		<script type="text/javascript" src="scripts/jquery-1.11.3.js"></script>    	
     	<script>
     		$(document).ready(function(){$("#contact").hide(0).delay(0).fadeIn(3000)});
     		$(document).ready(function(){$("#footer").hide(0).delay(0).fadeIn(3000)});
@@ -51,6 +50,34 @@
 	    		}
 			}
     	</script>
+		<script>
+		<!-- This function is just to save space and typing. From here on out, _ will be the same as "document.getElementById". -->
+			function _(id){ return document.getElementById(id); }
+			
+		<!-- PHP parsing script, referenced below in the form -->
+			function submitForm(){
+				_("submit").disabled = true; <!-- user can't press this over and over again -->				
+				var formdata = new FormData();
+				formdata.append( "fname", _("fname").value );
+				formdata.append( "lname", _("lname").value );
+				formdata.append( "email", _("email").value );
+				formdata.append( "phone", _("phone").value );
+				formdata.append( "message", _("message").value );
+				var ajax = new XMLHttpRequest();
+				ajax.open( "POST", "post.php" );
+				ajax.onreadystatechange = function() {
+					if(ajax.readyState == 4 && ajax.status == 200) {
+						if(ajax.responseText == "success") {
+							_("success").innerHTML = 'Thanks '+_("fname").value+', your message has been successfully sent!';
+						} else {
+							_("status").innerHTML = ajax.responseText;
+							_("submit").disabled = false;
+						}
+					}
+				}
+				ajax.send( formdata );
+			}
+		</script>
    	</head>
 	<body>
 		<audio id="thunder">
@@ -60,34 +87,115 @@
 			<source src="rain.mp3" />
 		</audio>
 		<div id="header">
-			<p id="intro2"><span id="contact1">C</span>ont<span id="contact2">ac</span>t Us</p>
-			
+			<p id="intro2"><span id="contact1">C</span>ont<span id="contact2">ac</span>t Us</p>			
 		</div>
 		<div id="contact_text">
-			<p>We are here to answer any questions or concerns you may have about your Text-Based Horror experience.<br>Reach out to us and we will respond as soon as we can.<br>If you have questions about The Tech Academy, please visit our website: <a href = "https://www.learncodinganywhere.com/">learncodinganywhere.com.</a></p>
+			
 		</div>
 		<div>
 		</div>
-		<div id = "contact_info">
-			<!--Insert Client's email in the mailto: right before the question mark -->
-			<form  target="_blank" action="mailto:?subject=Text-Based-Horror message" 		
-					method="post" enctype="text/plain" id ="contact_frm">
-				<p class = "user_info">First Name <br><input type= "text" name="First: " id="user_first_name"/></p>
-				<p class = "user_info">Last Name <input type= "text" name="Last: " id="user_last_name"/></p><br />
-				<p class = "user_info" id="user_email1">E-Mail <br><input type= "text" name="Email: " 
-					id="user_email"/></p><br />
-				<p class= "user_info">Message:</p><br />
-				<textarea  name="Message: " id = "user_message" style= 'text-align: left;'cols="48" rows="3" placeholder="Enter message...."></textarea><br />
-				<input class = "btn btn-default" id="mess_but" type ='submit' value = 'Send'/>
-			</form>
-		</div>
+		<div class="container">
 
-		<div>
-			<button id= "but_main" class="btn btn-lg btn-default aboutButton" onclick="location.href='index.html'">Main Menu</button>
-		</div>
+            <div class="row">
 
-      <div id="footer">
-          <footer>A game created by <a href = "https://www.learncodinganywhere.com/">The Tech Academy</a> &copy; 2015<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, All Rights Reserved.</footer>
-      </div>
+                <div class="col-lg-8 col-lg-offset-2" id="contact_text">
+
+                    <p>We are here to answer any questions or concerns you may have about your Text-Based Horror experience.<br>Reach out to us and we will respond as soon as we can.<br>If you have questions about The Tech Academy, please visit our website: <a href = "https://www.learncodinganywhere.com/">learncodinganywhere.com.</a></p>
+				</div>
+			</div>
+		</div>
+		
+		<div class="container col-lg-pull-2">
+
+
+                    <form id="contact_frm" onsubmit="submitForm(); return false;">
+						<div id="success" class="messages"></div>
+
+						<div class="controls">
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="fname">Firstname *</label>
+									<input id="fname" type="text" name="name" class="form-control" placeholder="Enter your first name *" required data-error="Firstname is required.">
+									<div class="help-block with-errors"></div>
+								</div>
+							</div>							
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="lname">Lastname *</label>
+									<input id="lname" type="text" name="surname" class="form-control" placeholder="Enter your last name *" required data-error="Lastname is required.">
+									<div class="help-block with-errors"></div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="email">Email *</label>
+									<input id="email" type="email" name="email" class="form-control" placeholder="Enter your email *" required data-error="Valid email is required.">
+									<div class="help-block with-errors"></div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="phone">Phone</label>
+									<input id="phone" type="tel" name="phone" class="form-control" placeholder="Enter your phone">
+									<div class="help-block with-errors"></div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="message">Message *</label>
+									<textarea id="message" name="message" class="form-control" placeholder="Message for us *" rows="4" required data-error="Please,leave us a message."></textarea>
+									<div class="help-block with-errors"></div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<input type="submit" id="submit" class="btn btn-lg btn-default aboutButton" value="Send message">
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12">
+								<br>
+								<p class="text-muted"><strong>*</strong> These fields are required.</a></p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<br>
+								<button id= "but_main" class="btn btn-lg btn-default aboutButton" onclick="location.href='index.html'">Main Menu</button>
+								<br><br><br><br>
+							</div>
+						</div>
+					</div>
+					</form> 
+		</div>
+					
+
+                
+				
+
+            
+			
+			
+
+        
+		
+		
+		
+		
+		
+		
+		<div id="footer">
+			<footer>A game created by <a href = "https://www.learncodinganywhere.com/">The Tech Academy</a> &copy; 2015<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, All Rights Reserved.</footer>
+		</div>
+	  <!-- <script src="scripts/contact.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script> -->
 	</body>
 </html>

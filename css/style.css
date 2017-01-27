@@ -281,3 +281,9 @@ a:hover, a:active {
 	font-family: 'traveling_typewriter';
 	font-size: 14pt;
 }
+
+#contact_frm {
+	margin-left: -20px;
+	font-family: 'gypsy_curse';
+	font-size: 24px;
+}
