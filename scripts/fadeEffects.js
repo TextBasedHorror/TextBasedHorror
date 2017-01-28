@@ -54,6 +54,7 @@ function continueGame() {
 	setTimeout(function() {
 		window.location.assign("LiveProject.html");
 	}, 3000);
+	story_mode(localStorage).getItem('save_point');
 };
 
 // func called from play/new game menu
