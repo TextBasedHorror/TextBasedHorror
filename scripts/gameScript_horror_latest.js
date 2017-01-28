@@ -1839,7 +1839,7 @@ function story_mode (story_cursor) {
         // At the end of the dramatic printing, 
         // which could be short-circuited if mouse clicked or key pressed,
         // show the REVEAL and BACK buttons so user can make a choice.
-		$("#instructions2").append("WHAT DO YOU DO?");
+		$("#instructions2").html("WHAT DO YOU DO?");
         show_reveal_and_back_buttons(story_cursor);
     });
 }
