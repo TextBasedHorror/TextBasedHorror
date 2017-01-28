@@ -570,7 +570,7 @@ failArray[17] = "You head back toward the staircase you came in on. You get to t
 horror_info[24] = new horror(true, false, true, 25, 17, false, false);
 horror_sound_action[24] = new action_sound(s_rustle,s_footsteps_indoor); // rustle sounds like running
 horror_sound_scary[24] = new scary_sound(s_blood_drip,74);
-horror_sound_death[24] = new scary_sound(s_shotgun_shot,182);
+horror_sound_death[24] = new scary_sound(s_threeshots,182);
 
 //instruction twentyfive: checkpoint
 /*
