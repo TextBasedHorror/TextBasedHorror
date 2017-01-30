@@ -2004,7 +2004,7 @@ function naming () {
             name = name.trim();
             name = name[0].toUpperCase() + name.slice(1);
         
-            localStorage.setItem('name', name);
+            localStorage.setItem('name', name);			
             if ( name !== "" ) {
                 $("#instructions").empty();
                 $("#myText").val("");
