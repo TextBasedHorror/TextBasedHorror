@@ -283,7 +283,8 @@ a:hover, a:active {
 }
 
 #contact_frm {
-	margin-left: -20px;
+	margin-left: -15px;
 	font-family: 'gypsy_curse';
-	font-size: 24px;
+	font-size: 28px;
+	font-weight: lighter;
 }
