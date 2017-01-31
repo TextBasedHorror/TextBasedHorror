@@ -2068,8 +2068,8 @@ function start_game() {
 //this function pair is from the original game; makes lightning flash and creates the creepy laugh after the user has clicked
 function timerIncrement() {
     idleTime = idleTime +1;
-    if (idleTime > 4) {
-        //document.getElementById('laugh').play();
+    if (idleTime > 0) {
+        document.getElementById('thunder').play();
         setTimeout(function(){document.body.style.backgroundColor = '#000000'},0);
         setTimeout(function(){document.body.style.backgroundColor = '#FFFFFF'},100);
         setTimeout(function(){document.body.style.backgroundColor = '#000000'},200);
@@ -2086,6 +2086,6 @@ $(document).ready(function() {
         if (skippable) {impatience();}
     });
 
-    var interval = setInterval(timerIncrement, 60000);
+    var interval = setInterval(timerIncrement, 5000);
     start_game();
 });

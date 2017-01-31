@@ -1,5 +1,9 @@
 // var btn_Play = document.getElementById("btn_Play");
 // var btn_About = document.getElementById("btn_About");
+$("#intro2").hide();
+$(".frontButton").hide();
+$(".aboutButton").hide();
+
 
 $(document).ready(function(){$("#logo").addClass("imageXplode")});
 $(document).ready(function(){$("#intro2").hide(0).delay(3000).fadeIn(3000)});
