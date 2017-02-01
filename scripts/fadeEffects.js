@@ -24,7 +24,7 @@ function showNewGameMenu() {
 	$("#newGameMenu").delay(1000).fadeIn(3000);
 	document.getElementById('laugh').play();
 	// if user has any cookies saved, show continue option
-	if (localStorage.getItem('name') === null) {
+	if (localStorage.getItem('save_point') === null) {
     	$("#continueButton").hide();
   		} else {
     	$("#continueButton").fadeIn(3000);
@@ -58,7 +58,8 @@ function continueGame() {
 	setTimeout(function() {
 		window.location.assign("LiveProject.html");
 	}, 3000);
-	story_mode(localStorage).getItem('save_point');
+	//story_mode(localStorage).getItem('save_point');
+	continueStory();
 };
 
 // func called from play/new game menu

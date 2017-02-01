@@ -1313,9 +1313,10 @@ function push_story_cursor (story_cursor) {
 // Get the last story cursor when pressing the BACK button, 
 // or get current story cursor when user presses REVEAL button.
 function pop_story_cursor () {
-    var story_cursor = gameStack.pop();
+	var saveState = window.location.hash;
+    var story_cursor = parseInt(saveState.split(',').pop());
     console.log("pop story cursor: " + story_cursor);
-    console.log("gameStack: " + gameStack);
+    console.log("gameStack: " + saveState);
     return story_cursor;
 }
 
@@ -1732,7 +1733,13 @@ function show_buttons (story_cursor) {
             console.log("story cursor " + story_cursor + " " + total_correct_choices + " correct choices");
             play_sound(horror_sound_action[story_cursor].sound_yes);
             $("#buttonOptions").hide();
-            story_mode(horror_info[story_cursor].linkYes);
+			// Back button functionality: story_mode is now called after new state is saved.
+            //story_mode(horror_info[story_cursor].linkYes);
+			if (horror_info[story_cursor].savePoint) {
+				saveState(horror_info[story_cursor].linkYes);
+			} else {
+				story_mode(horror_info[story_cursor].linkYes);
+			};
         });
     }
     if (horror_info[story_cursor].coffinNo) {
@@ -1753,7 +1760,13 @@ function show_buttons (story_cursor) {
             console.log("story cursor " + story_cursor + " " + total_correct_choices + " correct choices");
             play_sound(horror_sound_action[story_cursor].sound_no);
             $("#buttonOptions").hide();
-            story_mode(horror_info[story_cursor].linkNo);
+            // Back button functionality: story_mode is now called after new state is saved.
+            //story_mode(horror_info[story_cursor].linkNo);
+			if (horror_info[story_cursor].savePoint) {
+				saveState(horror_info[story_cursor].linkNo);
+			} else {
+				story_mode(horror_info[story_cursor].linkNo);
+			};
         });
     }
 
@@ -1768,8 +1781,11 @@ function end_game_winner (story_cursor) {
     total_correct_choices = 0;
     total_deaths = 0;
     clear_game_stack();
-    push_story_cursor(0);
-    show_buttons(story_cursor); 
+	// Back button functionality: the following 2 lines are no longer needed. The 2 lines after them have been added.
+    //push_story_cursor(0);
+    //show_buttons(story_cursor); 
+	history.pushState({}, "", "#")
+	saveState(0);
 }
 
 // Start a timer that triggers death if you wait too long to decide!
@@ -1795,9 +1811,10 @@ function startTimer (duration, clock) {
 function show_reveal_and_back_buttons (story_cursor) {
     $('#buttonReveal').delay(delay_value).fadeIn();
     // Don't let user go back if we're at first item in story.
-    if (story_cursor > 0) {
-        $('#buttonBack').delay(delay_value).fadeIn();
-    }
+	// Back button functionality: this is no longer needed. The back button is being decomissioned in favor of the browser back button.
+    //if (story_cursor > 0) {
+        //$('#buttonBack').delay(delay_value).fadeIn();
+    //}
 }
 
 // Do the story at the current step.
@@ -1805,14 +1822,16 @@ function story_mode (story_cursor) {
     // Save the current cursor on the game stack. 
     // That way we'll know where we are in the state machine
     // when someone clicks on the REVEAL or BACK button.
-    push_story_cursor(story_cursor);
+	// Back button functionality: this is no longer needed.
+    //push_story_cursor(story_cursor);
     
     // If we're at a checkpoint, save the checkpoint to local storage.
     // Then if someone Continues the game, it will start from here 
     // instead of from the beginning.
-    if (horror_info[story_cursor].savePoint == true) {
-        localStorage.setItem('save_point', story_cursor);
-    }
+	// Back button functionality: this is no longer needed.
+    //if (horror_info[story_cursor].savePoint == true) {
+        //localStorage.setItem('save_point', story_cursor);
+    //}
     console.log("story mode: " + story_cursor);
     $("#instructions").empty();
     $("#instructions2").empty();
@@ -1849,6 +1868,7 @@ function story_mode (story_cursor) {
 // when the BACK button is pressed. Do not call this function internally.
 // Note: The BACK button should NEVER be allowed to be pressed if story
 // cursor is 0.
+// Back button functionality: this function will never be called, as this button has been deactivated in favor of the back button on the browser.
 function back_button_pressed () {
     // get the current story cursor
     var game_cursor = pop_story_cursor();
@@ -1872,7 +1892,7 @@ function back_button_pressed () {
 // when the REVEAL button is pressed. Do not call this function internally.
 function reveal_button_pressed () {
     // Get the current story cursor.
-    // We don't know it until we pop it off the game stack.
+    // We don't know it until we pop it off the game stack.	
     var game_cursor = pop_story_cursor();
     if (game_cursor == null) {
         game_cursor = 0;
@@ -1883,7 +1903,8 @@ function reveal_button_pressed () {
     $("#buttonBack").hide();
     
     // Put the current story cursor back on the game stack.
-    push_story_cursor(game_cursor);
+	// Back button functionality: this is no longer needed.
+    //push_story_cursor(game_cursor);
     show_buttons(game_cursor);
     clock = $("#time");
     startTimer(8,clock);
@@ -1941,42 +1962,43 @@ function introduction (name) {
     // this needs to match function story_mode()!!
     adjustGrid();
 
-    if (save_point != null) {
-        skippable = true;
-        skip_text = false;
-        single_callback = false;
-        story_mode(parseInt(save_point));
-    } else {
-        $("#instructions2").empty();
-        $("#instructions").empty();
-        skippable = true;
-        skip_text = false;
+    //if (save_point != null) {
+        //skippable = true;
+        //skip_text = false;
+        //single_callback = false;
+        //story_mode(parseInt(save_point));
+    //} else {
+	$("#instructions2").empty();
+	$("#instructions").empty();
+	skippable = true;
+	skip_text = false;
 
-        dramatic_parse(false,-1,"Your name is " +name+ ". The choices you make will determine whether you live or die. \nDo you dare to start this horrific journey?",function() {
-            single_callback = false;
-            $("#buttonYes").delay(240).fadeIn();
-            $("#textInput").hide();
-            $(".yes1").one( "click", function() {
-                $("#buttonYes").hide();
-                $("#instructions").empty();
-                $("#instructions2").empty();
-                single_callback = false;
-                story_mode(0);
-            });
-            $(".no1").one( "click", function() {
-                localStorage.setItem('name', "");
-                $("#buttonYes").hide();
-                $("#instructions").empty();
-                $("#instructions2").empty();
-                for (var definer = 0; definer < text_timer.length; definer++) {
-                    clearTimeout(text_timer[definer]);
-                    console.log("i'm clearing timeouts!");
-                }
-                adjustGridBack();
-                naming();
-            });
-        });
-    }
+	dramatic_parse(false,-1,"Your name is " +name+ ". The choices you make will determine whether you live or die. \nDo you dare to start this horrific journey?",function() {
+		single_callback = false;
+		$("#buttonYes").delay(240).fadeIn();
+		$("#textInput").hide();
+		$(".yes1").one( "click", function() {
+			$("#buttonYes").hide();
+			$("#instructions").empty();
+			$("#instructions2").empty();
+			single_callback = false;
+			history.pushState({}, "", "#")
+			saveState(0);
+		});
+		$(".no1").one( "click", function() {
+			localStorage.setItem('name', "");
+			$("#buttonYes").hide();
+			$("#instructions").empty();
+			$("#instructions2").empty();
+			for (var definer = 0; definer < text_timer.length; definer++) {
+				clearTimeout(text_timer[definer]);
+				console.log("i'm clearing timeouts!");
+			}
+			adjustGridBack();
+			naming();
+		});
+	});
+    //}
 }
 
 function naming () {
@@ -2071,19 +2093,19 @@ function start_game() {
 // Back button functionality: this function is used when the game has been shut down and restarted and the Continue button is pressed. It sets the localStorage save string to an array, then iterates through the array, building the new hash 1 element at a time. Once the hash is built, it calls advanceStory.
 function continueStory() {
 	var gameStack = localStorage.getItem('save_point').split(',');
-	if length.gameStack <= 1 {		
-		introduction(localStorage.getItem('name'));
-	} else {
-		var str = "#";
-		for (var i = 1; i<length.gameStack; i++) {
-			if i == (length.gameStack - 1) {				
-				str = str + gameStack[i];
-			} else {
-				str = str + "," + gameStack[i];
-			};			
-			history.pushState({}, "", str);
-		};
+	//if length.gameStack <= 1 {		
+		//introduction(localStorage.getItem('name'));
+	//} else {
+	var str = "#";
+	for (var i = 1; i<length.gameStack; i++) {
+		if i == (length.gameStack - 1) {				
+			str = str + gameStack[i];
+		} else {
+			str = str + "," + gameStack[i];
+		};			
+		history.pushState({}, "", str);
 	};
+	//};
 	adjustGrid();
 	$("#instructions").css("text-align", "left");
 	advanceStory();
@@ -2100,7 +2122,9 @@ function saveState(storyCursor) {
 
 // Back button functionality: this function reads the last element in the hash string, first converting it to an array using comma as split, then popping the last element. It then sends that element to story_mode. Note that advanceStory will never get called except by the hashchange event listener, the continueStory function or the saveState function.
 function advanceStory() {
-	var storyCursor = parseInt(window.location.hash.split(',').pop());
+	var entireHash = window.location.hash.split(',');
+	var storyCursor = parseInt(entireHash.pop());
+	console.log("Story Cursor is " + storyCursor);
 	story_mode(storyCursor);
 }
 
