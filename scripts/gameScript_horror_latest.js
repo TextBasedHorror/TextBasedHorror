@@ -2094,8 +2094,8 @@ function start_game() {
 function continueStory() {
 	var gameStack = localStorage.getItem('save_point').split(',');	
 	var str = "#";
-	for (var i = 1; i<length.gameStack-1; i++) {
-		if (i == length.gameStack - 2) {				
+	for (var i = 1; i<gameStack.length-1; i++) {
+		if (i == gameStack.length - 2) {				
 			str = str + gameStack[i];
 		} else {
 			str = str + "," + gameStack[i];
@@ -2104,6 +2104,7 @@ function continueStory() {
 	};
 	localStorage.setItem('save_point', str);	
 	name = localStorage.getItem('name');
+	$("#intro").append("Text-Based Horror");
 	initialize_choice_arrays();
 	adjustGrid();
 	$("#instructions").css("text-align", "left");
@@ -2158,8 +2159,10 @@ $(document).ready(function() {
 		advanceStory();
 	});
 	
-	var continueCheck = localStorage.getItem('save_point').split(',').pop();
-	if (continueCheck == "continue") {
+	var interval = setInterval(timerIncrement, 5000);
+	
+	var continueCheck = localStorage.getItem('save_point');
+	if (continueCheck != null && continueCheck.length > 0 && continueCheck.split(',').pop() === "continue") {
 		console.log("continue");
 		history.replaceState({}, "", "#");
 		continueStory();
@@ -2172,6 +2175,6 @@ $(document).ready(function() {
 	
 	
 
-    var interval = setInterval(timerIncrement, 5000);
+    
     
 });

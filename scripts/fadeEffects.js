@@ -24,10 +24,10 @@ function showNewGameMenu() {
 	$("#newGameMenu").delay(1000).fadeIn(3000);
 	document.getElementById('laugh').play();
 	// if user has any cookies saved, show continue option
-	if (localStorage.getItem('save_point') === null) {
-    	$("#continueButton").hide();
-  		} else {
+	if (localStorage.getItem('save_point') != null && localStorage.getItem('save_point').charAt(0) == '#') {
     	$("#continueButton").fadeIn(3000);
+  		} else {
+    	$("#continueButton").hide();
     };
 };
 
