@@ -55,11 +55,13 @@ function continueGame() {
 	var thunderAudio = $("#thunder");
 	rainAudio.animate({volume: 0}, 2000);
 	thunderAudio.animate({volume: 0}, 1600);
+	var temp = localStorage.getItem('save_point');
+	localStorage.setItem('save_point', temp + ",continue");
 	setTimeout(function() {
 		window.location.assign("LiveProject.html");
 	}, 3000);
 	//story_mode(localStorage).getItem('save_point');
-	continueStory();
+	//continueStory();
 };
 
 // func called from play/new game menu

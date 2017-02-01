@@ -2092,20 +2092,17 @@ function start_game() {
 
 // Back button functionality: this function is used when the game has been shut down and restarted and the Continue button is pressed. It sets the localStorage save string to an array, then iterates through the array, building the new hash 1 element at a time. Once the hash is built, it calls advanceStory.
 function continueStory() {
-	var gameStack = localStorage.getItem('save_point').split(',');
-	//if length.gameStack <= 1 {		
-		//introduction(localStorage.getItem('name'));
-	//} else {
+	var gameStack = localStorage.getItem('save_point').split(',');	
 	var str = "#";
-	for (var i = 1; i<length.gameStack; i++) {
-		if (i == length.gameStack - 1) {				
+	for (var i = 1; i<length.gameStack-1; i++) {
+		if (i == length.gameStack - 2) {				
 			str = str + gameStack[i];
 		} else {
 			str = str + "," + gameStack[i];
 		};			
 		history.pushState({}, "", str);
 	};
-	//};
+	localStorage.setItem('save_point', str);	
 	name = localStorage.getItem('name');
 	initialize_choice_arrays();
 	adjustGrid();
@@ -2160,7 +2157,21 @@ $(document).ready(function() {
 		localStorage.setItem('save_point', window.location.hash);
 		advanceStory();
 	});
+	
+	var continueCheck = localStorage.getItem('save_point').split(',').pop();
+	if (continueCheck == "continue") {
+		console.log("continue");
+		history.replaceState({}, "", "#");
+		continueStory();
+	} else {
+		if (window.location.hash !== "") {
+			history.replaceState({}, "", "#");
+		}
+		start_game();
+	}
+	
+	
 
     var interval = setInterval(timerIncrement, 5000);
-    start_game();
+    
 });
