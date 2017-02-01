@@ -1,4 +1,3 @@
-@@ -1,2091 +0,0 @@
 $("#content").hide();
 $("#buttonOptions").hide();
 $("#buttonReveal").hide();
@@ -282,7 +281,7 @@ horror_sound_death[3] = new scary_sound(s_axe_impact,86);
 instructionArray[4] = "You run at it. It swings the axe and you duck. You swing your hatchet into its throat. It lets out a yowl and falls in a heap. It has ceased breathing and you pick up the axe.||";
 yes_options[4] = "HEAD TOWARDS THE HOUSE";
 no_options[4] = "EXAMINE THE BODY";
-horror_info[4] = new horror(false, false, false, 5, 6, false, false);
+horror_info[4] = new horror(true, false, false, 5, 6, false, false);
 horror_sound_action[4] = new action_sound(s_fast_heartbeat,s_fast_heartbeat);
 horror_sound_scary[4] = new scary_sound(s_man_growl,84);
 horror_sound_death[4] = new scary_sound(s_nosound,-1); // unused
@@ -325,7 +324,7 @@ horror_sound_death[6] = new scary_sound(s_rage_of_blades,153);
 instructionArray[7] = "There are two windows. Which window do you open?||";
 yes_options[7] = "OPEN THE LEFT WINDOW";
 no_options[7] = "OPEN THE RIGHT WINDOW";
-horror_info[7] = new horror(false, false, false, 8, 8, false, false);
+horror_info[7] = new horror(true, false, false, 8, 8, false, false);
 horror_sound_action[7] = new action_sound(s_window_open,s_window_open);
 horror_sound_scary[7] = new scary_sound(s_nosound,-1); // no sound indicated
 horror_sound_death[7] = new scary_sound(s_nosound,-1); // unused
@@ -1742,11 +1741,8 @@ function show_buttons (story_cursor) {
             $("#buttonOptions").hide();
 			// Back button functionality: story_mode is now called after new state is saved.
             //story_mode(horror_info[story_cursor].linkYes);
-			if (horror_info[story_cursor].savePoint) {
-				saveState(horror_info[story_cursor].linkYes);
-			} else {
-				story_mode(horror_info[story_cursor].linkYes);
-			};
+			saveState(horror_info[story_cursor].linkYes);
+			
         });
     }
     if (horror_info[story_cursor].coffinNo) {
@@ -1768,12 +1764,9 @@ function show_buttons (story_cursor) {
             play_sound(horror_sound_action[story_cursor].sound_no);
             $("#buttonOptions").hide();
             // Back button functionality: story_mode is now called after new state is saved.
-            //story_mode(horror_info[story_cursor].linkNo);
-			if (horror_info[story_cursor].savePoint) {
-				saveState(horror_info[story_cursor].linkNo);
-			} else {
-				story_mode(horror_info[story_cursor].linkNo);
-			};
+            //story_mode(horror_info[story_cursor].linkNo);			
+			saveState(horror_info[story_cursor].linkNo);
+			
         });
     }
 
@@ -1989,7 +1982,7 @@ function introduction (name) {
 			$("#instructions").empty();
 			$("#instructions2").empty();
 			single_callback = false;
-			history.pushState({}, "", "#")
+			//history.pushState({}, "", "#")
 			saveState(0);
 		});
 		$(".no1").one( "click", function() {
@@ -2105,7 +2098,7 @@ function continueStory() {
 	//} else {
 	var str = "#";
 	for (var i = 1; i<length.gameStack; i++) {
-		if i == (length.gameStack - 1) {				
+		if (i == length.gameStack - 1) {				
 			str = str + gameStack[i];
 		} else {
 			str = str + "," + gameStack[i];
@@ -2123,7 +2116,11 @@ function continueStory() {
 // Back button functionality: this function takes in the requested new story cursor, writes it to the hash and then changes the localStorage save file. It then calls the advanceStory function.
 function saveState(storyCursor) {
 	var entireHash = window.location.hash;
-	entireHash = entireHash + "," + storyCursor;
+	if (entireHash == "") {
+		entireHash = "#," + storyCursor;
+	} else {
+		entireHash = entireHash + "," + storyCursor;
+	}
 	history.pushState({}, "", entireHash);
 	localStorage.setItem('save_point', window.location.hash);
 	advanceStory();
