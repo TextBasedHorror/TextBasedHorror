@@ -1,3 +1,4 @@
+@@ -1,2091 +0,0 @@
 $("#content").hide();
 $("#buttonOptions").hide();
 $("#buttonReveal").hide();
@@ -217,7 +218,7 @@ function initialize_choice_arrays () {
     Selecting yes_option[0] will result in failArray[0]
     Selecting no_option[0] will advance to instructionArray[1]
 */
-instructionArray[0] = "You awake, dizzy and surrounded by dark. Your head is spinning and there is a sharp pain in the upper right side of your skull. What are you doing here? \"Where is here?\" you think. First things first: orient yourself. You can't remember what happened prior to your unconsciousness. You stand up and look around. There is a vague outline of a path that appears to lead up to a house. You can barely make out an old mansion. You look behind yourself and see nothing but black. You hear what sounds like footsteps walking toward you from behind.|||";
+instructionArray[0] = "You awake, dizzy and surrounded by dark. Your head is spinning and there is a sharp pain in the upper right side of your skull. What are you doing here? \"Where is here?\" you think. First things first: orient yourself. You can't remember what happened prior to your unconsciousness. You stand up and look around. There is a vague outline of a path that appears to lead up to a house. You can barely make out an old mansion. You look behind yourself and see nothing but black. You hear wha...(line truncated)...
 yes_options[0] = "INVESTIGATE THE FOOTSTEPS";
 no_options[0] = "WALK TOWARD THE HOUSE";
 failArray[0] = "You turn around and walk away from the house. A large figure walks toward you on the path. In its hand is what appears to be an axe. \"Hello?\" you venture. No response, just a quickened pace. Its arm lifts the weapon high into the air. You turn to run but you are too late. The axe brutally removes your head from its shoulders. And this is the end of your story.";
@@ -306,7 +307,7 @@ horror_sound_death[5] = new scary_sound(s_rage_of_blades,164);
     Selecting yes_option[6] will advance to instructionArray[7]
     Selecting no_option[6] will result in failArray[5]
 */
-instructionArray[6] = "You turn the face to view it. It is a man. He appears dirty and unshaven. In his pocket, you find a picture. The picture is of you! Underneath the photo is the word \"KILL.\" |\"Well, that explains the axe,\" you mutter. You make your way back to the porch, thankful you have weapons. You reach the porch. You try to open the front door but the door is locked. If you had tried running from your attacker earlier, you would have been met with a latched door. There is a window on the right and one on the left. You can hear more rustling in the distance.||";
+instructionArray[6] = "You turn the face to view it. It is a man. He appears dirty and unshaven. In his pocket, you find a picture. The picture is of you! Underneath the photo is the word \"KILL.\" |\"Well, that explains the axe,\" you mutter. You make your way back to the porch, thankful you have weapons. You reach the porch. You try to open the front door but the door is locked. If you had tried running from your attacker earlier, you would have been met with a latched door. There is a window on the right...(line truncated)...
 yes_options[6] = "OPEN A WINDOW";
 no_options[6] = "STAY OUTSIDE THE HOUSE";
 failArray[5] = "You stand on the porch with an axe and a hatchet. A couple minutes pass and several large men with a various assortment of weapons arrive at the porch. You attempt to fight them off, regretting not having climbed through a window, but there are too many. You can't tell you if it is blades or bludgeoning that kill you. And this is the end of your story.";
@@ -350,7 +351,7 @@ horror_sound_death[8] = new scary_sound(s_shotgun_shot,364);
     Selecting yes_option[9] will advance to instructionArray[10]
     Selecting no_option[9] will advance to instructionArray[10]
 */
-instructionArray[9] = "You scramble away from the banging sound coming from the other door behind you. You pass through the door in front of you and find yourself in a large dining room. There are lit candles on a long dark wooden table. The table is set but no food is present. You know you have to leave this room because it is apparent someone has recently been here. There is a closet and random furniture and items in the room. You then hear footsteps coming toward the door you just entered through. There is the distinctive sound of a shotgun being pumped.||";
+instructionArray[9] = "You scramble away from the banging sound coming from the other door behind you. You pass through the door in front of you and find yourself in a large dining room. There are lit candles on a long dark wooden table. The table is set but no food is present. You know you have to leave this room because it is apparent someone has recently been here. There is a closet and random furniture and items in the room. You then hear footsteps coming toward the door you just entered through. There ...(line truncated)...
 yes_options[9] = "HIDE UNDER THE TABLE";
 no_options[9] = "HIDE IN THE CLOSET";
 horror_info[9] = new horror(false, false, false, 10, 10, false, false);
@@ -379,10 +380,10 @@ horror_sound_death[10] = new scary_sound(s_shotgun_shot,200);
     selecting no_options[11] will advance to instractionArray[12]
 
 */
-instructionArray[11] = "You make your way up the staircase to what appears to be the second floor of the house. There is a long hallway ahead of you. There is a table with a lit candle on it. You see what looks to be a folder. There is a single sheet of lined paper on it. |Scratched on the paper is a note: \"Most people do not really want freedom, because freedom involves responsibility, and most people are frightened of responsibility.\" -Sigmund Freud. |\"Well that\'s a load of crap,\" you think to yourself. You pause and contemplate your current situation. You have a fleeting thought: \"Maybe I should just burn this house down...\"||";
+instructionArray[11] = "You make your way up the staircase to what appears to be the second floor of the house. There is a long hallway ahead of you. There is a table with a lit candle on it. You see what looks to be a folder. There is a single sheet of lined paper on it. |Scratched on the paper is a note: \"Most people do not really want freedom, because freedom involves responsibility, and most people are frightened of responsibility.\" -Sigmund Freud. |\"Well that\'s a load of crap,\" you think to yourse...(line truncated)...
 yes_options[11] = "USE THE CANDLE TO START A FIRE";
 no_options[11] = "KEEP EXPLORING THE HALLWAY";
-failArray[8] = "You light the paper on fire and throw it on the floor. You then use the candle to light the wallpaper on fire. It is peeling and dry and made of highly flammable material. The house begins to burn. You make your way away from the fire but are blocked by a locked door at the end of the hallway. You turn back to pass through the fire but it is too large. You are trapped. You try to run through the fire but it burns you. You run back to the door and try to kick it in to no avail. There is no escape. Your choice ends with you being burnt alive. A terrible, overly-long experience of hideous, unimaginable pain. And this is the end of your story.";
+failArray[8] = "You light the paper on fire and throw it on the floor. You then use the candle to light the wallpaper on fire. It is peeling and dry and made of highly flammable material. The house begins to burn. You make your way away from the fire but are blocked by a locked door at the end of the hallway. You turn back to pass through the fire but it is too large. You are trapped. You try to run through the fire but it burns you. You run back to the door and try to kick it in to no avail. There is no es...(line truncated)...
 horror_info[11] = new horror(true, true, false, 8, 12, false, false);
 horror_sound_action[11] = new action_sound(s_demon_girl,s_footsteps_indoor);
 horror_sound_scary[11] = new scary_sound(s_page_turn,230);
@@ -397,7 +398,7 @@ horror_sound_death[11] = new scary_sound(s_fire,196);
 instructionArray[12] = "\"No, I shouldn\'t start a fire,\" you think as you walk forward. First you hear a lock click at the end of the hallway and then you hear a shrill scream. It sounds like a woman yelling from behind the door. \"Help! He\'s going to kill me!\"||";
 yes_options[12] = "RESCUE THE WOMAN";
 no_options[12] = "LEAVE HER";
-failArray[9] = "You turn around and run away from her voice. You hear a crushing sound accompanied by a final scream, followed by silence. You continue running. You reach the stairs, head down and emerge into the dining room. You are met by five people in red, priest-like robes. You stop short. They are holding swords. You yell at them \"What the hell is going on here?!\" and turn around again. You run straight into a man with no shirt. He is completely bald and holding an axe. You swing at him with the hatchet but he hits your wrist. The hatchet drops to the floor. You raise your axe but aren't fast enough. His axe comes down right in the center of your head, splitting your skull. And this is the end of your story.";
+failArray[9] = "You turn around and run away from her voice. You hear a crushing sound accompanied by a final scream, followed by silence. You continue running. You reach the stairs, head down and emerge into the dining room. You are met by five people in red, priest-like robes. You stop short. They are holding swords. You yell at them \"What the hell is going on here?!\" and turn around again. You run straight into a man with no shirt. He is completely bald and holding an axe. You swing at him with the hat...(line truncated)...
 horror_info[12] = new horror(true, false, true, 13, 9, false, false);
 horror_sound_action[12] = new action_sound(s_tense,s_tense);
 horror_sound_scary[12] = new scary_sound(s_scream_woman,148);
@@ -410,7 +411,7 @@ horror_sound_death[12] = new scary_sound(s_flesh_split,629);
     selecting no_options[13] will advance to instructionArray[15]
 
 */
-instructionArray[13] = "You boldly open the door. You see a woman. There is a man with a sledgehammer walking toward her aggressively. The woman has blonde hair and there is some blood on her face. She looks to be around your age and looks terrified. \"Hey!\" you yell at the man, \"Leave her alone!\" The man is in stained overalls and has no shoes on. He turns his attention to you and heads your way. You grip your axe and hatchet tightly in each hand. The man swings his sledgehammer at you. You quickly duck and swing your axe deep into his chin. The man grunts and falls to the ground.||";
+instructionArray[13] = "You boldly open the door. You see a woman. There is a man with a sledgehammer walking toward her aggressively. The woman has blonde hair and there is some blood on her face. She looks to be around your age and looks terrified. \"Hey!\" you yell at the man, \"Leave her alone!\" The man is in stained overalls and has no shoes on. He turns his attention to you and heads your way. You grip your axe and hatchet tightly in each hand. The man swings his sledgehammer at you. You quickly duck...(line truncated)...
 yes_options[13] = "TALK WITH THE WOMAN";
 no_options[13] = "INSPECT THE BODY";
 horror_info[13] = new horror(true, false, false, 14, 15, false, false);
@@ -424,7 +425,7 @@ horror_sound_death[13] = new scary_sound(s_nosound,-1); // unused
     Selecting no_options[14] will advance to instructionArray[18]
 
 */
-instructionArray[14] = "You ask the woman, \"How did you end up here and what the hell is going on?\" |She stares at you. She looks half angry and half exhausted. \"Same question to you. Thank you for saving me though. I don\'t remember how I got here. This place is full of psychotics who seem to want to murder us,\" she says. \"What\'s your name?\" |\"My name is " + name + ".\" |\"Hello, " + name + ", my name is Jessica,\" she replies. |\"I don't know how I wound up here, either. People have been trying to kill me, and some even have pictures of me with \"KILL\" written on them.\" |Jessica responds with, \"We should get out of here together.\" |\"Can I trust her?\" you wonder.||";
+instructionArray[14] = "You ask the woman, \"How did you end up here and what the hell is going on?\" |She stares at you. She looks half angry and half exhausted. \"Same question to you. Thank you for saving me though. I don\'t remember how I got here. This place is full of psychotics who seem to want to murder us,\" she says. \"What\'s your name?\" |\"My name is " + name + ".\" |\"Hello, " + name + ", my name is Jessica,\" she replies. |\"I don't know how I wound up here, either. People have been trying to...(line truncated)...
 yes_options[14] = "YES, LEAVE WITH THE WOMAN";
 no_options[14] = "NO, LEAVE HER BEHIND";
 horror_info[14] = new horror(false, false, false, 17, 18, false, false);
@@ -437,7 +438,7 @@ horror_sound_death[14] = new scary_sound(s_nosound,-1); // unused
     Selecting yes_options[15] will advance to instructionArray[16]
     Selecting no_options[15] will result in failArray[10]
 */
-instructionArray[15] = "The woman watches you from the corner of the room. You search the man's pockets. You find a picture of yourself with KILL written on it. You also find a bottle of prescription psychotropic pills. You ask the woman, \"How did you end up here and what the hell is going on?\" |She stares at you. She looks half angry and half exhausted. \"Same question to you. Thank you for saving me though. I don\'t remember how I got here. This place is full of psychotics who seem to want to murder us,\" she says.||";
+instructionArray[15] = "The woman watches you from the corner of the room. You search the man's pockets. You find a picture of yourself with KILL written on it. You also find a bottle of prescription psychotropic pills. You ask the woman, \"How did you end up here and what the hell is going on?\" |She stares at you. She looks half angry and half exhausted. \"Same question to you. Thank you for saving me though. I don\'t remember how I got here. This place is full of psychotics who seem to want to murder us,...(line truncated)...
 yes_options[15] = "TALK MORE WITH THE WOMAN";
 no_options[15] = "LEAVE THE ROOM";
 failArray[10] = "You leave the woman and re-enter the hallway you came from. You walk right into a large man. He grins and then everything goes black. The last thing you feel is explosive pain on the top of your head. And this is the end of your story.";
@@ -478,7 +479,7 @@ horror_sound_death[17] = new scary_sound(s_pistol,215);
     Selecting yes_options[18] will advance to instructionArray[19]
     Selecting no_options[18] will result in failArray[12]
 */
-instructionArray[18] = "\"No, I\'m heading out alone. You\'ll only be a burden.\" you say. |The woman glares and responds, \"I\'m sorry. But we are not separating. You just saved my life and both of our chances of survival are increased by me coming with you.\" |You look at her and consider arguing but she looks determined and you give up. \"Okay. I\'ll leave with you. But who are you?\" you ask, \"I don\'t know the first thing about you.\" |\"I woke up in here,\" she begins. \"The last thing I remember is being at work and-\" |\"Shhhh!\" you snap. You hear footsteps approaching the door...||";
+instructionArray[18] = "\"No, I\'m heading out alone. You\'ll only be a burden.\" you say. |The woman glares and responds, \"I\'m sorry. But we are not separating. You just saved my life and both of our chances of survival are increased by me coming with you.\" |You look at her and consider arguing but she looks determined and you give up. \"Okay. I\'ll leave with you. But who are you?\" you ask, \"I don\'t know the first thing about you.\" |\"I woke up in here,\" she begins. \"The last thing I remember is ...(line truncated)...
 yes_options[18] = "GIVE JESSICA YOUR HATCHET";
 no_options[18] = "KEEP BOTH WEAPONS FOR YOURSELF";
 failArray[12] = "A man bursts into the room. He has what appears to be a red priest\'s robe on and holds a large pistol. Jessica is near him. He doesn\'t notice her. She jumps on his back. He aims his gun at you and pulls the trigger. And this is the end of your story.";
@@ -535,7 +536,7 @@ horror_sound_death[21] = new scary_sound(s_nosound,-1); // unused
     Selecting yes_options[22] will result in failArray[15]
     Selecting no_options[22] will advance to instructionArray[23]
 */
-instructionArray[22] = "You head up. The stairs creak. There are spiderwebs and it smells like rotted wood. Ahead of you there is a skittering sound. Jessica gasps. You put your hand on her mouth and whisper for her to be quiet. Her skin is ice cold. You grab the flashlight and tell Jessica to stay where she is. You walk ahead and reach the top of the stairs. You find yourselves in a library. The books are covered in dust and cobwebs. They appear to be on a variety of subjects. You look up and see large spikes hanging from the ceiling. Very odd. You then pan the flashlight left to right and stop on a body.||";
+instructionArray[22] = "You head up. The stairs creak. There are spiderwebs and it smells like rotted wood. Ahead of you there is a skittering sound. Jessica gasps. You put your hand on her mouth and whisper for her to be quiet. Her skin is ice cold. You grab the flashlight and tell Jessica to stay where she is. You walk ahead and reach the top of the stairs. You find yourselves in a library. The books are covered in dust and cobwebs. They appear to be on a variety of subjects. You look up and see large spi...(line truncated)...
 yes_options[22] = "INSPECT THE BOOKS";
 no_options[22] = "INSPECT THE BODY";
 failArray[15] = "You call Jessica over. You walk over to the books, then pick one up. It's then you realize that the book just triggered the spikes. Faster than you can react, the spikes fall from the ceiling. You and Jessica are impaled from above. And this is the end of your story.";
@@ -609,7 +610,7 @@ horror_sound_death[25] = new scary_sound(s_flesh_split,210);
     Selecting yes_options[26] will advance to instructionArray[27]
     Selecting no_options[26] will advance to instructionArray[28]
 */
-instructionArray[26] = "Against your better judgement, you grab a book off the shelf and dive toward the door, Jessica slightly ahead of you. The spikes on the ceiling come down swiftly. There is terrible screaming and then silence. You barely make it out from under the deadly spikes and get through the door. You are alive. You turn back to find the group of men behind you stabbed to death from the spikes. The spikes slowly rise back to the ceiling. Seven dead bodies fall to the floor. A floor saturated with red.||";
+instructionArray[26] = "Against your better judgement, you grab a book off the shelf and dive toward the door, Jessica slightly ahead of you. The spikes on the ceiling come down swiftly. There is terrible screaming and then silence. You barely make it out from under the deadly spikes and get through the door. You are alive. You turn back to find the group of men behind you stabbed to death from the spikes. The spikes slowly rise back to the ceiling. Seven dead bodies fall to the floor. A floor saturated wit...(line truncated)...
 yes_options[26] = "CHECK OUT THE ROOM";
 no_options[26] = "TALK TO JESSICA";
 horror_info[26] = new horror(false, false, false, 27, 28, false, false);
@@ -635,7 +636,7 @@ horror_sound_death[27] = new scary_sound(s_nosound,-1); // unused
  selecting yes_options[28] will advance to instructionArray[30]
  selecting no_options[28] will advance to instructionarray[31]
 */
-instructionArray[28] = "\"This is utter madness.\" you say, \"It\'s like we\'re inside an unreal horror movie.\" |\"We need to get away - call the police,\" Jessica says. |\"Why are these psychotic people trying to kill us?\" you ask. \"And how did you get here?\" |Jessica responds, \"I'm in college. I work part-time as a waitress. The last thing I remember was being at work. I woke up in that room minutes before you arrived. I was tied up, but I managed to work my way out of the ropes just as a man entered the room. You came in after, saving me.\" She smiles. A smile--shockingly out-of-place in this nightmare.||";
+instructionArray[28] = "\"This is utter madness.\" you say, \"It\'s like we\'re inside an unreal horror movie.\" |\"We need to get away - call the police,\" Jessica says. |\"Why are these psychotic people trying to kill us?\" you ask. \"And how did you get here?\" |Jessica responds, \"I'm in college. I work part-time as a waitress. The last thing I remember was being at work. I woke up in that room minutes before you arrived. I was tied up, but I managed to work my way out of the ropes just as a man entered...(line truncated)...
 yes_options[28] = "SCAN THE ROOM";
 no_options[28] = "SEARCH FOR A DOOR OUT";
 horror_info[28] = new horror(false, false, false, 30, 31, false, false);
@@ -648,7 +649,7 @@ horror_sound_death[28] = new scary_sound(s_nosound,-1); // unused
  selecting yes_options[29] will advance to instructionArray[32]
  selecting no_options[29] will advance to instructionarray[32]
 */
-instructionArray[29] = "\"This is utter madness.\" you say, \"It\'s like we\'re inside an unreal horror movie.\" |\"We need to get away - call the police,\" Jessica says. |\"Why are these psychotic people trying to kill us?\" you ask. \"And how did you get here?\" |Jessica responds, \"I'm in college. I work part-time as a waitress. The last thing I remember was being at work. I woke up in that room minutes before you arrived. I was tied up, but I managed to work my way out of the ropes just as a man entered the room. You came in after, saving me.\" She smiles. A smile--shockingly out-of-place in this nightmare. |All the dead bodies are creeping you out. You need to get some air. Your desperate gaze falls on the door out.||";
+instructionArray[29] = "\"This is utter madness.\" you say, \"It\'s like we\'re inside an unreal horror movie.\" |\"We need to get away - call the police,\" Jessica says. |\"Why are these psychotic people trying to kill us?\" you ask. \"And how did you get here?\" |Jessica responds, \"I'm in college. I work part-time as a waitress. The last thing I remember was being at work. I woke up in that room minutes before you arrived. I was tied up, but I managed to work my way out of the ropes just as a man entered...(line truncated)...
 yes_options[29] = "GO THROUGH THE DOOR";
 no_options[29] = "FOLLOW JESSICA";
 horror_info[29] = new horror(false, false, false, 32, 32, false, false);
@@ -689,7 +690,7 @@ horror_sound_death[31] = new scary_sound(s_nosound,-1); // unused
     selecting yes_options[32] will advance to instructionArray[33]
     selecting no_options[32] will advance to instructionArray[34]
 */
-instructionArray[32] = "You enter the door and what you see shocks you. A brand-new, stainless steel laboratory is in front of you. It is exceptionally bright and vast. You immediately see a doctor operating on someone. There are two individuals in white flanking him. Everyone is staring at you and Jessica and smiling, but there is something... off... about their smiles. The corners of their mouths are sewn upwards. The stitches hold a permanent, forced smile on their cheeks. They also have blood on their hands and the front of their clothes.||";
+instructionArray[32] = "You enter the door and what you see shocks you. A brand-new, stainless steel laboratory is in front of you. It is exceptionally bright and vast. You immediately see a doctor operating on someone. There are two individuals in white flanking him. Everyone is staring at you and Jessica and smiling, but there is something... off... about their smiles. The corners of their mouths are sewn upwards. The stitches hold a permanent, forced smile on their cheeks. They also have blood on their h...(line truncated)...
 yes_options[32] = "IGNORE THEM";
 no_options[32] = "TALK WITH THEM";
 horror_info[32] = new horror(true, false, false, 33, 34, false, false);
@@ -716,7 +717,7 @@ horror_sound_death[33] = new scary_sound(s_threeshots,65);
     selecting yes_options[34] will advance to instructionArray[35]
     selecting no_options[34] will result in failArray[20]
 */
-instructionArray[34] = "You walk closer and ask the surgeon, \"What happened to your face?\" He stares at you, making odd sounds. |Jessica screams, \"They have no tongues!\" She's right: none of these individuals have tongues. |\"What the...\" you say as you look down at the patient they're operating on. His brain is exposed. It looks as if they are performing a brain surgery, but you notice the patient isn\'t breathing. He also stinks. \"He\'s dead. Why are you operating on a corpse?\" The surgeon\'s eyes flash and he points at the door behind him. His assistants stand staring. It is evident they want you to leave...||";
+instructionArray[34] = "You walk closer and ask the surgeon, \"What happened to your face?\" He stares at you, making odd sounds. |Jessica screams, \"They have no tongues!\" She's right: none of these individuals have tongues. |\"What the...\" you say as you look down at the patient they're operating on. His brain is exposed. It looks as if they are performing a brain surgery, but you notice the patient isn\'t breathing. He also stinks. \"He\'s dead. Why are you operating on a corpse?\" The surgeon\'s eyes ...(line truncated)...
 yes_options[34] = "LEAVE THE ROOM";
 no_options[34] = "ATTACK THEM";
 failArray[20] = "You pull out your pistol and methodically shoot the three of them. Boom, boom, boom. Three head shots. You hear a bang from behind and turn just as you feel a crushing blow on the left side of my head. You can't make out your attacker. And this is the end of your story.";
@@ -730,7 +731,7 @@ horror_sound_death[34] = new scary_sound(s_threeshots,65);
     selecting yes_options[35] will advance to instructionArray[36]
     selecting no_options[35] will advance to instructionArray[37]
 */
-instructionArray[35] = "You open the door, let Jessica in and shut it behind yourself. You then lock it, glad to be away from that room. |\"This is a nightmare,\" you whisper. |Jessica falls to the floor and rests against the wall. You sit next to her. She is shaking. |\"What...is...happening...here?\" she trembles. |\"I\'ve never heard of or seen such filth and depravity...\" |She asks you, \"What were those people doing? Why were they disfigured?\" |You look at her and try to think of something comforting to say, but nothing intelligent comes to mind. You sit, confused and upset.||";
+instructionArray[35] = "You open the door, let Jessica in and shut it behind yourself. You then lock it, glad to be away from that room. |\"This is a nightmare,\" you whisper. |Jessica falls to the floor and rests against the wall. You sit next to her. She is shaking. |\"What...is...happening...here?\" she trembles. |\"I\'ve never heard of or seen such filth and depravity...\" |She asks you, \"What were those people doing? Why were they disfigured?\" |You look at her and try to think of something comforting...(line truncated)...
 yes_options[35] = "SIT IN SILENCE";
 no_options[35] = "TALK WITH JESSICA";
 horror_info[35] = new horror(false, false, false, 36, 37, false, false);
@@ -743,7 +744,7 @@ horror_sound_death[35] = new scary_sound(s_nosound,-1); // unused
     selecting yes_options[36] will advance to instructionArray[38]
     selecting no_options[36] will result in failArray[21]
 */
-instructionArray[36] = "While Jessica sobs, you sit still and try to collect yourself. You look around the room you are in. It is small and undecorated. It is wild to you that this \'house\' has so many elements. It doesn\'t mesh well: a library, an old-fashioned dining room, a laboratory... You still don't know where you are or how you got here exactly. \"We need to get out of this torment.\" You look over the small room. There are two doors: one  with light showing through the gap at the bottom, the other emits a cool breeze but no light comes through the gap.||";
+instructionArray[36] = "While Jessica sobs, you sit still and try to collect yourself. You look around the room you are in. It is small and undecorated. It is wild to you that this \'house\' has so many elements. It doesn\'t mesh well: a library, an old-fashioned dining room, a laboratory... You still don't know where you are or how you got here exactly. \"We need to get out of this torment.\" You look over the small room. There are two doors: one  with light showing through the gap at the bottom, the other...(line truncated)...
 yes_options[36] = "ENTER DOOR WITH BREEZE";
 no_options[36] = "ENTER DOOR WITH LIGHT";
 failArray[21] = "You stand up, grab Jessica\'s hand and lift her to a standing position. You walk to the door and open it. It's a mistake. In front of you is a large conference table with about 30 people sitting at it. They hold an assortment of weapons. You muster your words and begin saying, \"Please don\'t kill-\". And this is the end of your story.";
@@ -757,7 +758,7 @@ horror_sound_death[36] = new scary_sound(s_pistol,297);
     selecting yes_options[37] will advance to instructionArray[38]
     selecting no_options[37] will result in failArray[22]
 */
-instructionArray[37] = "\"Look, Jessica,\" you say, \"I have no idea what\'s going on in this place. I\'ve never experienced anything remotely like this. Do you know how you got here?\" |\"The last memory I had was being at work,\" she answers, \"and then I awoke on a path outside this house. I don\'t know how or why I arrived here. I\'m just trying to stay alive.\". |You acknowledge her. You want to find out more but know that you can\'t sit here any longer. \"We need to get out of this torment.\" You look over the small room. There are two doors: one  with light showing through the gap at the bottom, the other emits a cool breeze but no light comes through the gap.||";
+instructionArray[37] = "\"Look, Jessica,\" you say, \"I have no idea what\'s going on in this place. I\'ve never experienced anything remotely like this. Do you know how you got here?\" |\"The last memory I had was being at work,\" she answers, \"and then I awoke on a path outside this house. I don\'t know how or why I arrived here. I\'m just trying to stay alive.\". |You acknowledge her. You want to find out more but know that you can\'t sit here any longer. \"We need to get out of this torment.\" You look...(line truncated)...
 yes_options[37] = "ENTER DOOR WITH BREEZE";
 no_options[37] = "ENTER DOOR WITH LIGHT";
 failArray[22] = "You stand up, grab Jessica\'s hand and lift her to a standing position. You walk to the door and open it. It's a mistake. In front of you is a large conference table with about 30 people sitting at it. They hold an assortment of weapons. You muster your words and begin saying, \"Please don\'t kill-\". And this is the end of your story.";
@@ -774,7 +775,7 @@ horror_sound_death[37] = new scary_sound(s_pistol,297);
 instructionArray[38] = "You stand up, grab Jessica\'s hand and lift her to a standing position. You walk to the door and open it. You blink. You're outside! You scan the area. Wait... You are outdoors but you aren't outside. You are in an outdoor corridor. To your left is the exterior of the house, to your right is a 15 foot tall fence with brutal spikes at the top and in front of you is a path that appears to lead to another door.||";
 yes_options[38] = "CLIMB THE FENCE";
 no_options[38] = "TAKE THE PATH TO THE DOOR";
-failArray[23] = "You walk over to the fence and grip the bars. |\"Are you sure that\'s a good idea?\" Jessica asks. She eyes the spikes at the top. |\"I\'m a good climber,\" you reply. \"I\'ll figure something out.\" |\"Okay,\" she says. \"But I can\'t climb it, so what happens when you get over?\" |\"I said I\'d figure it out!\" you snap back. |You hand her your pistol and begin making your way up the fence. The bars are slightly rusted, which help your grip. You make it to the top, sweating and out of breath. You reach over the spikes and pull. You slip and fall forward. You hear Jessica yell and then feel the rusted spikes impale your throat and upper body. And this is the end of your story.";
+failArray[23] = "You walk over to the fence and grip the bars. |\"Are you sure that\'s a good idea?\" Jessica asks. She eyes the spikes at the top. |\"I\'m a good climber,\" you reply. \"I\'ll figure something out.\" |\"Okay,\" she says. \"But I can\'t climb it, so what happens when you get over?\" |\"I said I\'d figure it out!\" you snap back. |You hand her your pistol and begin making your way up the fence. The bars are slightly rusted, which help your grip. You make it to the top, sweating and out of bre...(line truncated)...
 horror_info[38] = new horror(true, true, false, 23, 39, false, false);
 horror_sound_action[38] = new action_sound(s_wind,s_wind);
 horror_sound_scary[38] = new scary_sound(s_wind,116);
@@ -788,7 +789,7 @@ horror_sound_death[38] = new scary_sound(s_scream_woman,582);
 instructionArray[39] = "Jessica breathes a sigh of relief. \"Thank goodness you\'re not going to climb that fence. That would be a death wish!\" |You chuckle. You make your way down the dark path, gravel crunching under your feet. You reach the door and turn the handle. It's locked.||";
 yes_options[39] = "LOOK FOR THE KEY";
 no_options[39] = "KICK THE DOOR DOWN";
-failArray[24] = "\"I have always wanted to do this,\" you say to Jessica. |She grins. You lift your leg and kick the door. Bang! It cracks near the handle but doesn\'t give. You lift your leg for a second blow and hear a noise behind you. The door you just entered from opens. You turn to see a crowd of people pouring out. |\"They heard us!\" Jessica yells. She holds her hatchet up and you pull out the pistol. You don\'t stand a chance. You are outmanned and outgunned. The last thing you see is the barrel of a shotgun. And this is the end of your story.";
+failArray[24] = "\"I have always wanted to do this,\" you say to Jessica. |She grins. You lift your leg and kick the door. Bang! It cracks near the handle but doesn\'t give. You lift your leg for a second blow and hear a noise behind you. The door you just entered from opens. You turn to see a crowd of people pouring out. |\"They heard us!\" Jessica yells. She holds her hatchet up and you pull out the pistol. You don\'t stand a chance. You are outmanned and outgunned. The last thing you see is the barrel of...(line truncated)...
 horror_info[39] = new horror(true, false, true, 40, 24, false, false);
 horror_sound_action[39] = new action_sound(s_nosound,s_kick_door_down);
 horror_sound_scary[39] = new scary_sound(s_walking_gravel,175);
@@ -812,10 +813,10 @@ horror_sound_death[40] = new scary_sound(s_nosound,-1); // unused
     selecting yes_options[41] will advance to instructionArray[43]
     selecting no_options[41] will result in DEATH (failArray[25])
 */
-instructionArray[41] = "You yell for Jessica. She swings her hatchet. There is a shrill yelp and blood splatters across your face. You quickly wipe your eyes and rise to your feet, pistol at the ready. On the floor, there lies a dead dog, half of its neck sliced through. It's a wolf-like dog: large and, by all appearances, hungry. |\"Really?\" you ask, \"Crazy people and now a killer dog...\" You look to Jessica; she's panting and her hatchet drips gore. \"Thank you.\" |She nods in response. In the corner there is a set of television screens. |\"I think it\'s a security system,\" you say to Jessica and yourself.||";
+instructionArray[41] = "You yell for Jessica. She swings her hatchet. There is a shrill yelp and blood splatters across your face. You quickly wipe your eyes and rise to your feet, pistol at the ready. On the floor, there lies a dead dog, half of its neck sliced through. It's a wolf-like dog: large and, by all appearances, hungry. |\"Really?\" you ask, \"Crazy people and now a killer dog...\" You look to Jessica; she's panting and her hatchet drips gore. \"Thank you.\" |She nods in response. In the corner t...(line truncated)...
 yes_options[41] = "TURN THE SCREENS ON";
 no_options[41] = "LEAVE THEM BE";
-failArray[25] = "You don\'t turn on the security camera screens. You and Jessica scan the room. You search a nearby bookcase, where you find books on human anatomy and neurology. You pick one up entitled \"Brains and Minds\" and flip through it. There are diagrams of different sections of the brain indicating where to cut to supposedly affect behavior. |\"Jessica, you have to see -\" |You turn your head and see Jessica being held from behind by a tall man. How did you not hear him? He has a knife to her throat. You raise your weapon and while staring directly at you, the man slashes her throat from ear to ear. Jessica dies. You take your axe and charge at him. He makes an attempt to stab you but you dodge and bring your axe down on his head. Two more men enter the room and before you can react they shoot you in the back. And this is the end of your story.";
+failArray[25] = "You don\'t turn on the security camera screens. You and Jessica scan the room. You search a nearby bookcase, where you find books on human anatomy and neurology. You pick one up entitled \"Brains and Minds\" and flip through it. There are diagrams of different sections of the brain indicating where to cut to supposedly affect behavior. |\"Jessica, you have to see -\" |You turn your head and see Jessica being held from behind by a tall man. How did you not hear him? He has a knife to her thr...(line truncated)...
 horror_info[41] = new horror(true, false, true, 43, 25, false, false);
 horror_sound_action[41] = new action_sound(s_computer_beeps,s_nosound);
 horror_sound_scary[41] = new scary_sound(s_yelp,66);
@@ -826,10 +827,10 @@ horror_sound_death[41] = new scary_sound(s_axe_impact,727);
     selecting yes_options[42] will advance to instructionArray[43]
     selecting no_options[42] will result in DEATH (failArray[26])
 */
-instructionArray[42] = "You push your hands against the heavy attacker. Jessica swings her hatchet. There is a shrill yelp and blood splatters across your face. You quickly wipe your eyes and rise to your feet, pistol at the ready. On the floor there is a dead dog, half of its neck sliced through. It's a wolf-like dog: large and, by all appearances, hungry. |\"Really?\" you ask. \"Crazy people and now a killer dog...\" You look to Jessica; she's panting and her hatchet drips gore. \"Thank you.\" |She nods in response. In the corner there is a set of television screens. |\"I think it\'s a security system,\" you say to Jessica and yourself.||";
+instructionArray[42] = "You push your hands against the heavy attacker. Jessica swings her hatchet. There is a shrill yelp and blood splatters across your face. You quickly wipe your eyes and rise to your feet, pistol at the ready. On the floor there is a dead dog, half of its neck sliced through. It's a wolf-like dog: large and, by all appearances, hungry. |\"Really?\" you ask. \"Crazy people and now a killer dog...\" You look to Jessica; she's panting and her hatchet drips gore. \"Thank you.\" |She nods i...(line truncated)...
 yes_options[42] = "TURN THE SCREENS ON";
 no_options[42] = "LEAVE THEM BE";
-failArray[26] = "You don\'t turn on the security camera screens. You and Jessica scan the room. You search a nearby bookcase, where you find books on human anatomy and neurology. You pick one up entitled \"Brains and Minds\" and flip through it. There are diagrams of different sections of the brain indicating where to cut to supposedly affect behavior. |\"Jessica, you have to see -\" |You turn your head and see Jessica being held from behind by a tall man. How did you not hear him? He has a knife to her throat. You raise your weapon and while staring directly at you, the man slashes her throat from ear to ear. Jessica dies. You take your axe and charge at him. He makes an attempt to stab you but you dodge and bring your axe down on his head. Two more men enter the room and before you can react they shoot you in the back. And this is the end of your story.";
+failArray[26] = "You don\'t turn on the security camera screens. You and Jessica scan the room. You search a nearby bookcase, where you find books on human anatomy and neurology. You pick one up entitled \"Brains and Minds\" and flip through it. There are diagrams of different sections of the brain indicating where to cut to supposedly affect behavior. |\"Jessica, you have to see -\" |You turn your head and see Jessica being held from behind by a tall man. How did you not hear him? He has a knife to her thr...(line truncated)...
 horror_info[42] = new horror(true, false, true, 43, 26, false, false);
 horror_sound_action[42] = new action_sound(s_computer_beeps,s_page_turn);
 horror_sound_scary[42] = new scary_sound(s_yelp,96);
@@ -843,7 +844,7 @@ horror_sound_death[42] = new scary_sound(s_axe_impact,727);
 instructionArray[43] = "You turn the security system screens on. There are eight screens. You can see some areas where you've been and a couple you have not. Suddenly there is a tall figure on one of the screens. He is coming up the path you just walked on. He holds a long butcher knife in his right hand. You can\'t make out his face. |\"Jessica!\" You hiss, \"Someone\'s coming!\"||";
 yes_options[43] = "HIDE";
 no_options[43] = "PREPARE TO ATTACK";
-failArray[27] = "\"Get your weapon ready.\" you tell Jessica. |You stand by the door,  ready. You hear a small noise and turn your head to see Jessica being held from behind by a tall man. He has a knife to her throat. How did he get by you? How did you not see or hear him? You raise your weapon and while staring directly at you, the man slashes her throat from ear to ear. Jessica dies. You take your axe and charge at him. He makes an attempt to stab you but you dodge and bring your axe down on his head. Two more men enter the room and before you can react they shoot you in the back. And this is the end of your story.";
+failArray[27] = "\"Get your weapon ready.\" you tell Jessica. |You stand by the door,  ready. You hear a small noise and turn your head to see Jessica being held from behind by a tall man. He has a knife to her throat. How did he get by you? How did you not see or hear him? You raise your weapon and while staring directly at you, the man slashes her throat from ear to ear. Jessica dies. You take your axe and charge at him. He makes an attempt to stab you but you dodge and bring your axe down on his head. Tw...(line truncated)...
 horror_info[43] = new horror(true, false, true, 44, 27, false, false);
 horror_sound_action[43] = new action_sound(s_fast_heartbeat,s_begging);
 horror_sound_scary[43] = new scary_sound(s_panic,187);
@@ -979,7 +980,7 @@ horror_sound_death[50] = new scary_sound(s_kick_door_down,103);
     yesOption = advance to instruction array 52
     noOption = advance to instruction array 53
 */
-instructionArray[51] = "You push a coffin against the door. It is very heavy and you break a sweat. The stairs finish moving into place and there is a pounding at the door. You really have no choice. You head down the stairs. The stairs are heavy, rough-hewn stone. There is no light on the staircase but you can make out a dim glow at the bottom. The pounding above continues but the door is thick and the coffin heavy. You look at Jessica. She is dirty and sweaty. You realize that you must look like a mess. But in times like these, appearance is the least concern. |\"Well we can\'t seem to get a moment\'s peace and there are men wanting to kill us who are slamming away above,\" Jessica says. |\"I hate this place. And at the risk of sounding trite, I just want to go home. To top it all off, I hate the dark,\" you complain.||";
+instructionArray[51] = "You push a coffin against the door. It is very heavy and you break a sweat. The stairs finish moving into place and there is a pounding at the door. You really have no choice. You head down the stairs. The stairs are heavy, rough-hewn stone. There is no light on the staircase but you can make out a dim glow at the bottom. The pounding above continues but the door is thick and the coffin heavy. You look at Jessica. She is dirty and sweaty. You realize that you must look like a mess. B...(line truncated)...
 yes_options[51] = "CONTINUE DOWN THE STAIRS";
 no_options[51] = "SIT DOWN";
 horror_info[51] = new horror(false, false, false, 52, 53, false, false);
@@ -1048,7 +1049,7 @@ horror_sound_death[55] = new scary_sound(s_stab,119);
     yesOption = advance to instruction array 57
     noOption = advance to instruction array 58
 */
-instructionArray[56] = "You grab the rope. You learned knots as a child. You can\'t recall all the names but you remember how to tie the knots you felt were useful. You grab the man's arm and he struggles. He takes a swing at you and you slam the butt of your pistol against the back of his head. He yelps but continues struggling. You hit him again, harder, on the top of his head and knock him unconscious. You tie him with his arms behind his back to the leg of a nearby table that is bolted to the floor .||";
+instructionArray[56] = "You grab the rope. You learned knots as a child. You can\'t recall all the names but you remember how to tie the knots you felt were useful. You grab the man's arm and he struggles. He takes a swing at you and you slam the butt of your pistol against the back of his head. He yelps but continues struggling. You hit him again, harder, on the top of his head and knock him unconscious. You tie him with his arms behind his back to the leg of a nearby table that is bolted to the floor .||"...(line truncated)...
 yes_options[56] = "SEARCH THE ROOM";
 no_options[56] = "LOOK FOR A WAY OUT";
 horror_info[56] = new horror(true, false, false, 57, 58, false, false);
@@ -1087,7 +1088,7 @@ horror_sound_death[58] = new scary_sound(s_axe,30);
     yesOption = failarray[40]
     noOption = advance to instruction array 61
 */
-instructionArray[59] = "You open the door on the left. It is a closet. Inside is some clean clothing. You are filthy and decide to change your clothes. Jessica turns away. The fresh attire feels nice. You and Jessica trade places and she changes into a clean shirt. Left with no other options besides going back, you head toward the door on the right. You open the door and all you can see is pitch black. You ask Jessica to pass you the flashlight and you click it back on. Of course, in keeping with your terrible experience thus far, the flashlight doesn\'t turn on. |\"Crap, the batteries are dead.\" you say. |Suddenly, on the stairs behind you, you hear footsteps pounding. Jessica grabs your arm.||";
+instructionArray[59] = "You open the door on the left. It is a closet. Inside is some clean clothing. You are filthy and decide to change your clothes. Jessica turns away. The fresh attire feels nice. You and Jessica trade places and she changes into a clean shirt. Left with no other options besides going back, you head toward the door on the right. You open the door and all you can see is pitch black. You ask Jessica to pass you the flashlight and you click it back on. Of course, in keeping with your terri...(line truncated)...
 yes_options[59] = "WAIT FOR THEM TO ARRIVE AND FIGHT";
 no_options[59] = "HEAD INTO THE DARKNESS";
 failArray[40] = "You ready your pistol, aiming it toward the door. A man appears at the bottom of the stairs. His face is filthy and he holds a large axe in either hand. BANG! You shoot him in the arm. He drops one axe. Behind him several more large, armed men pour into the room. Jessica impales one of them with her knife, but you are no match for them. The last thing you see is gleaming steel. And this is the end of your story.";
@@ -1115,7 +1116,7 @@ horror_sound_death[60] = new scary_sound(s_pistol,152);
     yesOption = advance to instruction array 62
     noOption = advance to instruction array 63
 */
-instructionArray[61] = "You shut the door behind you. \"Hold my hand so we aren\'t separated.\" you tell Jessica. |You feel the wall. It is cold and wet. Some sort of a slimy masonry. You slowly make your way around the room. You can see nothing. The only sounds are your footsteps and breathing. Your hand touches something sharp. Whatever it is that you touched, you knock it over. You move back quickly and it clatters noisily across the floor. The sound must have awakened something because you immediately hear a low growl. You clutch your weapons and feel Jessica clench. The growling grows closer.||";
+instructionArray[61] = "You shut the door behind you. \"Hold my hand so we aren\'t separated.\" you tell Jessica. |You feel the wall. It is cold and wet. Some sort of a slimy masonry. You slowly make your way around the room. You can see nothing. The only sounds are your footsteps and breathing. Your hand touches something sharp. Whatever it is that you touched, you knock it over. You move back quickly and it clatters noisily across the floor. The sound must have awakened something because you immediately h...(line truncated)...
 yes_options[61] = "SWING YOUR AXE";
 no_options[61] = "REMAIN MOTIONLESS";
 horror_info[61] = new horror(true, false, false, 62, 63, false, false);
@@ -1169,7 +1170,7 @@ horror_sound_death[64] = new scary_sound(s_nosound,-1);
     yesOption = advance to instruction array 67
     noOption = failarray[44]
 */
-instructionArray[65] = "\"Let\'s look around,\" you tell Jessica. |You scan the walls, floor and ceiling. They are barren. There are no doors or windows, just a long, undecorated hallway. |\"I can\'t find anything,\" Jessica says. |So you walk down the long hallway until you reach the door. You open the door. And you are outside again! |\"This time, we are getting out of here,\" you say. |You're in a sort of yard; there is an iron door leading into a separate building and there is a large fence. This fence isn\'t like the last one, though. It is a wooden fence. Behind you, a man opens the door. He holds a rifle and starts chuckling. He has a stained flannel shirt on, old blue jeans and no shoes. His face is scarred and twisted.||";
+instructionArray[65] = "\"Let\'s look around,\" you tell Jessica. |You scan the walls, floor and ceiling. They are barren. There are no doors or windows, just a long, undecorated hallway. |\"I can\'t find anything,\" Jessica says. |So you walk down the long hallway until you reach the door. You open the door. And you are outside again! |\"This time, we are getting out of here,\" you say. |You're in a sort of yard; there is an iron door leading into a separate building and there is a large fence. This fence ...(line truncated)...
 yes_options[65] = "SHOOT THE MAN";
 no_options[65] = "RUN FOR THE FENCE";
 failArray[44] = "You run for the fence. Behind you, the man aims his rifle. You were hoping that due to his obviously deranged mental state he\'d be a poor shot. You were wrong. You hear the crack just as a bullet blows through the back of your head. And this is the end of your story.";
@@ -1183,7 +1184,7 @@ horror_sound_death[65] = new scary_sound(s_rifle,177);
     yesOption = advance to instruction array 67
     noOption = failarray[45]
 */
-instructionArray[66] = "You walk down the long hallway until you reach the door. You open the door. And you are outside again! |\"This time, we are getting out of here,\" you say. |You're in a sort of yard; there is an iron door leading into a separate building and there is a large fence. This fence isn\'t like the last one, though. It is a wooden fence. Behind you, a man opens the door. He holds a rifle and starts chuckling. He has a stained flannel shirt on, old blue jeans and no shoes. His face is scarred and twisted.||";
+instructionArray[66] = "You walk down the long hallway until you reach the door. You open the door. And you are outside again! |\"This time, we are getting out of here,\" you say. |You're in a sort of yard; there is an iron door leading into a separate building and there is a large fence. This fence isn\'t like the last one, though. It is a wooden fence. Behind you, a man opens the door. He holds a rifle and starts chuckling. He has a stained flannel shirt on, old blue jeans and no shoes. His face is scarre...(line truncated)...
 yes_options[66] = "SHOOT THE MAN";
 no_options[66] = "RUN FOR THE FENCE";
 failArray[45] = "You run for the fence. Behind you, the man aims his rifle. You were hoping that due to his obviously deranged mental state he\'d be a poor shot. You were wrong. You hear the crack just as a bullet blows through the back of your head. And this is the end of your story.";
@@ -1211,7 +1212,7 @@ horror_sound_death[67] = new scary_sound(s_bullet_impacts,281);
     yesOption = failarray[47]
     noOption = advance to instruction 69
 */
-instructionArray[68] = "You urge Jessica, \"Run! I\'ll take care of them.\" |She crawls through the jagged opening. You turn and shoot one of the three men. He falls back and luckily knocks over the other two. |Jessica looks at you and says, \"My last name is Brickley. I'm from Denver. Find me.\" |You respond, \"Get to safety. I'll catch up with you. Just run!\" |She doesn\'t think twice and runs. You get down and start crawling through the fence. You feel a strong grip on your leg and are ripped back through, your fingers clawing at the dirt and the edges of the opening. A muscular man throws you a couple feet. Your gun falls by your side. You grip your axe. He dives on top of you and you swing your axe into his neck. His body goes limp on top of yours. You push him off to see two men blocking your exit through the fence.||";
+instructionArray[68] = "You urge Jessica, \"Run! I\'ll take care of them.\" |She crawls through the jagged opening. You turn and shoot one of the three men. He falls back and luckily knocks over the other two. |Jessica looks at you and says, \"My last name is Brickley. I'm from Denver. Find me.\" |You respond, \"Get to safety. I'll catch up with you. Just run!\" |She doesn\'t think twice and runs. You get down and start crawling through the fence. You feel a strong grip on your leg and are ripped back throu...(line truncated)...
 yes_options[68] = "FIGHT THEM";
 no_options[68] = "RUN INTO THE BUILDING";
 failArray[47] = "You grip your axe and run toward the men. One of them sidesteps and punches you in the side of your face. You are dazed and drop your axe. You reach down to pick up your weapon and feel another blow on the back of your head. You collapse next to the group. The men proceed to kick your head in. And this is the end of your story.";
@@ -1221,7 +1222,7 @@ horror_sound_scary[68] = new scary_sound(s_flesh_split,690);
 horror_sound_death[68] = new scary_sound(s_beating,275);
 
 //this is the end of the game
-instructionArray[69] = "You turn and run toward the nearby building. Jessica has escaped. The men have turned their attention to you. One of them throws a knife. You dodge it. The yard now has around ten people in it, all rapidly making their way toward you. You reach the door and turn the handle. The door is very heavy but you force it open with your shoulder. You quickly lock the door behind you. The door not only has a deadbolt lock, it also has a sliding bar that latches it shut. It looks very sturdy. |You pause for a moment, dreading whatever horrors exist behind you. What you've gone through so far has left you profoundly shaken and resigned. You slowly turn. You find yourself in a bright, comfortably-furnished room. Behind a long cherry oak desk sit three older men. They smile at you. In front of them lie clipboards and files. The room is lined with warm reddish-brown wood paneling and behind the men a pleasant fire crackles on the hearth. You hear a bang on the iron door behind you. One of the men at the table pushes a button on the panel in front of them and then there is silence. You stare, dumbfounded, at the change in scenery and you're too stunned to respond quickly. |Finally one of the men speaks, \"Well done, " + name +". You're the first person to make it through.\" |He sits in the center of the group. White hair, glasses and thin. |\"Make it through what?\" you ask. |\"Consider it a test of the human brain,\" the man replies. \"Tonight, you\'ve been presented several choices, each of which has led you here. Had you chosen incorrectly at any point, we would have never met.\" |\"I don't understand...\" you say. |The man to the left speaks, \"We are running the \'Human Choice Program\'.\" This man has black hair and a full beard. He is bald and has dark eyes. \"We have been taking critics of our company and systematically entering them into this program. Of course, many of them die in the process. We figured it was fine since they were to be assassinated anyway.\" |\"Wait... You\'re saying that this whole thing is a game?\" you ask, completely baffled. |The middle man speaks again, \"No, sir. Those are real people with weapons. Each of them are psychotic patients that we have armed and instructed to kill you. We have outfitted around 100 psychiatric patients and run this project. Before you, they have eliminated many threats for us.\" |The man on the left joins in, \"You\'re on a highly controlled base. Each of the patients has a chip implanted in their head which allows us to administer varying levels of shocks. From \'slap on the wrist\' to \'death\'. If any of them disagrees with us or refuses to follow orders, we kill them with the push of a button.\" |You start making some sense of things and ask, \"So, earlier you mentioned using this base to silence critics - what does that mean exactly?\" |The remaining man who has up until now remained quiet, speaks, \"We are the psychiatric department of Mankley Industries: a major international company that manufactures and distributes products ranging from weapons to pharmaceuticals. As you can imagine, we have our fair share of adversaries. As the head of the mental health council, we\'ve been charged with the removal of those who attempt to expose the company.\" |\"What do I have to do with that?\" you ask. |At this point, you notice screens with security camera feeds discreetly placed to the right side of the desk. You can see the rooms you and Jessica passed through. They have been watching you all along. |The white-haired man speaks again, \"You work for a major blog site. You were writing an article on the disappearances of people investigating Mankley Industries. Now of course you don\'t remember that, because we wiped your memory. You\'d be surprised at what the right combination of drugs and electric shock can do.\" |At that moment, memories pour in. You fall to one knee. It is a completely foreign and new experience. Years flood back into your mind. |\"Prior to your arrival, there have been 132 people successfully run through this experiment,\" the man continues. \"All are dead. It has given us much insight into the human mind and the choices people make when under stress. We obviously will need to make it more challenging since you made it through, but we figured these people were slated to die already so we might as well learn from it.\" |The combination of your fatigue, the returned memories and the sheer evil you are confronting overwhelms you. You back into a corner and sit down. |The man with the beard begins speaking again, \"Now, before we kill you, we have a few questions. First, what did you learn from this?\" ||";
+instructionArray[69] = "You turn and run toward the nearby building. Jessica has escaped. The men have turned their attention to you. One of them throws a knife. You dodge it. The yard now has around ten people in it, all rapidly making their way toward you. You reach the door and turn the handle. The door is very heavy but you force it open with your shoulder. You quickly lock the door behind you. The door not only has a deadbolt lock, it also has a sliding bar that latches it shut. It looks very sturdy. |...(line truncated)...
 yes_options[69] = "SUBMIT";
 no_options[69] = "RESIST";
 horror_info[69] = new horror(false,false,false,70,70,false,false);
@@ -1929,8 +1930,10 @@ function introduction (name) {
 
     $("#buttonYes").hide();
     $("#textInput").hide();
-    var save_point = localStorage.getItem('save_point');
-    console.log(save_point);
+	
+	//Back button functionality: saves are now handled differently.
+    //var save_point = localStorage.getItem('save_point');
+    //console.log(save_point);
 
     // for adjusting the bootstrap grid columns
     // useful for changing the width of the grid for when the story
@@ -2065,7 +2068,43 @@ function start_game() {
     }
 }
 
-//this function pair is from the original game; makes lightning flash and creates the creepy laugh after the user has clicked
+// Back button functionality: this function is used when the game has been shut down and restarted and the Continue button is pressed. It sets the localStorage save string to an array, then iterates through the array, building the new hash 1 element at a time. Once the hash is built, it calls advanceStory.
+function continueStory() {
+	var gameStack = localStorage.getItem('save_point').split(',');
+	if length.gameStack <= 1 {		
+		introduction(localStorage.getItem('name'));
+	} else {
+		var str = "#";
+		for (var i = 1; i<length.gameStack; i++) {
+			if i == (length.gameStack - 1) {				
+				str = str + gameStack[i];
+			} else {
+				str = str + "," + gameStack[i];
+			};			
+			history.pushState({}, "", str);
+		};
+	};
+	adjustGrid();
+	$("#instructions").css("text-align", "left");
+	advanceStory();
+}
+
+// Back button functionality: this function takes in the requested new story cursor, writes it to the hash and then changes the localStorage save file. It then calls the advanceStory function.
+function saveState(storyCursor) {
+	var entireHash = window.location.hash;
+	entireHash = entireHash + "," + storyCursor;
+	history.pushState({}, "", entireHash);
+	localStorage.setItem('save_point', window.location.hash);
+	advanceStory();
+}
+
+// Back button functionality: this function reads the last element in the hash string, first converting it to an array using comma as split, then popping the last element. It then sends that element to story_mode. Note that advanceStory will never get called except by the hashchange event listener, the continueStory function or the saveState function.
+function advanceStory() {
+	var storyCursor = parseInt(window.location.hash.split(',').pop());
+	story_mode(storyCursor);
+}
+
+//this function pair is from the original game; makes lightning flash and creates the creepy laugh after the user has clicked. **FIXED to call the thunder sound every time lightning flashes.
 function timerIncrement() {
     idleTime = idleTime +1;
     if (idleTime > 0) {
@@ -2078,6 +2117,7 @@ function timerIncrement() {
     }
 }
 
+// Back button functionality: added hashchange event listener, which is basically listening for the user to click the back button on the browser. When that happens, it saves the new hash state and runs the advanceStory() function.
 $(document).ready(function() {
     document.addEventListener("keydown", function(event) {
         if (skippable) {impatience();}
@@ -2085,6 +2125,11 @@ $(document).ready(function() {
     document.addEventListener("click", function(event) {
         if (skippable) {impatience();}
     });
+	
+	$(window).on("hashchange", function() {
+		localStorage.setItem('save_point', window.location.hash);
+		advanceStory();
+	});
 
     var interval = setInterval(timerIncrement, 5000);
     start_game();
