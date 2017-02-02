@@ -2009,11 +2009,13 @@ function naming () {
     $("#button").delay(2200).fadeIn();
     $("#textInput").hide();
     $("#textInput").delay(2200).fadeIn();
+	console.log("button fadein");
     
     $('.yes1').off();    
     $('.no1').off();
     $("#button").off();
     $("#instructions").empty();
+	console.log("instructions empty");
 
     // for being able to press [enter] key to submit
     var go = document.getElementById("button");
@@ -2082,11 +2084,13 @@ function start_game() {
     $("#buttonBack").hide();
     $("#buttonYes").hide();
     $("#coffins").hide();
-    $("#intro").append("Text-Based Horror");
-    $("input:text:visible:first").focus();
-    if (name !== "") {
-        introduction(name);
-    } else {
+    $("#intro").append("Text-Based Horror");	
+    $("input:text:visible:first").focus();	
+    if (name !== "") {	
+		console.log("introduction");
+        introduction(name);		
+    } else {	
+		console.log("naming");
         naming();
     }
 }
@@ -2130,7 +2134,7 @@ function saveState(storyCursor) {
 function advanceStory() {
 	clearDPArrays();	
 	var eHash = window.location.hash;
-	var dHash = (decrpyt(eHash)).split(,);
+	var dHash = (decrypt(eHash)).split(',');
 	var storyCursor = parseInt(dHash.pop());
 	console.log("Story Cursor is " + storyCursor);
 	story_mode(storyCursor);
@@ -2146,7 +2150,7 @@ function clearDPArrays() {
 // Encrypt/Decrypt: this is the decrypt function that will decrypt any hash string that is passed to it, then return a decrypted hash string including the leading #. DecodeURI converts all %(ASCII) back into special characters.
 function decrypt(source) {		
 		source = decodeURI(source.slice(1));
-		var decryptedHash = sjcl.decrpyt("redrum", source);
+		var decryptedHash = sjcl.decrypt("redrum", source);
 		decryptedHash = "#" + decryptedHash;
 		return decryptedHash;
 }
