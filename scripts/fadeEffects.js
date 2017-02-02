@@ -56,7 +56,7 @@ function continueGame() {
 	rainAudio.animate({volume: 0}, 2000);
 	thunderAudio.animate({volume: 0}, 1600);
 	var temp = localStorage.getItem('save_point');
-	localStorage.setItem('save_point', temp + ",continue");
+	localStorage.setItem('save_point', "C" + temp);
 	setTimeout(function() {
 		window.location.assign("LiveProject.html");
 	}, 3000);
