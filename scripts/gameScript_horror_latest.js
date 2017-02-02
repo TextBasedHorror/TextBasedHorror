@@ -1314,8 +1314,9 @@ function push_story_cursor (story_cursor) {
 // or get current story cursor when user presses REVEAL button.
 // Back button functionality: this function has been changed to pop the last value from the hash and return that as the story cursor.
 function pop_story_cursor () {
-	var saveState = window.location.hash;
-    var story_cursor = parseInt(saveState.split(',').pop());
+	var eHash = window.location.hash;
+	var dHash = decrypt(eHash);
+    var story_cursor = parseInt(dHash.split(',').pop());
     console.log("pop story cursor: " + story_cursor);
     console.log("gameStack: " + saveState);
     return story_cursor;
@@ -2092,13 +2093,16 @@ function start_game() {
 
 // Back button functionality: this function is used when the game has been shut down and restarted and the Continue button is pressed. It sets the localStorage save string to an array, then iterates through the array, building the new hash 1 element at a time. Once the hash is built, it calls advanceStory.
 function continueStory() {
-	var gameStack = localStorage.getItem('save_point').split(',');	
-	var str = "#";
-	for (var i = 1; i<gameStack.length-1; i++) {						
-		str = str + "," + gameStack[i];				
-		history.pushState({}, "", str);
-	};
-	localStorage.setItem('save_point', str);	
+	var eSavedHash = localStorage.getItem('save_point').slice(1);
+	localStorage.setItem('save_point', eSavedHash);
+	var dSavedHash = decrypt(eSavedHash);
+	var gameStack = dSavedHash.split(',');
+	var dHash = "#";
+	for (var i = 1; i<gameStack.length; i++) {						
+		dHash = dHash + "," + gameStack[i];
+		var eHash = encrypt(dHash);
+		history.pushState({}, "", eHash);
+	};		
 	name = localStorage.getItem('name');
 	$("#intro").append("Text-Based Horror");
 	initialize_choice_arrays();
@@ -2109,22 +2113,25 @@ function continueStory() {
 
 // Back button functionality: this function takes in the requested new story cursor, writes it to the hash and then changes the localStorage save file. It then calls the advanceStory function.
 function saveState(storyCursor) {
-	var entireHash = window.location.hash;
-	if (entireHash == "") {
-		entireHash = "#," + storyCursor;
+	var eHash = window.location.hash;
+	var dHash = "";
+	if (eHash == "") {
+		dHash = "#," + storyCursor;
 	} else {
-		entireHash = entireHash + "," + storyCursor;
+		dHash = decrypt(eHash) + "," + storyCursor;
 	}
-	history.pushState({}, "", entireHash);
-	localStorage.setItem('save_point', window.location.hash);
+	eHash = encrypt(dHash);
+	history.pushState({}, "", eHash);
+	localStorage.setItem('save_point', eHash);
 	advanceStory();
 }
 
 // Back button functionality: this function reads the last element in the hash string, first converting it to an array using comma as split, then popping the last element. It then sends that element to story_mode. Note that advanceStory will never get called except by the hashchange event listener, the continueStory function or the saveState function.
 function advanceStory() {
-	clearDPArrays();
-	var entireHash = window.location.hash.split(',');
-	var storyCursor = parseInt(entireHash.pop());
+	clearDPArrays();	
+	var eHash = window.location.hash;
+	var dHash = (decrpyt(eHash)).split(,);
+	var storyCursor = parseInt(dHash.pop());
 	console.log("Story Cursor is " + storyCursor);
 	story_mode(storyCursor);
 }
@@ -2136,9 +2143,9 @@ function clearDPArrays() {
 	text_timer = [];	
 }
 
-// Encrypt/Decrypt: this is the decrypt function that will decrypt any hash string that is passed to it, then return a decrypted hash string including the leading #.
+// Encrypt/Decrypt: this is the decrypt function that will decrypt any hash string that is passed to it, then return a decrypted hash string including the leading #. DecodeURI converts all %(ASCII) back into special characters.
 function decrypt(source) {		
-		source = source.slice(1);
+		source = decodeURI(source.slice(1));
 		var decryptedHash = sjcl.decrpyt("redrum", source);
 		decryptedHash = "#" + decryptedHash;
 		return decryptedHash;
@@ -2149,11 +2156,11 @@ function decrypt(source) {
 //	return source;
 //}
 
-// Encrypt/Decrypt: this function will encrypt any hash string handed to it and return an encrypted hash, including leading #.
+// Encrypt/Decrypt: this function will encrypt any hash string handed to it and return an encrypted hash, including leading #. EncodeURI changes all special characters to %(ASCII).
 function encrypt(plainText) {
 	plainText = plainText.slice(1);
 	var encryptedHash = sjcl.encrypt("redrum", plainText);
-	encryptedHash = "#" + encryptedHash;
+	encryptedHash = "#" + encodeURI(encryptedHash);
 	return encryptedHash;
 }
 
@@ -2195,7 +2202,7 @@ $(document).ready(function() {
 	var interval = setInterval(timerIncrement, 5000);
 	
 	var continueCheck = localStorage.getItem('save_point');
-	if (continueCheck != null && continueCheck.length > 0 && continueCheck.split(',').pop() === "continue") {
+	if (continueCheck != null && continueCheck.length > 0 && continueCheck.charAt(0) === "C") {
 		console.log("continue");
 		history.replaceState({}, "", "#");
 		continueStory();
