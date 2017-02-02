@@ -2094,12 +2094,8 @@ function start_game() {
 function continueStory() {
 	var gameStack = localStorage.getItem('save_point').split(',');	
 	var str = "#";
-	for (var i = 1; i<gameStack.length-1; i++) {
-		if (i == gameStack.length - 2) {				
-			str = str + gameStack[i];
-		} else {
-			str = str + "," + gameStack[i];
-		};			
+	for (var i = 1; i<gameStack.length-1; i++) {						
+		str = str + "," + gameStack[i];				
 		history.pushState({}, "", str);
 	};
 	localStorage.setItem('save_point', str);	
@@ -2126,10 +2122,17 @@ function saveState(storyCursor) {
 
 // Back button functionality: this function reads the last element in the hash string, first converting it to an array using comma as split, then popping the last element. It then sends that element to story_mode. Note that advanceStory will never get called except by the hashchange event listener, the continueStory function or the saveState function.
 function advanceStory() {
+	clearDPArrays();
 	var entireHash = window.location.hash.split(',');
 	var storyCursor = parseInt(entireHash.pop());
 	console.log("Story Cursor is " + storyCursor);
 	story_mode(storyCursor);
+}
+
+function clearDPArrays() {
+	current_sentence = "";
+	next_chara = [];
+	text_timer = [];	
 }
 
 //this function pair is from the original game; makes lightning flash and creates the creepy laugh after the user has clicked. **FIXED to call the thunder sound every time lightning flashes.
