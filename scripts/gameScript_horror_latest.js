@@ -2129,11 +2129,38 @@ function advanceStory() {
 	story_mode(storyCursor);
 }
 
+// Back button functionality: dramatic_parse is problematic and causes the game to break if the back button is pressed while the parse is taking place. This clears out the arrays used in that function, and is called every time the story is advanced for any reason.
 function clearDPArrays() {
 	current_sentence = "";
 	next_chara = [];
 	text_timer = [];	
 }
+
+// Encrypt/Decrypt: this is the decrypt function that will decrypt any hash string that is passed to it, then return a decrypted hash string including the leading #.
+function decrypt(source) {		
+		source = source.slice(1);
+		var decryptedHash = sjcl.decrpyt("redrum", source);
+		decryptedHash = "#" + decryptedHash;
+		return decryptedHash;
+}
+
+// Encrypt/Decrypt: this is the dummy function that can be used for testing. Uncomment this one and comment out the real one.
+//function decrypt(source) { 
+//	return source;
+//}
+
+// Encrypt/Decrypt: this function will encrypt any hash string handed to it and return an encrypted hash, including leading #.
+function encrypt(plainText) {
+	plainText = plainText.slice(1);
+	var encryptedHash = sjcl.encrypt("redrum", plainText);
+	encryptedHash = "#" + encryptedHash;
+	return encryptedHash;
+}
+
+// Encrypt/Decrypt: this is the dummy function that can be used for testing. Uncomment this one and comment out the real one.
+//function encrypt(plainText) {
+//	return plainText;
+//}
 
 //this function pair is from the original game; makes lightning flash and creates the creepy laugh after the user has clicked. **FIXED to call the thunder sound every time lightning flashes.
 function timerIncrement() {
@@ -2148,7 +2175,8 @@ function timerIncrement() {
     }
 }
 
-// Back button functionality: added hashchange event listener, which is basically listening for the user to click the back button on the browser. When that happens, it saves the new hash state and runs the advanceStory() function.
+// Back button functionality: added hashchange event listener, which is basically listening for the user to click the back button on the browser. When that happens, it saves the new hash state and runs the advanceStory() function. Added continueCheck to check to see if Continue button was pressed.
+// Encrypt/Decrypt: added line in the hash listener to decrypt the hash before passing it to advanceStory.
 $(document).ready(function() {
     document.addEventListener("keydown", function(event) {
         if (skippable) {impatience();}
@@ -2158,7 +2186,9 @@ $(document).ready(function() {
     });
 	
 	$(window).on("hashchange", function() {
-		localStorage.setItem('save_point', window.location.hash);
+		var hash = window.location.hash;
+		localStorage.setItem('save_point', hash);
+		hash = decrypt(hash);
 		advanceStory();
 	});
 	
