@@ -227,6 +227,7 @@ horror_sound_action[0] = new action_sound(s_footsteps_outside,s_footsteps_outsid
 //              (note, i determined this by finding the character index in code of the point i wanted it played, and subtracting the value of characters outside the string.)
 //              (simply put, the character i subtracted 26 (character index of start of string in code) from 176, the place of the spot desired. )
 horror_sound_scary[0] = new scary_sound(s_wind,156);
+//horror_sound_scary[0] = new scary_sound(s_footsteps_outside,512);
 //this will play the sound of the axe killing the character after the sentence "but i was too late"
 horror_sound_death[0] = new scary_sound(s_decapitation,278);
 

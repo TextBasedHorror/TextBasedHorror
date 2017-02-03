@@ -1,8 +1,8 @@
 var bgMusic = document.getElementById("bgMusic");
-bgMusic.volume = 1.0;
+bgMusic.volume = 0.1;
 
 var thunder = document.getElementById("thunder");
-thunder.volume = 1.0;
+thunder.volume = 0.2;
 
 var rain = document.getElementById("rain");
 rain.volume = 1.0;
