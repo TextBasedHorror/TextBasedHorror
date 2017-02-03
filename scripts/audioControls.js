@@ -226,6 +226,55 @@ dog_eating.volume = 1.0;
 var man_chuckle = document.getElementById("man_chuckle");
 man_chuckle.volume = 1.0;
 
+var running2 = document.getElementById("running2");
+running2.volume = 1.0;
+
+var pistol2 = document.getElementById("pistol2");
+pistol2.volume = 1.0;
+
+var kicking_fence = document.getElementById("kicking_fence");
+kicking_fence.volume = 1.0;
+
+var bullet_impacts = document.getElementById("bullet_impacts");
+bullet_impacts.volume = 1.0;
+
+var delayedshot = document.getElementById("delayedshot");
+delayedshot.volume = 1.0;
+
+var beating = document.getElementById("beating");
+beating.volume = 1.0;
+
+var pickup_hatchet = document.getElementById("pickup_hatchet");
+pickup_hatchet.volume = 1.0;
+
+var axe_impact = document.getElementById("axe_impact");
+axe_impact.volume = 1.0;
+
+var footsteps_indoor =  document.getElementById("footsteps_indoor");
+footsteps_indoor.volume = 1.0;
+
+var clothing_rustle = document.getElementById("clothing_rustle");
+clothing_rustle.volume = 1.0;
+
+var dropping_books = documents.getElementById("dropping_books");
+dropping_books.volume = 1.0;
+
+var door_close = documents.getElementById("door_close");
+door_close.volume = 1.0;
+
+var yell_man = document.getElementById("yell_man");
+yell_man.volume = 1.0;
+
+var walk_downstairs = document.getElementById("walk_downstairs");
+walk_downstairs.volume = 1.0;
+
+var computer_beeps = document.getElementById("computer_beeps");
+computer_beeps.volume = 1.0;
+
+var victory = document.getElementById("victory");
+victory.volume = 1.0;
+
+
 
 
 
