@@ -1,5 +1,5 @@
 var bgMusic = document.getElementById("bgMusic");
-bgMusic.volume = 0.1;
+bgMusic.volume = 0.2;
 
 var thunder = document.getElementById("thunder");
 thunder.volume = 0.2;

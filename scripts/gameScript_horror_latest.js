@@ -223,11 +223,10 @@ no_options[0] = "WALK TOWARD THE HOUSE";
 failArray[0] = "You turn around and walk away from the house. A large figure walks toward you on the path. In its hand is what appears to be an axe. \"Hello?\" you venture. No response, just a quickened pace. Its arm lifts the weapon high into the air. You turn to run but you are too late. The axe brutally removes your head from its shoulders. And this is the end of your story.";
 horror_info[0] = new horror(true,true,false,0,1,false,false);
 horror_sound_action[0] = new action_sound(s_footsteps_outside,s_footsteps_outside);
-//this will make the wind blow when the character asks "Where is here?"
-//              (note, i determined this by finding the character index in code of the point i wanted it played, and subtracting the value of characters outside the string.)
+// (note, i determined this by finding the character index in code of the point i wanted it played, and subtracting the value of characters outside the string.)
 //              (simply put, the character i subtracted 26 (character index of start of string in code) from 176, the place of the spot desired. )
-horror_sound_scary[0] = new scary_sound(s_wind,156);
-//horror_sound_scary[0] = new scary_sound(s_footsteps_outside,512);
+//this will make the wind blow when the character asks "Where is here?"
+horror_sound_scary[0] = new scary_sound(s_wind,54);
 //this will play the sound of the axe killing the character after the sentence "but i was too late"
 horror_sound_death[0] = new scary_sound(s_decapitation,278);
 
