@@ -59,7 +59,7 @@ var footsteps_metal = document.getElementbyId("footsteps_metal");
 footsteps_metal.volume = 1.0;
 
 var footsteps_outside = document.getElementbyId("footsteps_outside");
-footsteps_outside.volume = 1.0;
+footsteps_outside.volume = 0.4;
 
 var footsteps_wood = document.getElementbyId("footsteps_wood");
 footsteps_wood.volume = 1.0;
