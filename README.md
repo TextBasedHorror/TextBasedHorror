@@ -28,7 +28,7 @@ Maurice Sandoval - https://github.com/mauricesandoval
 
 Samuel Sanseri - https://github.com/ssanseri
 
-Seanh Henry - https://github.com/HenryTech
+Sean Henry - https://github.com/HenryTech
 
 Jeremy Dreher - https://github.com/jeremyadreher
 
