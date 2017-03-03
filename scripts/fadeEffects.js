@@ -1,5 +1,9 @@
 // var btn_Play = document.getElementById("btn_Play");
 // var btn_About = document.getElementById("btn_About");
+$("#intro2").hide();
+$(".frontButton").hide();
+$(".aboutButton").hide();
+
 
 $(document).ready(function(){$("#logo").addClass("imageXplode")});
 $(document).ready(function(){$("#intro2").hide(0).delay(3000).fadeIn(3000)});
@@ -20,10 +24,10 @@ function showNewGameMenu() {
 	$("#newGameMenu").delay(1000).fadeIn(3000);
 	document.getElementById('laugh').play();
 	// if user has any cookies saved, show continue option
-	if (localStorage.getItem('name') === null) {
-    	$("#continueButton").hide();
-  		} else {
+	if (localStorage.getItem('save_point') != null && localStorage.getItem('save_point').charAt(0) == '#') {
     	$("#continueButton").fadeIn(3000);
+  		} else {
+    	$("#continueButton").hide();
     };
 };
 
@@ -51,9 +55,13 @@ function continueGame() {
 	var thunderAudio = $("#thunder");
 	rainAudio.animate({volume: 0}, 2000);
 	thunderAudio.animate({volume: 0}, 1600);
+	var temp = localStorage.getItem('save_point');
+	localStorage.setItem('save_point', "C" + temp);
 	setTimeout(function() {
 		window.location.assign("LiveProject.html");
 	}, 3000);
+	//story_mode(localStorage).getItem('save_point');
+	//continueStory();
 };
 
 // func called from play/new game menu
