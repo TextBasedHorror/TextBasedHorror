@@ -138,6 +138,7 @@ var s_victory = "victory";
 //notes included to explain program flow
 
 
+
 function startScrollPageDownLoop() {
     scrollDownPageLoop = window.setInterval(scrollPageDown, 750);
 }
@@ -802,7 +803,7 @@ horror_sound_death[39] = new scary_sound(s_shotgun_shot,108);
 */
 instructionArray[40] = "\"Jessica, help me find the key.\" I say. |I look on the path. Jessica lifts the doormat and what do you know? Lying there in the grime is a key. It's a large, old-fashioned, fancy-looking key. |\"You\'re welcome,\" she winks as she hands it to me. |I try it and it works! The door clicks and opens. Immediately something jumps on top of me and knocks me on my back.||";
 yes_options[40] = "CALL FOR HELP";
-no_options[40] = "ATTACK WHATEVER IS ON TOP OF I";
+no_options[40] = "ATTACK WHATEVER IS ON TOP OF ME";
 horror_info[40] = new horror(true, false, false, 41, 42, false, false);
 horror_sound_action[40] = new action_sound(s_yell_man,s_yelp);
 horror_sound_scary[40] = new scary_sound(s_thump,344);
@@ -816,7 +817,7 @@ horror_sound_death[40] = new scary_sound(s_nosound,-1); // unused
 instructionArray[41] = "I yell for Jessica. She swings her hatchet. There is a shrill yelp and blood splatters across my face. I quickly wipe my eyes and rise to my feet, pistol at the ready. On the floor, there lies a dead dog, half of its neck sliced through. It's a wolf-like dog: large and, by all appearances, hungry. |\"Really?\" I ask, \"Crazy people and now a killer dog...\" I look to Jessica; she's panting and her hatchet drips gore. \"Thank I.\" |She nods in response. In the corner there is a set of television screens. |\"I think it\'s a security system,\" I say to Jessica and myself.||";
 yes_options[41] = "TURN THE SCREENS ON";
 no_options[41] = "LEAVE THEM BE";
-failArray[25] = "I don\'t turn on the security camera screens. I and Jessica scan the room. I search a nearby bookcase, where I find books on human anatomy and neurology. I pick one up entitled \"Brains and Minds\" and flip through it. There are diagrams of different sections of the brain indicating where to cut to supposedly affect behavior. |\"Jessica, I have to see -\" |I turn my head and see Jessica being held from behind by a tall man. How did I not hear him? He has a knife to her throat. I raise my weapon and while staring directly at me, the man slashes her throat from ear to ear. Jessica dies. I take my axe and charge at him. He makes an attempt to stab me but I dodge and bring my axe down on his head. Two more men enter the room and before I can react they shoot me in the back. And this is the end of my story.";
+failArray[25] = "I don\'t turn on the security camera screens. Me and Jessica scan the room. I search a nearby bookcase, where I find books on human anatomy and neurology. I pick one up entitled \"Brains and Minds\" and flip through it. There are diagrams of different sections of the brain indicating where to cut to supposedly affect behavior. |\"Jessica, I have to see -\" |I turn my head and see Jessica being held from behind by a tall man. How did I not hear him? He has a knife to her throat. I raise my weapon and while staring directly at me, the man slashes her throat from ear to ear. Jessica dies. I take my axe and charge at him. He makes an attempt to stab me but I dodge and bring my axe down on his head. Two more men enter the room and before I can react they shoot me in the back. And this is the end of my story.";
 horror_info[41] = new horror(true, false, true, 43, 25, false, false);
 horror_sound_action[41] = new action_sound(s_computer_beeps,s_nosound);
 horror_sound_scary[41] = new scary_sound(s_yelp,66);
@@ -827,7 +828,7 @@ horror_sound_death[41] = new scary_sound(s_axe_impact,727);
     selecting yes_options[42] will advance to instructionArray[43]
     selecting no_options[42] will result in DEATH (failArray[26])
 */
-instructionArray[42] = "I push my hands against the heavy attacker. Jessica swings her hatchet. There is a shrill yelp and blood splatters across my face. I quickly wipe my eyes and rise to my feet, pistol at the ready. On the floor there is a dead dog, half of its neck sliced through. It's a wolf-like dog: large and, by all appearances, hungry. |\"Really?\" I ask. \"Crazy people and now a killer dog...\" I look to Jessica; she's panting and her hatchet drips gore. \"Thank I.\" |She nods in response. In the corner there is a set of television screens. |\"I think it\'s a security system,\" I say to Jessica and myself.||";
+instructionArray[42] = "I push my hands against the heavy attacker. Jessica swings her hatchet. There is a shrill yelp and blood splatters across my face. I quickly wipe my eyes and rise to my feet, pistol at the ready. On the floor there is a dead dog, half of its neck sliced through. It's a wolf-like dog: large and, by all appearances, hungry. |\"Really?\" I ask. \"Crazy people and now a killer dog...\" I look to Jessica; she's panting and her hatchet drips gore. \"Thank You.\" |She nods in response. In the corner there is a set of television screens. |\"I think it\'s a security system,\" I say to Jessica and myself.||";
 yes_options[42] = "TURN THE SCREENS ON";
 no_options[42] = "LEAVE THEM BE";
 failArray[26] = "I don\'t turn on the security camera screens. I and Jessica scan the room. I search a nearby bookcase, where I find books on human anatomy and neurology. I pick one up entitled \"Brains and Minds\" and flip through it. There are diagrams of different sections of the brain indicating where to cut to supposedly affect behavior. |\"Jessica, I have to see -\" |I turn my head and see Jessica being held from behind by a tall man. How did I not hear him? He has a knife to her throat. I raise my weapon and while staring directly at me, the man slashes her throat from ear to ear. Jessica dies. I take my axe and charge at him. He makes an attempt to stab me but I dodge and bring my axe down on his head. Two more men enter the room and before I can react they shoot me in the back. And this is the end of my story.";
@@ -1623,7 +1624,6 @@ function coffin_game (which_step) {
     var next_cursor = null;
     // empty the text box input string so it doesn't show the name or previous coffin value.
     $("#myText").val("");
-
     if (which_step == 0) {
         skippable = false;
         dramatic_parse(false,-1,coffinArray[0], function () {
@@ -1634,7 +1634,9 @@ function coffin_game (which_step) {
         dramatic_parse(false,-1,coffinArray[1], function () {
             $("#buttonOptions").hide();
             $("#buttonYes").hide();
-            $("#textInput").show();
+            $("#textInput").show(function () {
+			$("#myText").focus();
+			$("#myText").select();});
             $("#button").one("click", function () {
                 $("#textInput").hide();
                 var choice = document.getElementById("myText").value;
@@ -1657,7 +1659,9 @@ function coffin_game (which_step) {
         dramatic_parse(false,-1,coffinArray[3], function () {
             $("#buttonOptions").hide();
             $("#buttonYes").hide();
-            $("#textInput").show();
+            $("#textInput").show(function () {
+			$("#myText").focus();
+			$("#myText").select();});
             $("#button").one("click", function () {
                 $("#textInput").hide();
                 var choice = document.getElementById("myText").value;
@@ -1684,7 +1688,9 @@ function coffin_game (which_step) {
         dramatic_parse(false,-1,coffinArray[5], function () {
             $("#buttonOptions").hide();
             $("#buttonYes").hide();
-            $("#textInput").show();
+            $("#textInput").show(function () {
+			$("#myText").focus();
+			$("#myText").select();});
             $("#button").one("click", function () {
                 $("#textInput").hide();
                 var choice = document.getElementById("myText").value;
@@ -1946,6 +1952,7 @@ function impatience () {
     }
 }
 
+
 function introduction (name) {
     // wait until we know the person's name before initializing the choices 
     // because some of the story's text strings contain the name.
@@ -2009,9 +2016,10 @@ function naming () {
     $("#button").hide();
     $("#button").delay(2200).fadeIn();
     $("#textInput").hide();
-    $("#textInput").delay(2200).fadeIn();
+    $("#textInput").delay(2200).fadeIn(function () {
+	$("#myText").focus();
+	$("#myText").select();});
 	console.log("button fadein");
-    
     $('.yes1').off();    
     $('.no1').off();
     $("#button").off();
@@ -2068,6 +2076,7 @@ function naming () {
         });
     });
 }
+
 
 //function start_game()
 /* this function will determine start of game behavior
