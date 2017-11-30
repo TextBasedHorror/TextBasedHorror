@@ -256,10 +256,10 @@ footsteps_indoor.volume = 1.0;
 var clothing_rustle = document.getElementById("clothing_rustle");
 clothing_rustle.volume = 1.0;
 
-var dropping_books = documents.getElementById("dropping_books");
+var dropping_books = document.getElementById("dropping_books");
 dropping_books.volume = 1.0;
 
-var door_close = documents.getElementById("door_close");
+var door_close = document.getElementById("door_close");
 door_close.volume = 1.0;
 
 var yell_man = document.getElementById("yell_man");
@@ -274,7 +274,39 @@ computer_beeps.volume = 1.0;
 var victory = document.getElementById("victory");
 victory.volume = 1.0;
 
+function Mute() {
+	
+var sounds = ["bgMusic", "thunder", "rain", "laugh", "ghost", "swamp", "howl", "m_chains", 
+"witches_house", "scream", "axe", "chomp", "coffin_bomb", "coffin_creak", "door_stone", 
+"female_scream", "fire", "fisticuffs", "footsteps_stone", "footsteps_frantic", "footsteps_indoor", 
+"footsteps_metal", "footsteps_outside", "footsteps_wood", "growl", "male_scream",
+"page_turn", "pistol", "pump_shotgun", "rifle_shot", "rustle", "shotgun_shot", "sobbing", "door_wood", 
+"door_close", "door_metal", "floor_creak", "decapitation", "whoosh", "tearing", "man_growl", 
+"fast_heartbeat", "slow_heartbeat", "long_heartbeat", "crowd_laughing", "rage_of_blades", 
+"locked_door", "pin_drop", "walking_away", "tense", "tense2", "tense3", "panic", "demon_girl",
+"stair_climb", "flesh_split", "blood_drip", "kick_door_down", "gun_fight", "men_screaming", 
+"threeshots", "thump", "yelp", "begging", "guncock", "earthquake", "metal_latch", "move_coffin", 
+"punch", "click", "bulletwhiz", "dog_eating", "man_chuckle", "running2", "pistol2", "kicking_fence",
+"bullet_impacts", "delayedshot", "beating", "pickup_hatchet", "axe_impact", "footsteps_indoor", 
+"clothing_rustle", "dropping_books", "door_close", "yell_man", "walk_downstairs", "computer_beeps",
+"victory"];
 
+	$.each(sounds, function (i, value) {
+		var sound = document.getElementById(value);		
+		if (sound == null){
+			console.log(sound)
+		}
+		else if (sound.volume > 0) {
+			sound.volume = 0;		
+		}
+		else if (sound.volume = 0 && !value == "bgMusic" && !value == "thunder") {
+			sound.volume = 1; 
+		}
+		else {
+			sound.volume = .2;
+		}
+	});
+}
 
 
 

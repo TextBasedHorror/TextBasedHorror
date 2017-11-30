@@ -30,7 +30,7 @@ $(document).ready(function() {
         if (skippable) {impatience();}
     });
     document.addEventListener("click", function(event) {
-        if (skippable) {impatience();}
+        if (skippable && !muteButton.click) {impatience();}
     });
 
     var interval = setInterval(timerIncrement, 3500);

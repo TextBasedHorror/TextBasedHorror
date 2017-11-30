@@ -192,6 +192,13 @@ body {
 	
 }
 
+#muteButton{
+	width: 50px;
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
 footer {
     font-family: 'ghastly_panic', sans-serif;
     font-size: 20px;

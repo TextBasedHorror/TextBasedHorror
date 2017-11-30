@@ -180,11 +180,13 @@ function horror (flag_save, flag_fail_yes, flag_fail_no, link_yes, link_no,coffi
     this.coffinNo = coffin_no;
 }
 
+
 //this function will play a sound, specified by element id, which is a string value. laugh makes a spooky laugh happen, for example.
 function play_sound (sound_id) {
     if (sound_id != "silence") {
         document.getElementById(sound_id).play();
     }
+	
 }
 
 //this is an object, that will help point to sounds at every part of story mode.
