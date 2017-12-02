@@ -1,0 +1,182 @@
+This note file refrences the gameScript_horror_latest.js file.
+
+These are mapping notes on sounds that are missing and need should be added.
+
+IN(0) When you wake up you are supposed to be hearing distance footsteps, shouldn't there be a sound then?
+
+IN(2) After you choose to not take the hatchet, it says there is a growl and an axe swing which are not heard.
+IN(2) FAIL(1) It says there is that the figure slices your head with an axe but there's only running.
+IN(2) FAIL(2) It says an axe tears through your spine, but only a running sound is heard.
+
+IN(3) After you choose to take the hachet, you hear a creak, but you should also hear an axe swing and a growl.
+IN(3) FAIL(3) It says an axe tears through your spine, but only a running sound is heard.
+
+IN(4) After you choose to attack the figure, I hear running, should also be the axe sound.
+
+IN(8) FAIL(6) After entering the house you follow the noise, it says you throw your hachet and slice the man,
+should there be a sound?
+
+IN(9) After you go into the house and then you head away from the noise, it says you hear a shotgun and footsteps
+but I only hear a shotgun.
+
+IN(10) After hiding, just a thought that maybe a fast heartbeat would make sense at this moment?
+
+IN(12) After deciding not to burn the house, you should hear you walking and a lock click, you only hear a woman scream.
+IN(12) FAIL(9) It says you run away and down the stairs(no sound), also you yell out(no sound).
+
+IN(13) After deciding to help the woman, you yell(no sound), sledge hammer misses you (no sound).
+
+IN(17) FAIL(11) After killing the man attacking Jessica, it says a man bursts into room(no sound).
+
+IN(19) FAIL(13) It says you run towards the man(no sound).
+
+IN(20) After you decide equip Jessica and a dodge the man, she kills him then you walk(no sound) to a pistol.
+
+IN(21) It says you open(no sound) and close a door(no sound) and move a bookshelf(no sound).
+
+IN(22) Should be sound of stairs creaking as you go upstairs.
+
+IN(23) It says you walk over to the body(no sound).
+IN(23) FAIL(16) It says you walk over and pick up books, there's no walking sound.
+
+IN(24) FAIL(17) It says you start walking down the stairs(no sound), says a man bursts through door(no sound).
+
+IN(25) It says there is a footsteps coming up the stairway(no sound).
+IN(25) FAIL(18) It says run towards door(no sound).
+
+IN(26) It says you dive towards door(sound), should be spike impaling flesh(no sound), bodies falling to floor(no sound
+
+IN(28) Maybe a sound of people talking should be here?
+
+IN(32) Maybe a sound of cutting flesh should be here for the operation?
+
+IN(33) Maybe a sound of cutting flesh should be here for the operation?
+IN(33) FAIL(19) There is a crushing blow(no sound).
+
+IN(34) Says you walk over to the surgeon(no sound). Talking sounds maybe? Sound of operation?
+
+IN(35) Door opening, but no door shutting sound, sound of talking maybe?
+
+IN(36) FAIL(21) It says you enter a room with 30 people with weapons then the kill you, maybe some gunshots, axe or bash sounds.
+
+IN(37) Maybe there should be a talking sound?
+IN(37) FAIL(22) It says you enter a room with 30 people with weapons then the kill you, maybe some gunshots, axe or bash sounds.
+
+IN(38) FAIL(23) Climbing metal fence(no sound), talking (no sound), spike tearing through flesh(no sound).
+
+IN(39) Trying to open locked door(no sound).
+IN(39) FAIL(24) Kick door crack(no sound), door opening(no sound), Shotgun sound comes way to early.
+
+IN(40) Lock click(no sound), door opening(no sound), something knocking you on your back (no sound).
+
+IN(41) Slicing flesh w/hachet(no sound), Talking(no sound), panting Jessica(no sound).
+
+IN(42) Slicing flesh w/hachet(no sound), Talking(no sound), panting Jessica(no sound).
+IN(42) FAIL(26) Flipping pages(no sound, slit throat(the sound for this doesn't seem to fit), Axe to head(no sound), 
+gunshots(no sound).
+
+IN(43) FAIL(27) Slit throat(no sound), Axe to head(no sound), 
+gunshots(no sound).
+
+IN(44) Shutting closet doors(no sound), walking(no sound).
+IN(44) FAIL(28) Axe into head(sound), gunshots(no sound).
+
+IN(45) Should be walking, stop the walking again instead of just walking, closet door opening(no sound).
+
+IN(46) FAIL(29) Should be multiple gunshot sounds(no sound), struggle between you and man (no sound), jessica shot(should be scream), 
+then another shot.
+
+IN(47) FAIL(30) Should be multiple gunshot sounds(no sound), struggle between you and man (no sound), jessica shot(should be scream), 
+then another shot.
+
+COFFIN AR(1) FAIL(32) No coffin explosion sound.
+
+COFFIN AR(3) FAIL(33) No coffin explosion sound.
+
+COFFIN AR(5) FAIL(34) No coffin explosion sound.
+
+IN(50) FAIL(35) Axe hitting man(no sound), strangled woman trying to breathe(no sound), gunshot(no sound).
+
+IN(51) Pouding at door(no sound), stone stairs(no sound), Talking sounds?
+
+IN(52) Walking down stairs(no sound).
+IN(52) FAIL(36) Cleaver into head(no sound), fall to floor(no sound).
+
+IN(53) Walking down stairs(no sound), frusturated talking sound?.
+IN(53) FAIL(37) Cleaver into head(no sound), fall to floor(no sound).
+
+IN(54) Falling body(no sound).
+IN(54) FAIL(38) Knife cutting flesh(no sound).
+
+IN(55) FAIL(39) Knife cutting flesh(no sound).
+
+IN(56) Should be two pistol butt sounds not one, yelp(no sound).
+
+IN(59) Should be a second door opening sound, footsteps on stairs(no sound).
+IN(59) FAIL(40) Clank of axe dropping(no sound), knife slices flesh(no sound), weapon slices flesh(no sound).
+
+IN(59) Should be a second door opening sound, footsteps on stairs(no sound).
+IN(59) FAIL(40) Clank of axe dropping(no sound), knife slices flesh(no sound), weapon slices flesh(no sound).
+
+IN(61) Slow footsteps on stone(no sound), clattering object(no sound).
+
+IN(62) Loud noise of men entering room(no sound).
+IN(62) FAIL(42) Sound of a scuffle should probaby be here.
+
+IN(63) Loud noise of men entering room(no sound).
+IN(63) FAIL(43) Sound of a scuffle should probaby be here.
+
+IN(64) Quick footsteps(no sound), door closing.
+
+IN(65) Walking sound(no sound), opening door(no sound).
+IN(65) FAIL(44) Running (no sound).
+
+IN(66) Walking sound(no sound), opening door(no sound).
+IN(66) FAIL(45) Running (no sound).
+
+IN(67) Kicking wood(no sounds), success yell(no sound), men walking into yard(no sound).
+IN(67) FAIL(46) Climbing through fence(no sound), Jessica falling to dirt(sound), Jessica yelling(no sound), running(no sound).
+
+IN(68) Loud talking sounds?, crawling through fence(no sound), running(no sound), body hitting ground(no sound), axe chopping
+flesh.
+IN(68) Should be earlier punching sound (there are some later hitting sounds but no earlier). 
+
+IN(69) Running(no sound).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
